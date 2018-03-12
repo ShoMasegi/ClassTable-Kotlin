@@ -1,0 +1,29 @@
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <ScrollView
+        tools:context=".presentation.views.main.home.HomeFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"
+            android:scrollbars="none">
+
+            <masegi.sho.classtable.presentation.customview.ClassTable
+                android:id="@+id/class_table"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                android:padding="8dp"
+                android:scrollbars="none" />
+
+        </HorizontalScrollView>
+
+    </ScrollView>
+
+</layout>
