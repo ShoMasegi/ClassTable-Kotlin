@@ -1,22 +1,24 @@
 package masegi.sho.classtable.presentation.views.main
 
+import android.content.Context
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
+import android.support.annotation.IdRes
+import android.support.annotation.MenuRes
 import android.view.View
 import dagger.android.support.DaggerAppCompatActivity
 import masegi.sho.classtable.R
 import masegi.sho.classtable.databinding.ActivityMainBinding
-import masegi.sho.classtable.presentation.views.main.home.HomeFragment
-import masegi.sho.classtable.presentation.views.main.today.TodayFragment
-import masegi.sho.classtable.presentation.views.main.todo.TodoFragment
+import masegi.sho.classtable.presentation.NavigationController
+import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
 
 
     // MARK: - Property
+
+    @Inject lateinit var navigationController: NavigationController
 
     private val binding by lazy {
 
@@ -25,85 +27,82 @@ class MainActivity : DaggerAppCompatActivity() {
                 R.layout.activity_main
         )
     }
-    private var homeFragment: Fragment? = null
-    private var todayFragment: Fragment? = null
-    private var todoFragment: Fragment? = null
+
+
+    // MARK: - Activity
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setSupportActionBar(binding.toolbar)
-        initFragment(savedInstanceState)
-        binding.include!!.bottomNavigation.setOnNavigationItemSelectedListener {
-
-            when(it.itemId) {
-
-                R.id.nav_home -> switchFragment(homeFragment!!, HomeFragment.tag)
-                R.id.nav_today -> switchFragment(todayFragment!!, TodayFragment.tag)
-                R.id.nav_todo -> switchFragment(todoFragment!!, TodayFragment.tag)
-            }
-            return@setOnNavigationItemSelectedListener true
-        }
+        setupBottomNavigation(savedInstanceState)
     }
 
-    private fun initFragment(savedInstanceState: Bundle?) {
 
-        val manager: FragmentManager = supportFragmentManager
-        manager.apply {
+    // MARK: - Private
 
-            homeFragment = findFragmentByTag(HomeFragment.tag)
-            todayFragment = findFragmentByTag(TodayFragment.tag)
-            todoFragment = findFragmentByTag(TodoFragment.tag)
-        }
-        if (homeFragment == null) {
+    private fun setupBottomNavigation(savedInstanceState: Bundle?) {
 
-            homeFragment = HomeFragment.newInstance()
-        }
-        if (todayFragment == null) {
+        binding.include!!.bottomNavigation.setOnNavigationItemSelectedListener { item ->
 
-            todayFragment = TodayFragment.newInstance()
-        }
-        if (todoFragment == null) {
-
-            todoFragment = TodoFragment.newInstance()
+            val navigationItem = BottomNavigationItem.forId(item.itemId)
+            navigationItem.navigate(navigationController)
+            setupToolbar(navigationItem)
+            true
         }
         if (savedInstanceState == null) {
 
-            switchFragment(homeFragment!!, HomeFragment.tag)
             binding.include!!.bottomNavigation.selectedItemId = R.id.nav_home
         }
     }
 
-    private fun switchFragment(fragment: Fragment, tag: String): Boolean {
+    private fun setupToolbar(navigationItem: BottomNavigationItem) {
 
-        if (fragment.isAdded) return false
+        if (navigationItem == BottomNavigationItem.TODAY) {
 
-        val manager: FragmentManager = supportFragmentManager
-        val transaction: FragmentTransaction = manager.beginTransaction()
-        val currentFragment = manager.findFragmentById(R.id.content)
-        if (currentFragment != null) {
-
-            if (currentFragment is TodayFragment) {
-
-                binding.tabLayout.visibility = View.GONE
-            }
-            transaction.detach(currentFragment)
-        }
-        if (fragment.isDetached) {
-
-            transaction.attach(fragment)
+            binding.toolbar.elevation = 0F
+            binding.tabLayout.visibility = View.VISIBLE
         }
         else {
 
-            transaction.add(R.id.content, fragment, tag)
+            binding.toolbar.elevation = resources.getDimensionPixelSize(R.dimen.elevation_toolbar).toFloat()
+            binding.tabLayout.visibility = View.GONE
         }
-        if (fragment is TodayFragment) {
 
-            binding.tabLayout.visibility = View.VISIBLE
+    }
+
+
+    // MARK: - BottomNavigationItem
+
+    enum class BottomNavigationItem(
+            @MenuRes val menuId: Int,
+            val navigate: NavigationController.() -> Unit
+    )
+    {
+
+        HOME(R.id.nav_home, { navigateToHome() }),
+        TODAY(R.id.nav_today, { navigateToToday() }),
+        TODO(R.id.nav_todo, { navigateToTodo() });
+
+        companion object {
+
+            fun forId(@IdRes id: Int): BottomNavigationItem {
+
+                return values().first { it.menuId == id }
+            }
         }
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-                .commit()
-        manager.executePendingTransactions()
-        return true
+    }
+
+    companion object {
+
+        fun createIntent(context: Context): Intent = Intent(context, MainActivity::class.java)
+
+        fun start(context: Context) {
+            createIntent(context).let {
+
+                it.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+                context.startActivity(it)
+            }
+        }
     }
 }
