@@ -4,6 +4,10 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import masegi.sho.classtable.R
+import masegi.sho.classtable.kotlin.data.model.DayOfWeek
+import masegi.sho.classtable.kotlin.data.model.Lesson
+import masegi.sho.classtable.presentation.views.detail.DetailActivity
+import masegi.sho.classtable.presentation.views.editclass.EditLessonActivity
 import masegi.sho.classtable.presentation.views.main.home.HomeFragment
 import masegi.sho.classtable.presentation.views.main.today.TodayFragment
 import masegi.sho.classtable.presentation.views.main.todo.TodoFragment
@@ -37,6 +41,16 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
     internal fun navigateToTodo() {
 
         replaceFragment(TodoFragment.newInstance())
+    }
+
+    internal fun navigateToEditLessonActivity(day: DayOfWeek, start: Int) {
+
+        EditLessonActivity.start(activity, day, start)
+    }
+
+    internal fun navigateToDetailActivity(lid: Int) {
+
+        DetailActivity.start(activity, lid)
     }
 
 

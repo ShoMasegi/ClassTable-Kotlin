@@ -19,8 +19,8 @@ import masegi.sho.classtable.presentation.customview.ClassTable
 
 interface OnTableItemClickListener {
 
-    fun onTableItemClick(item: Lesson?, day: DayOfWeek, start: Int): Unit
-    fun onTableItemLongClick(item: Lesson?, day: DayOfWeek, start: Int): Unit
+    fun onTableItemClick(view: View, item: Lesson?): Unit
+    fun onTableItemLongClick(view: View, item: Lesson?, day: DayOfWeek, start: Int): Unit
 }
 
 class ClassTableAdapter(
@@ -65,10 +65,10 @@ class ClassTableAdapter(
         val item = getItemAt(day, start)
         LessonViewHolder(view).apply {
 
-            itemView.setOnClickListener { listener.onTableItemClick(item, day, start) }
+            itemView.setOnClickListener { listener.onTableItemClick(view, item) }
             itemView.setOnLongClickListener {
 
-                listener.onTableItemLongClick(item, day, start)
+                listener.onTableItemLongClick(view, item, day, start)
                 return@setOnLongClickListener false
             }
             lesson = item

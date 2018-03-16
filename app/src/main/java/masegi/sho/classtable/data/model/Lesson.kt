@@ -3,6 +3,7 @@ package masegi.sho.classtable.kotlin.data.model
 import android.arch.persistence.room.Embedded
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import org.parceler.Parcel
 
 
 /**
@@ -11,7 +12,7 @@ import android.arch.persistence.room.PrimaryKey
 
 @Entity(tableName = "lesson")
 data class Lesson(
-        @PrimaryKey(autoGenerate = true) var id: Int,
+        @PrimaryKey(autoGenerate = true) val id: Int,
         var tid: Int = 0,
         var name: String,
         var start: Int = 1,
