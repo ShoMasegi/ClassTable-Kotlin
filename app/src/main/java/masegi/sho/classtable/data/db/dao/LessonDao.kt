@@ -26,6 +26,11 @@ abstract class LessonDao {
     abstract fun getLesson(tid: Int, id: Int): Maybe<Lesson>
 
     @CheckResult
+    @Query("SELECT * FROM lesson WHERE tid = :tid AND id = :id AND week = :weekString " +
+            "AND (start BETWEEN :startFrom AND :startTo)")
+    abstract fun getLessons(tid: Int, id: Int, weekString: String, startFrom: Int, startTo: Int): Maybe<List<Lesson>>
+
+    @CheckResult
     @Query("SELECT * FROM lesson WHERE tid = :tid AND name = :name")
     abstract fun getLessons(tid: Int, name: String): Flowable<List<Lesson>>
 

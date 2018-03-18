@@ -14,6 +14,7 @@ interface LessonDatabase {
     fun getAllLessons(): Flowable<List<Lesson>>
     fun getALlLessons(tid: Int): Flowable<List<Lesson>>
     fun getLesson(tid: Int, id: Int): Maybe<Lesson>
+    fun getLessons(tid: Int, id: Int, week: DayOfWeek, startFrom: Int, startTo: Int): Maybe<List<Lesson>>
     fun getLessons(tid: Int, name: String): Flowable<List<Lesson>>
     fun getLesson(tid: Int, week: DayOfWeek, start: Int): Maybe<Lesson>
     fun getWeekLessons(tid: Int, week: DayOfWeek): Flowable<List<Lesson>>

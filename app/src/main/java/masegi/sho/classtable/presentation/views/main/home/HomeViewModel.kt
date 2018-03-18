@@ -1,6 +1,7 @@
 package masegi.sho.classtable.presentation.views.main.home
 
 import android.arch.lifecycle.ViewModel
+import masegi.sho.classtable.data.repository.LessonRepository
 import javax.inject.Inject
 
 /**
@@ -8,6 +9,7 @@ import javax.inject.Inject
  */
 
 class HomeViewModel @Inject constructor(
+        private val repository: LessonRepository
 ) : ViewModel() {
 
 }

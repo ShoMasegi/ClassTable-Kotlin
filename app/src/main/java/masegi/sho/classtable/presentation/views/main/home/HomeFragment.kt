@@ -69,7 +69,7 @@ class HomeFragment : DaggerFragment(), OnTableItemClickListener {
     override fun onTableItemLongClick(view: View, item: Lesson?, day: DayOfWeek, start: Int) {
 
         val popupMenu = PopupMenu(context, view)
-        popupMenu.setOnMenuItemClickListener(MenuItemClickListener(item, day, start, navigationController))
+        popupMenu.setOnMenuItemClickListener(MenuItemClickListener(day, start, navigationController))
         if (item != null) {
 
             popupMenu.menuInflater.inflate(R.menu.menu_exist_lesson, popupMenu.menu)
@@ -85,7 +85,6 @@ class HomeFragment : DaggerFragment(), OnTableItemClickListener {
     // MARK: - PopupMenu.OnMenuItemClickListener
 
     private class MenuItemClickListener(
-            private val lesson: Lesson?,
             private val day: DayOfWeek,
             private val start: Int,
             private val navigationController: NavigationController
