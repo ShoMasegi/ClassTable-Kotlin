@@ -8,6 +8,7 @@ import masegi.sho.classtable.kotlin.data.model.DayOfWeek
 import masegi.sho.classtable.kotlin.data.model.Lesson
 import masegi.sho.classtable.presentation.views.detail.DetailActivity
 import masegi.sho.classtable.presentation.views.editclass.EditLessonActivity
+import masegi.sho.classtable.presentation.views.editclass.EditLessonFragment
 import masegi.sho.classtable.presentation.views.main.home.HomeFragment
 import masegi.sho.classtable.presentation.views.main.today.TodayFragment
 import masegi.sho.classtable.presentation.views.main.todo.TodoFragment
@@ -46,6 +47,11 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
     internal fun navigateToEditLessonActivity(day: DayOfWeek, start: Int) {
 
         EditLessonActivity.start(activity, day, start)
+    }
+
+    internal fun navigateToEditLesson(day: DayOfWeek, start: Int) {
+
+        replaceFragment(EditLessonFragment.newInstance(day, start))
     }
 
     internal fun navigateToDetailActivity(lid: Int) {

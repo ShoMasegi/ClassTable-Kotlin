@@ -2,17 +2,49 @@ package masegi.sho.classtable.presentation.views.editclass
 
 import android.content.Context
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import android.databinding.DataBindingUtil
 import android.os.Bundle
+import dagger.android.support.DaggerAppCompatActivity
 import masegi.sho.classtable.R
+import masegi.sho.classtable.databinding.ActivityEditLessonBinding
 import masegi.sho.classtable.kotlin.data.model.DayOfWeek
-import masegi.sho.classtable.kotlin.data.model.Lesson
+import masegi.sho.classtable.presentation.NavigationController
+import javax.inject.Inject
 
-class EditLessonActivity : AppCompatActivity() {
+class EditLessonActivity : DaggerAppCompatActivity() {
+
+
+    // MARK: - Property
+
+    @Inject lateinit var navigationController: NavigationController
+
+    private val binding by lazy {
+
+        DataBindingUtil.setContentView<ActivityEditLessonBinding>(
+                this,
+                R.layout.activity_edit_lesson
+        )
+    }
+
+
+    // MARK: - Activity
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_lesson)
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.let {
+
+            it.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayShowTitleEnabled(false)
+        }
+        if (savedInstanceState == null) {
+
+            navigationController.navigateToEditLesson(
+                    DayOfWeek.getWeek(intent.getIntExtra(EXTRA_LESSON_DAY, 0)),
+                    intent.getIntExtra(EXTRA_LESSON_START, 1)
+            )
+        }
     }
 
     companion object {

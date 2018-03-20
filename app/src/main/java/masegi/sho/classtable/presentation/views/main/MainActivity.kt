@@ -68,7 +68,6 @@ class MainActivity : DaggerAppCompatActivity() {
             binding.toolbar.elevation = resources.getDimensionPixelSize(R.dimen.elevation_toolbar).toFloat()
             binding.tabLayout.visibility = View.GONE
         }
-
     }
 
 
