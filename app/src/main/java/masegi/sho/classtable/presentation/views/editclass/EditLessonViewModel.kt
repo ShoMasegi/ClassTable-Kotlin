@@ -9,7 +9,7 @@ import javax.inject.Inject
  */
 
 
-class EditLessonViewModule @Inject constructor(
+class EditLessonViewModel @Inject constructor(
         private val repository: LessonRepository
 ) : ViewModel() {
 

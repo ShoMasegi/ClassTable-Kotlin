@@ -21,6 +21,6 @@ interface EditLessonActivityModule {
     @ContributesAndroidInjector
     fun contributeEditLessonFragment(): EditLessonFragment
 
-    @Binds @IntoMap @ViewModelKey(EditLessonViewModule::class)
-    fun bindEditLessonViewMoel(editLessonViewModule: EditLessonViewModule): ViewModel
+    @Binds @IntoMap @ViewModelKey(EditLessonViewModel::class)
+    fun bindEditLessonViewMoel(editLessonViewModel: EditLessonViewModel): ViewModel
 }

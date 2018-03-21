@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.view.MenuItem
 import dagger.android.support.DaggerAppCompatActivity
 import masegi.sho.classtable.R
 import masegi.sho.classtable.databinding.ActivityEditLessonBinding
@@ -45,6 +46,16 @@ class EditLessonActivity : DaggerAppCompatActivity() {
                     intent.getIntExtra(EXTRA_LESSON_START, 1)
             )
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        if (item?.itemId == android.R.id.home) {
+
+            onBackPressed()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     companion object {

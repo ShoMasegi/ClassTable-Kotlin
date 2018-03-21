@@ -1,28 +1,45 @@
 package masegi.sho.classtable.presentation.views.editclass
 
 
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.os.bundleOf
+import dagger.android.support.DaggerFragment
 
 import masegi.sho.classtable.R
+import masegi.sho.classtable.databinding.FragmentEditLessonBinding
 import masegi.sho.classtable.kotlin.data.model.DayOfWeek
+import masegi.sho.classtable.presentation.NavigationController
+import javax.inject.Inject
 
 
-/**
- * A simple [Fragment] subclass.
- */
-class EditLessonFragment : Fragment() {
+class EditLessonFragment : DaggerFragment() {
 
+
+    // MARK: - Property
+
+    private lateinit var binding: FragmentEditLessonBinding
+    @Inject lateinit var navigationController: NavigationController
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    private val editLessonViewModel: EditLessonViewModel by lazy {
+
+        ViewModelProviders.of(this, viewModelFactory).get(EditLessonViewModel::class.java)
+    }
+
+
+    // MARK: - Activity
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
-        return inflater.inflate(R.layout.fragment_edit_lesson, container, false)
+        binding = FragmentEditLessonBinding.inflate(inflater, container!!, false)
+        return binding.root
     }
+
 
     companion object {
 
