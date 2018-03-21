@@ -3,6 +3,7 @@ package masegi.sho.classtable.data.repository
 import io.reactivex.Flowable
 import io.reactivex.Maybe
 import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.schedulers.Schedulers
 import masegi.sho.classtable.data.Prefs
 import masegi.sho.classtable.data.db.LessonDatabase
 import masegi.sho.classtable.data.db.RestoreDatabase
@@ -34,29 +35,26 @@ class LessonDataRepository @Inject constructor(
 
         lessonDatabase.getLessons(
                 lesson.tid,
-                lesson.id,
                 lesson.week,
                 lesson.start,
                 lesson.start + lesson.section
-        ).subscribeBy(
-                onSuccess = {
+        ).subscribeOn(Schedulers.io())
+            .subscribeBy(
+                    onSuccess = {
 
-                    if (it.isNotEmpty()) {
+                        if (it.isNotEmpty()) {
 
-                        this.insert(lesson)
-                    }
-                    else {
+                            it.forEach { if (it.id != lesson.id) { return@subscribeBy } }
+                            this.insert(lesson)
+                        }
+                        else {
 
-                        it.forEach { if (it.id != lesson.id) { return@subscribeBy } }
-                        this.insert(lesson)
-                    }
-                },
-                onError = { },
-                onComplete = {
-
-                    this.insert(lesson)
-                }
-        )
+                            this.insert(lesson)
+                        }
+                    },
+                    onError = { },
+                    onComplete = { this.insert(lesson) }
+            )
     }
 
     override fun delete(lesson: Lesson) = lessonDatabase.delete(lesson.tid, lesson.id)
@@ -67,12 +65,5 @@ class LessonDataRepository @Inject constructor(
 
     override fun save(memo: Memo) = restoreDatabase.insertMemo(memo)
 
-    private fun insert(lesson: Lesson) {
-
-        for (i in 0 until lesson.section) {
-
-            lessonDatabase.insert(lesson)
-            lesson.start++
-        }
-    }
+    private fun insert(lesson: Lesson) = lessonDatabase.insert(lesson)
 }

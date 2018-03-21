@@ -3,6 +3,7 @@ package masegi.sho.classtable.presentation.views.editclass
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import masegi.sho.classtable.data.repository.LessonRepository
 import masegi.sho.classtable.kotlin.data.model.DayOfWeek
 import masegi.sho.classtable.kotlin.data.model.Lesson
@@ -28,7 +29,13 @@ class EditLessonViewModel @Inject constructor(
     internal val lesson: LiveData<Result<Lesson>> by lazy {
 
         repository.getLesson(day, start)
+                .subscribeOn(Schedulers.io())
                 .toResult(AndroidSchedulers.mainThread())
                 .toLiveData()
+    }
+
+    internal fun save(lesson: Lesson) {
+
+        repository.save(lesson)
     }
 }

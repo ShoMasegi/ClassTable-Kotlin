@@ -26,11 +26,10 @@ class LessonRoomDatabase @Inject constructor(
 
     override fun getLessons(
             tid: Int,
-            id: Int,
             week: DayOfWeek,
             startFrom: Int,
             startTo: Int
-    ): Maybe<List<Lesson>> = lessonDao.getLessons(tid, id, week.toString(), startFrom, startTo)
+    ): Maybe<List<Lesson>> = lessonDao.getLessons(tid, week.toString(), startFrom, startTo)
 
 
 

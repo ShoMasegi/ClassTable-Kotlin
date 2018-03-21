@@ -5,7 +5,7 @@
             android:shape="rectangle">
             <stroke
                 android:width="1dp"
-                android:color="@color/colorBorder"/>
+                android:color="@color/border"/>
             <solid
                 android:color="@color/black_alpha_12"/>
         </shape>
@@ -18,7 +18,7 @@
                 android:color="@color/white"/>
             <stroke
                 android:width="1dp"
-                android:color="@color/colorBorder"/>
+                android:color="@color/border"/>
         </shape>
     </item>
 </selector>
