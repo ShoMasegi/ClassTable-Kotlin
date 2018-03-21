@@ -12,14 +12,14 @@ import org.parceler.Parcel
 
 @Entity(tableName = "lesson")
 data class Lesson(
-        @PrimaryKey(autoGenerate = true) val id: Int,
+        @PrimaryKey(autoGenerate = true) var id: Int = 0,
         var tid: Int = 0,
         var name: String,
         var start: Int = 1,
         var section: Int = 1,
         var week: DayOfWeek,
-        @Embedded var room: Room?,
-        var teacher: String?,
-        @Embedded var attendance: Attendance,
+        @Embedded var room: Room? = null,
+        var teacher: String? = null,
+        @Embedded var attendance: Attendance = Attendance(),
         var theme: ThemeColor = ThemeColor.DEFAULT
 )

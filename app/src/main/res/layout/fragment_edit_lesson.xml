@@ -8,9 +8,6 @@
         <variable
             name="lesson"
             type="masegi.sho.classtable.kotlin.data.model.Lesson"/>
-        <variable
-            name="viewModel"
-            type="masegi.sho.classtable.presentation.views.editclass.EditLessonViewModel"/>
     </data>
 
     <ScrollView

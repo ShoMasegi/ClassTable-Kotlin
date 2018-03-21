@@ -13,7 +13,10 @@ import dagger.android.support.DaggerFragment
 import masegi.sho.classtable.R
 import masegi.sho.classtable.databinding.FragmentEditLessonBinding
 import masegi.sho.classtable.kotlin.data.model.DayOfWeek
+import masegi.sho.classtable.kotlin.data.model.Lesson
 import masegi.sho.classtable.presentation.NavigationController
+import masegi.sho.classtable.presentation.Result
+import masegi.sho.classtable.utli.ext.observe
 import javax.inject.Inject
 
 
@@ -38,6 +41,26 @@ class EditLessonFragment : DaggerFragment() {
 
         binding = FragmentEditLessonBinding.inflate(inflater, container!!, false)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        super.onViewCreated(view, savedInstanceState)
+        val day = DayOfWeek.getWeek(arguments!!.getInt(EXTRA_LESSON_DAY))
+        val start = arguments!!.getInt(EXTRA_LESSON_START)
+        editLessonViewModel.day = day
+        editLessonViewModel.start = start
+        editLessonViewModel.lesson.observe(this) { result ->
+
+            when(result) {
+
+                is Result.Success -> { binding.lesson = result.data }
+                is Result.Failure -> {
+
+                    binding.lesson = Lesson(name = "", week = day, start = start)
+                }
+            }
+        }
     }
 
 

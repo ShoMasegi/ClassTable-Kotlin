@@ -1,11 +1,13 @@
 package masegi.sho.classtable.data.repository
 
 import io.reactivex.Flowable
+import io.reactivex.Maybe
 import io.reactivex.rxkotlin.subscribeBy
 import masegi.sho.classtable.data.Prefs
 import masegi.sho.classtable.data.db.LessonDatabase
 import masegi.sho.classtable.data.db.RestoreDatabase
 import masegi.sho.classtable.data.model.Memo
+import masegi.sho.classtable.kotlin.data.model.DayOfWeek
 import masegi.sho.classtable.kotlin.data.model.Lesson
 import masegi.sho.classtable.kotlin.data.model.Task
 import javax.inject.Inject
@@ -22,6 +24,11 @@ class LessonDataRepository @Inject constructor(
     override val lessons: Flowable<List<Lesson>> = lessonDatabase.getALlLessons(Prefs.tid)
     override val memos: Flowable<List<Memo>> = restoreDatabase.getAllMemo(Prefs.tid)
     override val tasks: Flowable<List<Task>> = restoreDatabase.getAllTask(Prefs.tid)
+
+
+    override fun getLesson(week: DayOfWeek, start: Int): Maybe<Lesson> =
+            lessonDatabase.getLesson(Prefs.tid, week, start)
+
 
     override fun save(lesson: Lesson) { // TODO: RETURN result: Single<Bool>
 
