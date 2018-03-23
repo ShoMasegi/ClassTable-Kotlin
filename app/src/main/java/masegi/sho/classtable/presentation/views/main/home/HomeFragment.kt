@@ -18,8 +18,10 @@ import masegi.sho.classtable.databinding.FragmentHomeBinding
 import masegi.sho.classtable.kotlin.data.model.DayOfWeek
 import masegi.sho.classtable.kotlin.data.model.Lesson
 import masegi.sho.classtable.presentation.NavigationController
+import masegi.sho.classtable.presentation.Result
 import masegi.sho.classtable.presentation.adapter.ClassTableAdapter
 import masegi.sho.classtable.presentation.adapter.OnTableItemClickListener
+import masegi.sho.classtable.utli.ext.observe
 import javax.inject.Inject
 
 
@@ -29,7 +31,7 @@ class HomeFragment : DaggerFragment(), OnTableItemClickListener {
     // MARK: - Property
 
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var mAdapter: ClassTableAdapter
+    private lateinit var adapter: ClassTableAdapter
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     private val homeViewModel: HomeViewModel by lazy {
@@ -44,15 +46,30 @@ class HomeFragment : DaggerFragment(), OnTableItemClickListener {
                               savedInstanceState: Bundle?): View? {
 
         binding = FragmentHomeBinding.inflate(inflater, container!!, false)
-        mAdapter = ClassTableAdapter(LessonDataSource(listOf()), this)
+        adapter = ClassTableAdapter(LessonDataSource(listOf()), this)
         binding.classTable.apply {
 
             weeks = Prefs.weeks
             sectionCount = Prefs.dayLessonCount
-            adapter = mAdapter
+            adapter = this@HomeFragment.adapter
             build()
         }
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        super.onViewCreated(view, savedInstanceState)
+        homeViewModel.lessons.observe(this) { result ->
+
+            when(result) {
+
+                is Result.Success -> {
+
+                    adapter.datasetChanged(LessonDataSource(result.data))
+                }
+            }
+        }
     }
 
 
@@ -70,6 +87,7 @@ class HomeFragment : DaggerFragment(), OnTableItemClickListener {
 
         val popupMenu = PopupMenu(context, view)
         popupMenu.setOnMenuItemClickListener(MenuItemClickListener(day, start, navigationController))
+
         if (item != null) {
 
             popupMenu.menuInflater.inflate(R.menu.menu_exist_lesson, popupMenu.menu)

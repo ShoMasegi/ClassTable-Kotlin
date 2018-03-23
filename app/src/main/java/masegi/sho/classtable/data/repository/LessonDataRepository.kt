@@ -37,7 +37,7 @@ class LessonDataRepository @Inject constructor(
                 lesson.tid,
                 lesson.week,
                 lesson.start,
-                lesson.start + lesson.section
+                lesson.start + lesson.section - 1
         ).subscribeOn(Schedulers.io())
             .subscribeBy(
                     onSuccess = {

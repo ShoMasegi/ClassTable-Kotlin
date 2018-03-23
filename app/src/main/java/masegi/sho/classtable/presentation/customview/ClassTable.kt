@@ -6,7 +6,6 @@ import android.view.Gravity
 import android.widget.GridLayout
 import android.widget.TextView
 import masegi.sho.classtable.R
-import masegi.sho.classtable.data.model.Pref
 import masegi.sho.classtable.kotlin.data.model.DayOfWeek
 import masegi.sho.classtable.presentation.adapter.ClassTableAdapter
 
@@ -153,7 +152,7 @@ class ClassTable(
         }
     }
 
-    private fun setupContent() {
+    internal fun setupContent() {
 
         if (adapter == null) return
 
@@ -166,16 +165,19 @@ class ClassTable(
 
             colSpec = GridLayout.spec(colNum)
             val day = weeks[colNum - 1]
-            for (rowNum in 1 until sectionCount + 1) {
+            var rowNum = 1
+            while (rowNum < sectionCount + 1) {
 
-                rowSpec = GridLayout.spec(rowNum)
+                val span = adapter?.getItemAt(day, rowNum)?.section ?: 1
+                rowSpec = GridLayout.spec(rowNum, span)
                 childParams = GridLayout.LayoutParams(rowSpec, colSpec)
                 childParams.width = width1.toInt()
-                childParams.height = height1.toInt()
+                childParams.height = height1.toInt() * span + 2 * margin * (span - 1)
                 childParams.setMargins(margin, margin, margin, margin)
                 holder = adapter!!.createViewHolder(this)
                 adapter!!.bind(holder.itemView, day, rowNum)
                 addView(holder.itemView, childParams)
+                rowNum += span
             }
         }
     }
