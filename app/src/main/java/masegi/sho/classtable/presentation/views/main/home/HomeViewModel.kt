@@ -4,6 +4,8 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.launch
 import masegi.sho.classtable.data.repository.LessonRepository
 import masegi.sho.classtable.kotlin.data.model.Lesson
 import masegi.sho.classtable.presentation.Result
@@ -35,6 +37,9 @@ class HomeViewModel @Inject constructor(
 
     internal fun delete(lesson: Lesson) {
 
-        repository.delete(lesson)
+        launch(CommonPool) {
+
+            repository.delete(lesson)
+        }
     }
 }

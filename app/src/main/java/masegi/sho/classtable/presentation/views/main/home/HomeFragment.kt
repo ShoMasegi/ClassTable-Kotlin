@@ -86,8 +86,23 @@ class HomeFragment : DaggerFragment(), OnTableItemClickListener {
     override fun onTableItemLongClick(view: View, item: Lesson?, day: DayOfWeek, start: Int) {
 
         val popupMenu = PopupMenu(context, view)
-        popupMenu.setOnMenuItemClickListener(MenuItemClickListener(day, start, navigationController))
+        popupMenu.setOnMenuItemClickListener { menuItem ->
 
+            when (menuItem?.itemId) {
+
+                R.id.menu_add, R.id.menu_edit -> {
+
+                    navigationController.navigateToEditLessonActivity(day, start)
+                    true
+                }
+                R.id.menu_delete -> {
+
+                    adapter.getItemAt(day, start)?.let { homeViewModel.delete(it) }
+                    true
+                }
+                else -> false
+            }
+        }
         if (item != null) {
 
             popupMenu.menuInflater.inflate(R.menu.menu_exist_lesson, popupMenu.menu)
@@ -97,33 +112,6 @@ class HomeFragment : DaggerFragment(), OnTableItemClickListener {
             popupMenu.menuInflater.inflate(R.menu.menu_lesson, popupMenu.menu)
         }
         popupMenu.show()
-    }
-
-
-    // MARK: - PopupMenu.OnMenuItemClickListener
-
-    private class MenuItemClickListener(
-            private val day: DayOfWeek,
-            private val start: Int,
-            private val navigationController: NavigationController
-    ) : PopupMenu.OnMenuItemClickListener {
-
-        override fun onMenuItemClick(item: MenuItem?): Boolean {
-
-            when (item?.itemId) {
-
-                R.id.menu_add, R.id.menu_edit -> {
-
-                    navigationController.navigateToEditLessonActivity(day, start)
-                    return true
-                }
-                R.id.menu_delete -> {
-
-                }
-            }
-            return false
-        }
-
     }
 
 
