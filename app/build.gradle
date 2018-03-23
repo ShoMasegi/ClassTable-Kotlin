@@ -31,13 +31,20 @@ kapt {
     correctErrorTypes = true
 }
 
+kotlin {
+    experimental {
+        coroutines 'enable'
+    }
+}
+
 dependencies {
     def versions = [
             supportLibrary: "27.0.2",
             dagger        : "2.13",
             arch          : "1.0.0",
             kotpref       : "2.3.0",
-            parcel        : "1.1.1"
+            parcel        : "1.1.1",
+            coroutines    : '0.21'
     ]
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
@@ -79,6 +86,7 @@ dependencies {
     kapt "org.parceler:parceler:$versions.parcel"
 
     // =====Support Library
+    //noinspection GradleCompatible
     implementation 'com.android.support:support-v4:26.1.0'
     //noinspection GradleCompatible
     implementation "com.android.support:appcompat-v7:$versions.supportLibrary"
@@ -93,7 +101,11 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
 
     // =====Ktx
-    implementation 'androidx.core:core-ktx:0.1'
+    implementation 'androidx.core:core-ktx:0.2'
+
+    // =====Kotlin.coroutine
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines"
+    compile "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
 
     // =====Test
     testImplementation 'junit:junit:4.12'
