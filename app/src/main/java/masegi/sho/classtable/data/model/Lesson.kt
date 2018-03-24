@@ -18,7 +18,7 @@ data class Lesson(
         var start: Int = 1,
         var section: Int = 1,
         var week: DayOfWeek,
-        @Embedded var room: Room? = null,
+        @Embedded var room: Room = Room(),
         var teacher: String? = null,
         @Embedded var attendance: Attendance = Attendance(),
         var theme: ThemeColor = ThemeColor.DEFAULT

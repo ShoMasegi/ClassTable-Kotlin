@@ -7,5 +7,5 @@ import android.arch.persistence.room.ColumnInfo
  */
 
 data class Room(
-        @ColumnInfo(name= "room_name") var name: String
+        @ColumnInfo(name= "room_name") var name: String = ""
 )
