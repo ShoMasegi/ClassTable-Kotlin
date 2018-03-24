@@ -49,7 +49,7 @@ class ClassTableAdapter(
     internal fun datasetChanged(source: LessonDataSource) {
 
         dataSource = source
-        classTable.setupContent()
+        classTable.build()
     }
 
     internal fun getItemAt(day: DayOfWeek, start: Int): Lesson? = dataSource.getLesson(day, start)

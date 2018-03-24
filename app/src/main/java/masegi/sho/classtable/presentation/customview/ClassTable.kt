@@ -6,6 +6,7 @@ import android.view.Gravity
 import android.widget.GridLayout
 import android.widget.TextView
 import masegi.sho.classtable.R
+import masegi.sho.classtable.data.Prefs
 import masegi.sho.classtable.kotlin.data.model.DayOfWeek
 import masegi.sho.classtable.presentation.adapter.ClassTableAdapter
 
@@ -59,8 +60,8 @@ class ClassTable(
     internal fun build() {
 
         removeAllViews()
-        rowCount = sectionCount + 1
-        columnCount = weeks.size + 1
+        rowCount = Prefs.dayLessonCount + 1
+        columnCount = Prefs.weeks.size + 1
         setupFrame()
         setupContent()
     }
