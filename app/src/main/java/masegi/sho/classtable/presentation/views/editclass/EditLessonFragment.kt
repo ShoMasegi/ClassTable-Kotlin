@@ -6,7 +6,6 @@ import android.arch.lifecycle.ViewModelProviders
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +31,6 @@ class EditLessonFragment : DaggerFragment() {
     // MARK: - Property
 
     private lateinit var binding: FragmentEditLessonBinding
-    @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     private val editLessonViewModel: EditLessonViewModel by lazy {
 
