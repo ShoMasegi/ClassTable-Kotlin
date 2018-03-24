@@ -3,7 +3,9 @@ package masegi.sho.classtable.presentation.views.main.home
 
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.DialogInterface
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -97,7 +99,7 @@ class HomeFragment : DaggerFragment(), OnTableItemClickListener {
                 }
                 R.id.menu_delete -> {
 
-                    adapter.getItemAt(day, start)?.let { homeViewModel.delete(it) }
+                    adapter.getItemAt(day, start)?.let { showDeleteAlertDialog(it) }
                     true
                 }
                 else -> false
@@ -112,6 +114,20 @@ class HomeFragment : DaggerFragment(), OnTableItemClickListener {
             popupMenu.menuInflater.inflate(R.menu.menu_lesson, popupMenu.menu)
         }
         popupMenu.show()
+    }
+
+
+    // MARK: - Private
+
+    private fun showDeleteAlertDialog(lesson: Lesson) {
+
+        val builder = AlertDialog.Builder(context!!).apply {
+
+            setMessage(context.resources.getString(R.string.delete_class_question) + " : ${lesson.name}")
+            setPositiveButton("DELETE") { _, _ -> homeViewModel.delete(lesson) }
+            setNegativeButton("CANCEL") { _, _ -> }
+        }
+        builder.create().show()
     }
 
 
