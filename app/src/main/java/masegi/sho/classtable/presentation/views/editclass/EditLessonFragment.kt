@@ -13,15 +13,15 @@ import android.widget.ArrayAdapter
 import androidx.os.bundleOf
 import dagger.android.support.DaggerFragment
 
-import masegi.sho.classtable.R
 import masegi.sho.classtable.data.Prefs
 import masegi.sho.classtable.databinding.FragmentEditLessonBinding
 import masegi.sho.classtable.kotlin.data.model.DayOfWeek
 import masegi.sho.classtable.kotlin.data.model.Lesson
 import masegi.sho.classtable.kotlin.data.model.ThemeColor
-import masegi.sho.classtable.presentation.NavigationController
 import masegi.sho.classtable.presentation.Result
+import masegi.sho.classtable.presentation.customview.ColorPickerDialog.ColorPickerDialog
 import masegi.sho.classtable.utli.ext.observe
+import java.util.ArrayList
 import javax.inject.Inject
 
 
@@ -83,6 +83,7 @@ class EditLessonFragment : DaggerFragment() {
             binding.lesson?.let { editLessonViewModel.save(it) }
         }
         binding.cancelButton.setOnClickListener { activity?.onBackPressed() }
+        binding.colorView.setOnClickListener { showColorPickerDialog() }
     }
 
     private fun setupSpinner() {
@@ -99,10 +100,37 @@ class EditLessonFragment : DaggerFragment() {
 
             shape = GradientDrawable.RECTANGLE
             val scale = (resources.displayMetrics.density * 1.0).toInt()
-            setStroke(scale, ContextCompat.getColor(context!!, R.color.border))
+            if (theme == ThemeColor.DEFAULT) {
+
+                setStroke(scale, ContextCompat.getColor(context!!, theme.primaryColorDarkResId))
+            }
             setColor(ContextCompat.getColor(context!!, theme.primaryColorResId))
         }
         binding.colorView.background = drawable
+    }
+
+    private fun showColorPickerDialog() {
+
+        val dialog: ColorPickerDialog = ColorPickerDialog.newInstance(
+                ColorPickerDialog.SELECTION_SINGLE,
+                ThemeColor.primaryColorResIdList,
+                4,
+                ColorPickerDialog.SIZE_SMALL
+        )
+        dialog.setOnDialogButtonListener(object : ColorPickerDialog.OnDialogButtonListener {
+
+            override fun onDonePressed(mSelectedColors: ArrayList<Int>) {
+
+                if (mSelectedColors.size > 0) {
+
+                    binding.lesson?.theme = ThemeColor.getByPrimaryColorResId(mSelectedColors[0])
+                    setupColorView()
+                }
+            }
+
+            override fun onDismiss() {}
+        })
+        dialog.show(fragmentManager, "color_picker")
     }
 
 
