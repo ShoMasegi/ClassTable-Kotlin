@@ -88,7 +88,7 @@ class EditLessonFragment : DaggerFragment() {
     private fun setupSpinner() {
 
         val adapter: ArrayAdapter<Int> = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item)
-        for (i in 1 until Prefs.dayLessonCount) { adapter.add(i) }
+        for (i in 1 until Prefs.dayLessonCount + 1) { adapter.add(i) }
         binding.sectionSpinner.adapter = adapter
     }
 
