@@ -153,7 +153,7 @@ class ClassTable(
         }
     }
 
-    internal fun setupContent() {
+    private fun setupContent() {
 
         if (adapter == null) return
 

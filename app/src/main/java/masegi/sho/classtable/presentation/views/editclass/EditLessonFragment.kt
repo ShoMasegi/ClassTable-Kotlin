@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.os.bundleOf
+import com.android.databinding.library.baseAdapters.BR
 import dagger.android.support.DaggerFragment
 
 import masegi.sho.classtable.data.Prefs
@@ -19,6 +20,8 @@ import masegi.sho.classtable.kotlin.data.model.DayOfWeek
 import masegi.sho.classtable.kotlin.data.model.Lesson
 import masegi.sho.classtable.kotlin.data.model.ThemeColor
 import masegi.sho.classtable.presentation.Result
+import masegi.sho.classtable.presentation.common.binding.bindSquareThemeColor
+import masegi.sho.classtable.presentation.common.binding.bindThemeColor
 import masegi.sho.classtable.presentation.customview.ColorPickerDialog.ColorPickerDialog
 import masegi.sho.classtable.utli.ext.observe
 import java.util.ArrayList
@@ -77,7 +80,6 @@ class EditLessonFragment : DaggerFragment() {
     private fun setupViews() {
 
         setupSpinner()
-        setupColorView()
         binding.saveButton.setOnClickListener {
 
             binding.lesson?.let { editLessonViewModel.save(it) }
@@ -91,22 +93,6 @@ class EditLessonFragment : DaggerFragment() {
         val adapter: ArrayAdapter<Int> = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item)
         for (i in 1 until Prefs.dayLessonCount + 1) { adapter.add(i) }
         binding.sectionSpinner.adapter = adapter
-    }
-
-    private fun setupColorView() {
-
-        val theme = binding.lesson?.theme ?: ThemeColor.DEFAULT
-        val drawable = GradientDrawable().apply {
-
-            shape = GradientDrawable.RECTANGLE
-            val scale = (resources.displayMetrics.density * 1.0).toInt()
-            if (theme == ThemeColor.DEFAULT) {
-
-                setStroke(scale, ContextCompat.getColor(context!!, theme.primaryColorDarkResId))
-            }
-            setColor(ContextCompat.getColor(context!!, theme.primaryColorResId))
-        }
-        binding.colorView.background = drawable
     }
 
     private fun showColorPickerDialog() {
@@ -123,8 +109,9 @@ class EditLessonFragment : DaggerFragment() {
 
                 if (mSelectedColors.size > 0) {
 
-                    binding.lesson?.theme = ThemeColor.getByPrimaryColorResId(mSelectedColors[0])
-                    setupColorView()
+                    val theme = ThemeColor.getByPrimaryColorResId(mSelectedColors[0])
+                    binding.lesson?.theme = theme
+                    binding.colorView.bindSquareThemeColor(theme)
                 }
             }
 
