@@ -44,14 +44,14 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         replaceFragment(TodoFragment.newInstance())
     }
 
-    internal fun navigateToEditLessonActivity(day: DayOfWeek, start: Int) {
+    internal fun navigateToEditLessonActivity(lesson: Lesson) {
 
-        EditLessonActivity.start(activity, day, start)
+        EditLessonActivity.start(activity, lesson)
     }
 
-    internal fun navigateToEditLesson(day: DayOfWeek, start: Int) {
+    internal fun navigateToEditLesson(lesson: Lesson) {
 
-        replaceFragment(EditLessonFragment.newInstance(day, start))
+        replaceFragment(EditLessonFragment.newInstance(lesson))
     }
 
     internal fun navigateToDetailActivity(lid: Int) {

@@ -94,7 +94,8 @@ class HomeFragment : DaggerFragment(), OnTableItemClickListener {
 
                 R.id.menu_add, R.id.menu_edit -> {
 
-                    navigationController.navigateToEditLessonActivity(day, start)
+                    val lesson: Lesson = item ?: Lesson(name = "", week = day, start = start)
+                    navigationController.navigateToEditLessonActivity(lesson)
                     true
                 }
                 R.id.menu_delete -> {

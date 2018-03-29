@@ -24,6 +24,7 @@ import masegi.sho.classtable.presentation.common.binding.bindSquareThemeColor
 import masegi.sho.classtable.presentation.common.binding.bindThemeColor
 import masegi.sho.classtable.presentation.customview.ColorPickerDialog.ColorPickerDialog
 import masegi.sho.classtable.utli.ext.observe
+import org.parceler.Parcels
 import java.util.ArrayList
 import javax.inject.Inject
 
@@ -47,30 +48,14 @@ class EditLessonFragment : DaggerFragment() {
                               savedInstanceState: Bundle?): View? {
 
         binding = FragmentEditLessonBinding.inflate(inflater, container!!, false)
+        editLessonViewModel.lesson = Parcels.unwrap(arguments!!.getParcelable(EXTRA_LESSON))
+        binding.lesson = editLessonViewModel.lesson
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
-        val day = DayOfWeek.getWeek(arguments!!.getInt(EXTRA_LESSON_DAY))
-        val start = arguments!!.getInt(EXTRA_LESSON_START)
-        editLessonViewModel.day = day
-        editLessonViewModel.start = start
-        editLessonViewModel.lesson.observe(this) { result ->
-
-            when(result) {
-
-                is Result.Success -> {
-
-                    binding.lesson = result.data
-                }
-                is Result.Failure, is Result.InProgress -> {
-
-                    binding.lesson = Lesson(name = "", week = day, start = start)
-                }
-            }
-        }
         setupViews()
     }
 
@@ -110,7 +95,7 @@ class EditLessonFragment : DaggerFragment() {
                 if (mSelectedColors.size > 0) {
 
                     val theme = ThemeColor.getByPrimaryColorResId(mSelectedColors[0])
-                    binding.lesson?.theme = theme
+                    editLessonViewModel.lesson.theme = theme
                     binding.colorView.bindSquareThemeColor(theme)
                 }
             }
@@ -123,16 +108,12 @@ class EditLessonFragment : DaggerFragment() {
 
     companion object {
 
-        private const val EXTRA_LESSON_DAY = "EXTRA_LESSON_DAY"
-        private const val EXTRA_LESSON_START = "EXTRA_LESSON_START"
+        private const val EXTRA_LESSON = "EXTRA_LESSON"
 
-        internal fun newInstance(day: DayOfWeek, start: Int): EditLessonFragment =
+        internal fun newInstance(lesson: Lesson): EditLessonFragment =
                 EditLessonFragment().apply {
 
-                    arguments = bundleOf(
-                            EXTRA_LESSON_DAY to day.ordinal,
-                            EXTRA_LESSON_START to start
-                    )
+                    arguments = Bundle().apply { putParcelable(EXTRA_LESSON, Parcels.wrap(lesson)) }
                 }
     }
 }// Required empty public constructor

@@ -1,15 +1,8 @@
 package masegi.sho.classtable.presentation.views.editclass
 
-import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import masegi.sho.classtable.data.repository.LessonRepository
-import masegi.sho.classtable.kotlin.data.model.DayOfWeek
 import masegi.sho.classtable.kotlin.data.model.Lesson
-import masegi.sho.classtable.presentation.Result
-import masegi.sho.classtable.presentation.common.mapper.toResult
-import masegi.sho.classtable.utli.ext.toLiveData
 import javax.inject.Inject
 
 /**
@@ -24,18 +17,10 @@ class EditLessonViewModel @Inject constructor(
 
     // MARK: - Property
 
-    internal lateinit var day: DayOfWeek
-    internal var start: Int = 0
-    internal val lesson: LiveData<Result<Lesson>> by lazy {
+    internal lateinit var lesson: Lesson
 
-        repository.getLesson(day, start)
-                .subscribeOn(Schedulers.io())
-                .toResult(AndroidSchedulers.mainThread())
-                .toLiveData()
-    }
 
-    internal fun save(lesson: Lesson) {
+    // MARK: - Internal
 
-        repository.save(lesson)
-    }
+    internal fun save(lesson: Lesson) = repository.save(lesson)
 }

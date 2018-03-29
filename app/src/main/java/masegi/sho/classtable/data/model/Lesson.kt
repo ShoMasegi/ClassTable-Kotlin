@@ -10,6 +10,7 @@ import org.parceler.Parcel
  * Created by masegi on 2018/03/04.
  */
 
+@Parcel
 @Entity(tableName = "lesson")
 data class Lesson(
         @PrimaryKey(autoGenerate = true) var id: Int = 0,
@@ -23,3 +24,7 @@ data class Lesson(
         @Embedded var attendance: Attendance = Attendance(),
         var theme: ThemeColor = ThemeColor.DEFAULT
 )
+{
+
+    private constructor() : this(name = "", week = DayOfWeek.SUN)
+}

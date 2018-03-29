@@ -4,12 +4,15 @@ import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.os.Parcel
 import android.view.MenuItem
 import dagger.android.support.DaggerAppCompatActivity
 import masegi.sho.classtable.R
 import masegi.sho.classtable.databinding.ActivityEditLessonBinding
 import masegi.sho.classtable.kotlin.data.model.DayOfWeek
+import masegi.sho.classtable.kotlin.data.model.Lesson
 import masegi.sho.classtable.presentation.NavigationController
+import org.parceler.Parcels
 import javax.inject.Inject
 
 class EditLessonActivity : DaggerAppCompatActivity() {
@@ -42,8 +45,7 @@ class EditLessonActivity : DaggerAppCompatActivity() {
         if (savedInstanceState == null) {
 
             navigationController.navigateToEditLesson(
-                    DayOfWeek.getWeek(intent.getIntExtra(EXTRA_LESSON_DAY, 0)),
-                    intent.getIntExtra(EXTRA_LESSON_START, 1)
+                    Parcels.unwrap(intent.getBundleExtra(EXTRA_LESSON_BUNDLE).getParcelable(EXTRA_LESSON))
             )
         }
     }
@@ -60,20 +62,21 @@ class EditLessonActivity : DaggerAppCompatActivity() {
 
     companion object {
 
-        private const val EXTRA_LESSON_DAY = "EXTRA_LESSON_DAY"
-        private const val EXTRA_LESSON_START = "EXTRA_LESSON_START"
+        private const val EXTRA_LESSON_BUNDLE = "EXTRA_LESSON_BUNDLE"
+        private const val EXTRA_LESSON = "EXTRA_LESSON"
 
-        private fun createIntent(context: Context, day: DayOfWeek, start: Int): Intent =
+
+        private fun createIntent(context: Context, lesson: Lesson): Intent =
 
                 Intent(context, EditLessonActivity::class.java).apply {
 
-                    putExtra(EXTRA_LESSON_DAY, day.ordinal)
-                    putExtra(EXTRA_LESSON_START, start)
+                    val bundle = Bundle().apply { putParcelable(EXTRA_LESSON, Parcels.wrap(lesson)) }
+                    putExtra(EXTRA_LESSON_BUNDLE, bundle)
                 }
 
-        fun start(context: Context, day: DayOfWeek, start: Int) {
+        fun start(context: Context, lesson: Lesson) {
 
-            createIntent(context, day, start).let { context.startActivity(it) }
+            createIntent(context, lesson).let { context.startActivity(it) }
         }
     }
 }
