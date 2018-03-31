@@ -3,6 +3,7 @@ package masegi.sho.classtable.kotlin.data.model
 import android.arch.persistence.room.Embedded
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
+import android.databinding.BaseObservable
 import org.parceler.Parcel
 
 
@@ -23,7 +24,7 @@ data class Lesson(
         var teacher: String? = null,
         @Embedded var attendance: Attendance = Attendance(),
         var theme: ThemeColor = ThemeColor.DEFAULT
-)
+) : BaseObservable()
 {
 
     private constructor() : this(name = "", week = DayOfWeek.SUN)

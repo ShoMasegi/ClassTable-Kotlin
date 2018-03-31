@@ -16,6 +16,7 @@ import dagger.android.support.DaggerFragment
 
 import masegi.sho.classtable.data.Prefs
 import masegi.sho.classtable.databinding.FragmentEditLessonBinding
+import masegi.sho.classtable.kotlin.data.model.Attendance
 import masegi.sho.classtable.kotlin.data.model.DayOfWeek
 import masegi.sho.classtable.kotlin.data.model.Lesson
 import masegi.sho.classtable.kotlin.data.model.ThemeColor
@@ -23,6 +24,7 @@ import masegi.sho.classtable.presentation.Result
 import masegi.sho.classtable.presentation.common.binding.bindSquareThemeColor
 import masegi.sho.classtable.presentation.common.binding.bindThemeColor
 import masegi.sho.classtable.presentation.customview.ColorPickerDialog.ColorPickerDialog
+import masegi.sho.classtable.presentation.customview.NumberPickerDialog
 import masegi.sho.classtable.utli.ext.observe
 import org.parceler.Parcels
 import java.util.ArrayList
@@ -62,6 +64,11 @@ class EditLessonFragment : DaggerFragment() {
 
     // MARK: - Private
 
+    private enum class AttendType(val title: String) {
+
+        ATTEND("Attend"), LATE("Late"), ABSENT("Absent")
+    }
+
     private fun setupViews() {
 
         setupSpinner()
@@ -71,6 +78,9 @@ class EditLessonFragment : DaggerFragment() {
         }
         binding.cancelButton.setOnClickListener { activity?.onBackPressed() }
         binding.colorView.setOnClickListener { showColorPickerDialog() }
+        binding.attendTextView.setOnClickListener { showNumberPickerDialog(AttendType.ATTEND) }
+        binding.lateTextView.setOnClickListener { showNumberPickerDialog(AttendType.LATE) }
+        binding.absentTextView.setOnClickListener { showNumberPickerDialog(AttendType.ABSENT) }
     }
 
     private fun setupSpinner() {
@@ -103,6 +113,51 @@ class EditLessonFragment : DaggerFragment() {
             override fun onDismiss() {}
         })
         dialog.show(fragmentManager, "color_picker")
+    }
+
+    private fun showNumberPickerDialog(type: AttendType) {
+
+        var defValue = 0
+        val callback: (Int) -> Unit
+        val lesson = editLessonViewModel.lesson
+        when (type) {
+
+            AttendType.ATTEND -> {
+
+                defValue = lesson.attendance.attend
+                callback = {
+
+                    lesson.attendance.attend = it
+                    lesson.notifyChange()
+                }
+            }
+            AttendType.LATE -> {
+
+                defValue = lesson.attendance.late
+                callback = {
+
+                    lesson.attendance.late = it
+                    lesson.notifyChange()
+                }
+            }
+            AttendType.ABSENT -> {
+
+                defValue = lesson.attendance.absence
+                callback = {
+
+                    lesson.attendance.absence = it
+                    lesson.notifyChange()
+                }
+            }
+        }
+        NumberPickerDialog.Builder(this!!.context!!).apply {
+
+            mMinValue = 0
+            mMaxValue = 15
+            mTitle = type.title + " times"
+            mDefaultValue = defValue
+            mCallback = callback
+        }.create().show()
     }
 
 
