@@ -133,16 +133,13 @@
                         android:text="Day of week"
                         android:textSize="12sp" />
 
-                    <TextView
-                        android:id="@+id/day_of_week"
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/week_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:paddingStart="16dp"
-                        android:text="@{lesson.week.rawValue}"
-                        android:textColor="@color/black"
-                        android:textSize="19sp"
-                        tools:text="Monday" />
+                        android:layout_gravity="center"
+                        android:spinnerMode="dropdown"
+                        selectedValue="@{lesson.week.toString()}" />
 
                 </LinearLayout>
 
@@ -159,16 +156,13 @@
                         android:text="Start time"
                         android:textSize="12sp" />
 
-                    <TextView
-                        android:id="@+id/start_time"
+                    <android.support.v7.widget.AppCompatSpinner
+                        android:id="@+id/start_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        android:paddingStart="16dp"
-                        android:text="@{String.valueOf(lesson.start)}"
-                        android:textColor="@color/black"
-                        android:textSize="19sp"
-                        tools:text="3" />
+                        android:gravity="center"
+                        android:spinnerMode="dropdown"
+                        selectedIntValue="@={lesson.start}" />
 
                 </LinearLayout>
 

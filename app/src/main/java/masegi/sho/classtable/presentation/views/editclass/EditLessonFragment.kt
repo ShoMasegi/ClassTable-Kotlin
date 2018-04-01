@@ -82,7 +82,7 @@ class EditLessonFragment : DaggerFragment() {
 
     private fun setupViews() {
 
-        setupSpinner()
+        setupSpinners()
         binding.saveButton.setOnClickListener { viewModel.save() }
         binding.cancelButton.setOnClickListener { activity?.onBackPressed() }
         binding.colorView.setOnClickListener { showColorPickerDialog() }
@@ -91,11 +91,16 @@ class EditLessonFragment : DaggerFragment() {
         binding.absentTextView.setOnClickListener { showNumberPickerDialog(AttendType.ABSENT) }
     }
 
-    private fun setupSpinner() {
+    private fun setupSpinners() {
 
-        val adapter: ArrayAdapter<Int> = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item)
-        for (i in 1 until Prefs.dayLessonCount + 1) { adapter.add(i) }
-        binding.sectionSpinner.adapter = adapter
+        val intAdapter: ArrayAdapter<Int> = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item)
+        for (i in 1 until Prefs.dayLessonCount + 1) { intAdapter.add(i) }
+        binding.sectionSpinner.adapter = intAdapter
+        binding.startSpinner.adapter = intAdapter
+
+        val stringAdapter: ArrayAdapter<String> = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item)
+        Prefs.weeks.forEach { stringAdapter.add(it.rawValue) }
+        binding.weekSpinner.adapter = stringAdapter
     }
 
     private fun showColorPickerDialog() {
