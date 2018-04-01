@@ -72,10 +72,7 @@ class EditLessonFragment : DaggerFragment() {
     private fun setupViews() {
 
         setupSpinner()
-        binding.saveButton.setOnClickListener {
-
-            binding.lesson?.let { editLessonViewModel.save(it) }
-        }
+        binding.saveButton.setOnClickListener { editLessonViewModel.save() }
         binding.cancelButton.setOnClickListener { activity?.onBackPressed() }
         binding.colorView.setOnClickListener { showColorPickerDialog() }
         binding.attendTextView.setOnClickListener { showNumberPickerDialog(AttendType.ATTEND) }
@@ -106,7 +103,7 @@ class EditLessonFragment : DaggerFragment() {
 
                     val theme = ThemeColor.getByPrimaryColorResId(mSelectedColors[0])
                     editLessonViewModel.lesson.theme = theme
-                    binding.colorView.bindSquareThemeColor(theme)
+                    editLessonViewModel.lesson.notifyChange()
                 }
             }
 

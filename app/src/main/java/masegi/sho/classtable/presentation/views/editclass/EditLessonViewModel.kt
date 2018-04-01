@@ -22,5 +22,5 @@ class EditLessonViewModel @Inject constructor(
 
     // MARK: - Internal
 
-    internal fun save(lesson: Lesson) = repository.save(lesson)
+    internal fun save() = repository.save(lesson)
 }
