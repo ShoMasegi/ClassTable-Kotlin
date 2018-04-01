@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import dagger.android.support.DaggerFragment
 
 import masegi.sho.classtable.databinding.FragmentDetailBinding
+import masegi.sho.classtable.kotlin.data.model.Lesson
+import org.parceler.Parcels
 import javax.inject.Inject
 
 
@@ -30,6 +32,17 @@ class DetailFragment : DaggerFragment() {
 
         binding = FragmentDetailBinding.inflate(inflater, container, false)
         return binding.root
+    }
+
+    companion object {
+
+        private const val EXTRA_LESSON = "EXTRA_LESSON"
+
+        internal fun newInstance(lesson: Lesson): DetailFragment =
+                DetailFragment().apply {
+
+                    arguments = Bundle().apply { putParcelable(EXTRA_LESSON, Parcels.wrap(lesson)) }
+                }
     }
 
 }// Required empty public constructor

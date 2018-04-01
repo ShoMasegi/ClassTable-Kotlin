@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import masegi.sho.classtable.R
 import masegi.sho.classtable.kotlin.data.model.Lesson
 import masegi.sho.classtable.presentation.views.detail.DetailActivity
+import masegi.sho.classtable.presentation.views.detail.DetailFragment
 import masegi.sho.classtable.presentation.views.editlesson.EditLessonActivity
 import masegi.sho.classtable.presentation.views.editlesson.EditLessonFragment
 import masegi.sho.classtable.presentation.views.main.home.HomeFragment
@@ -53,9 +54,14 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         replaceFragment(EditLessonFragment.newInstance(lesson))
     }
 
-    internal fun navigateToDetailActivity(lid: Int) {
+    internal fun navigateToDetailActivity(lesson: Lesson) {
 
-        DetailActivity.start(activity, lid)
+        DetailActivity.start(activity, lesson)
+    }
+
+    internal fun navigateToDetail(lesson: Lesson) {
+
+        replaceFragment(DetailFragment.newInstance(lesson))
     }
 
 

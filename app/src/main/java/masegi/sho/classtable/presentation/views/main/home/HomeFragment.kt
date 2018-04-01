@@ -79,10 +79,7 @@ class HomeFragment : DaggerFragment(), OnTableItemClickListener {
 
     override fun onTableItemClick(view: View, item: Lesson?) {
 
-        if (item != null) {
-
-            navigationController.navigateToDetailActivity(item.id)
-        }
+        item?.let { navigationController.navigateToDetailActivity(it) }
     }
 
     override fun onTableItemLongClick(view: View, item: Lesson?, day: DayOfWeek, start: Int) {
