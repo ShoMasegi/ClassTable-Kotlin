@@ -28,4 +28,12 @@ data class Lesson(
 {
 
     private constructor() : this(name = "", week = DayOfWeek.SUN)
+
+    var weekString: String
+        set(value) {
+
+            week = DayOfWeek.getValue(value)
+        }
+        get() = week.rawValue
+
 }

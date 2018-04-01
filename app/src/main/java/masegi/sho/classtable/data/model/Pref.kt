@@ -47,7 +47,7 @@ data class Pref(
             val result: MutableList<DayOfWeek> = mutableListOf()
             list.forEach {
 
-                if (it) result.add(DayOfWeek.getWeek(index++))
+                if (it) result.add(DayOfWeek.getValue(index++))
             }
             return result
         }

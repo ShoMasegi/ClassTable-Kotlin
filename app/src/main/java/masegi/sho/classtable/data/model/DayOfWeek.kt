@@ -16,6 +16,8 @@ enum class DayOfWeek(val rawValue: String) {
 
     companion object {
 
-        internal fun getWeek(ordinal: Int): DayOfWeek = DayOfWeek.values()[ordinal]
+        internal fun getValue(ordinal: Int): DayOfWeek = DayOfWeek.values()[ordinal]
+        internal fun getValue(rawValue: String): DayOfWeek =
+                DayOfWeek.values().firstOrNull{ it.rawValue == rawValue} ?: SUN
     }
 }
