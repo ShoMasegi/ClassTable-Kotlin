@@ -3,26 +3,20 @@ package masegi.sho.classtable.presentation.views.editclass
 
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.os.bundleOf
-import com.android.databinding.library.baseAdapters.BR
 import dagger.android.support.DaggerFragment
+import masegi.sho.classtable.R
 
 import masegi.sho.classtable.data.Prefs
 import masegi.sho.classtable.databinding.FragmentEditLessonBinding
-import masegi.sho.classtable.kotlin.data.model.Attendance
-import masegi.sho.classtable.kotlin.data.model.DayOfWeek
 import masegi.sho.classtable.kotlin.data.model.Lesson
 import masegi.sho.classtable.kotlin.data.model.ThemeColor
-import masegi.sho.classtable.presentation.Result
-import masegi.sho.classtable.presentation.common.binding.bindSquareThemeColor
-import masegi.sho.classtable.presentation.common.binding.bindThemeColor
+import masegi.sho.classtable.presentation.SaveResult
 import masegi.sho.classtable.presentation.customview.ColorPickerDialog.ColorPickerDialog
 import masegi.sho.classtable.presentation.customview.NumberPickerDialog
 import masegi.sho.classtable.utli.ext.observe
@@ -38,7 +32,7 @@ class EditLessonFragment : DaggerFragment() {
 
     private lateinit var binding: FragmentEditLessonBinding
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val editLessonViewModel: EditLessonViewModel by lazy {
+    private val viewModel: EditLessonViewModel by lazy {
 
         ViewModelProviders.of(this, viewModelFactory).get(EditLessonViewModel::class.java)
     }
@@ -50,14 +44,31 @@ class EditLessonFragment : DaggerFragment() {
                               savedInstanceState: Bundle?): View? {
 
         binding = FragmentEditLessonBinding.inflate(inflater, container!!, false)
-        editLessonViewModel.lesson = Parcels.unwrap(arguments!!.getParcelable(EXTRA_LESSON))
-        binding.lesson = editLessonViewModel.lesson
+        viewModel.lesson = Parcels.unwrap(arguments!!.getParcelable(EXTRA_LESSON))
+        binding.lesson = viewModel.lesson
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
+        viewModel.isSaveSuccess.observe(this) {
+
+            when (it) {
+
+                is SaveResult.Success -> activity?.finish()
+
+                is SaveResult.Failure -> {
+
+                    AlertDialog.Builder(this!!.context!!)
+                            .setTitle("Error")
+                            .setPositiveButton(android.R.string.ok, null)
+                            .setMessage(it.errorMessage ?: R.string.error_default)
+                            .create()
+                            .show()
+                }
+            }
+        }
         setupViews()
     }
 
@@ -72,7 +83,7 @@ class EditLessonFragment : DaggerFragment() {
     private fun setupViews() {
 
         setupSpinner()
-        binding.saveButton.setOnClickListener { editLessonViewModel.save() }
+        binding.saveButton.setOnClickListener { viewModel.save() }
         binding.cancelButton.setOnClickListener { activity?.onBackPressed() }
         binding.colorView.setOnClickListener { showColorPickerDialog() }
         binding.attendTextView.setOnClickListener { showNumberPickerDialog(AttendType.ATTEND) }
@@ -102,8 +113,8 @@ class EditLessonFragment : DaggerFragment() {
                 if (mSelectedColors.size > 0) {
 
                     val theme = ThemeColor.getByPrimaryColorResId(mSelectedColors[0])
-                    editLessonViewModel.lesson.theme = theme
-                    editLessonViewModel.lesson.notifyChange()
+                    viewModel.lesson.theme = theme
+                    viewModel.lesson.notifyChange()
                 }
             }
 
@@ -114,9 +125,9 @@ class EditLessonFragment : DaggerFragment() {
 
     private fun showNumberPickerDialog(type: AttendType) {
 
-        var defValue = 0
+        val defValue: Int
         val callback: (Int) -> Unit
-        val lesson = editLessonViewModel.lesson
+        val lesson = viewModel.lesson
         when (type) {
 
             AttendType.ATTEND -> {
