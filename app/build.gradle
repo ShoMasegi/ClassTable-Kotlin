@@ -99,6 +99,7 @@ dependencies {
 
     // =====Ui
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.github.clans:fab:1.6.4'
 
     // =====Ktx
     implementation 'androidx.core:core-ktx:0.1'
