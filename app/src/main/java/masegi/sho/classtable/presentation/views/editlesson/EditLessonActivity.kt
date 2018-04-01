@@ -1,15 +1,13 @@
-package masegi.sho.classtable.presentation.views.editclass
+package masegi.sho.classtable.presentation.views.editlesson
 
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
-import android.os.Parcel
 import android.view.MenuItem
 import dagger.android.support.DaggerAppCompatActivity
 import masegi.sho.classtable.R
 import masegi.sho.classtable.databinding.ActivityEditLessonBinding
-import masegi.sho.classtable.kotlin.data.model.DayOfWeek
 import masegi.sho.classtable.kotlin.data.model.Lesson
 import masegi.sho.classtable.presentation.NavigationController
 import org.parceler.Parcels

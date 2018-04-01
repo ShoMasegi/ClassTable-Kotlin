@@ -18,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".presentation.views.detail.DetailActivity" />
-        <activity android:name=".presentation.views.editclass.EditLessonActivity" />
+        <activity android:name=".presentation.views.editlesson.EditLessonActivity" />
         <activity android:name=".presentation.views.edittime.EditTimeActivity" />
         <activity android:name=".presentation.views.setting.SettingActivity" />
         <activity android:name=".presentation.views.memo.MemoEditActivity" />

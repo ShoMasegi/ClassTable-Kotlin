@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
-        tools:context="masegi.sho.classtable.presentation.views.editclass.EditLessonFragment" >
+        tools:context="masegi.sho.classtable.presentation.views.editlesson.EditLessonFragment" >
 
         <LinearLayout
             android:layout_width="match_parent"

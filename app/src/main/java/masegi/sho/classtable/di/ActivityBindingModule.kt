@@ -2,8 +2,8 @@ package masegi.sho.classtable.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
-import masegi.sho.classtable.presentation.views.editclass.EditLessonActivity
-import masegi.sho.classtable.presentation.views.editclass.EditLessonActivityModule
+import masegi.sho.classtable.presentation.views.editlesson.EditLessonActivity
+import masegi.sho.classtable.presentation.views.editlesson.EditLessonActivityModule
 import masegi.sho.classtable.presentation.views.main.MainActivity
 import masegi.sho.classtable.presentation.views.main.MainActivityModule
 

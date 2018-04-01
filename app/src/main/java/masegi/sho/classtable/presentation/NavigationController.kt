@@ -4,11 +4,10 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import masegi.sho.classtable.R
-import masegi.sho.classtable.kotlin.data.model.DayOfWeek
 import masegi.sho.classtable.kotlin.data.model.Lesson
 import masegi.sho.classtable.presentation.views.detail.DetailActivity
-import masegi.sho.classtable.presentation.views.editclass.EditLessonActivity
-import masegi.sho.classtable.presentation.views.editclass.EditLessonFragment
+import masegi.sho.classtable.presentation.views.editlesson.EditLessonActivity
+import masegi.sho.classtable.presentation.views.editlesson.EditLessonFragment
 import masegi.sho.classtable.presentation.views.main.home.HomeFragment
 import masegi.sho.classtable.presentation.views.main.today.TodayFragment
 import masegi.sho.classtable.presentation.views.main.todo.TodoFragment

@@ -1,8 +1,7 @@
-package masegi.sho.classtable.presentation.views.editclass
+package masegi.sho.classtable.presentation.views.editlesson
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.support.annotation.StringRes
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import masegi.sho.classtable.R

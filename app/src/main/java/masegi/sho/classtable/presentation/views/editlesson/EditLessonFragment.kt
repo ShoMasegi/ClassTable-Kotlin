@@ -1,4 +1,4 @@
-package masegi.sho.classtable.presentation.views.editclass
+package masegi.sho.classtable.presentation.views.editlesson
 
 
 import android.arch.lifecycle.ViewModelProvider
