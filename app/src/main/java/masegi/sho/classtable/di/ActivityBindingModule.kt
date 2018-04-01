@@ -2,6 +2,8 @@ package masegi.sho.classtable.di
 
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
+import masegi.sho.classtable.presentation.views.detail.DetailActivity
+import masegi.sho.classtable.presentation.views.detail.DetailActivityModule
 import masegi.sho.classtable.presentation.views.editlesson.EditLessonActivity
 import masegi.sho.classtable.presentation.views.editlesson.EditLessonActivityModule
 import masegi.sho.classtable.presentation.views.main.MainActivity
@@ -19,5 +21,8 @@ interface ActivityBindingModule {
 
     @ContributesAndroidInjector(modules = [EditLessonActivityModule::class])
     fun contributeEditLessonActivity(): EditLessonActivity
+
+    @ContributesAndroidInjector(modules = [DetailActivityModule::class])
+    fun contributeDetailActivity(): DetailActivity
 
 }
