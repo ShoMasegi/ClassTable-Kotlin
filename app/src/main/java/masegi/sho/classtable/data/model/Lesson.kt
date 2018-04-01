@@ -14,7 +14,8 @@ import org.parceler.Parcel
 @Parcel
 @Entity(tableName = "lesson")
 data class Lesson(
-        @PrimaryKey(autoGenerate = true) var id: Int = 0,
+        @PrimaryKey(autoGenerate = true) var did: Int = 0,
+        var id: Int = 0,
         var tid: Int = 0,
         var name: String,
         var start: Int = 1,

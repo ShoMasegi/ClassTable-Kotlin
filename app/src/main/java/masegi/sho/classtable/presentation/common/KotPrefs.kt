@@ -11,8 +11,8 @@ object KotPrefs : KotprefModel() {
 
     override val kotprefName: String = "classtable_prefs"
 
-    var dayLessonCount: Int by intPref(
+    var stamp: Int by intPref(
             default = 0,
-            key = R.string.pref_key_day_lesson_count
+            key = R.string.pref_key_stamp
     )
 }

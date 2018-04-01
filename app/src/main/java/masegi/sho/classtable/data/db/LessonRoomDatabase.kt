@@ -1,10 +1,12 @@
 package masegi.sho.classtable.data.db
 
+import android.util.Log
 import io.reactivex.Flowable
 import io.reactivex.Maybe
 import masegi.sho.classtable.data.db.dao.LessonDao
 import masegi.sho.classtable.kotlin.data.model.DayOfWeek
 import masegi.sho.classtable.kotlin.data.model.Lesson
+import masegi.sho.classtable.presentation.common.KotPrefs
 import javax.inject.Inject
 
 /**
@@ -48,5 +50,27 @@ class LessonRoomDatabase @Inject constructor(
 
     override fun delete(tid: Int, id: Int) = lessonDao.delete(tid, id)
 
-    override fun insert(lesson: Lesson) = lessonDao.insert(lesson)
+    override fun insert(lesson: Lesson) {
+
+        try {
+
+            if (lesson.did != 0) {
+
+                lessonDao.delete(lesson.tid, lesson.id)
+                lesson.did = 0
+            }
+            if (lesson.id == 0) {
+
+                lesson.id = KotPrefs.stamp++
+            }
+            for (i in 0 until lesson.section) {
+
+                lessonDao.insert(lesson)
+                lesson.start++
+            }
+        } catch (e: Exception) {
+
+            Log.e("LessonRoomDatabase", e.message)
+        }
+    }
 }
