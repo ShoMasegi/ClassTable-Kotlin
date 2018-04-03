@@ -16,7 +16,7 @@ interface RestoreDatabase {
     fun getAllTask(tid: Int): Flowable<List<Task>>
     fun getAllMemo(): Flowable<List<Memo>>
     fun getAllMemo(tid: Int): Flowable<List<Memo>>
-    fun getTasks(lesson: Lesson): Flowable<List<Task>>
+    fun getTasks(lesson: Lesson): Maybe<List<Task>>
     fun getTask(tid: Int, id: Int): Maybe<Task>
     fun getMemo(lesson: Lesson): Maybe<Memo>
     fun deleteAllTask()

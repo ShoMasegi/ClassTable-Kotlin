@@ -59,13 +59,17 @@ class LessonDataRepository @Inject constructor(
 //            )
 //    }
 
+    override fun insert(lesson: Lesson) = lessonDatabase.insert(lesson)
+
     override fun delete(lesson: Lesson) = lessonDatabase.delete(lesson.tid, lesson.id)
+
+    override fun getTasks(lesson: Lesson) = restoreDatabase.getTasks(lesson)
 
     override fun save(task: Task) = restoreDatabase.insertTask(task)
 
     override fun delete(task: Task) = restoreDatabase.deleteTask(task.tid, task.id)
 
-    override fun save(memo: Memo) = restoreDatabase.insertMemo(memo)
+    override fun getMemo(lesson: Lesson): Maybe<Memo> = restoreDatabase.getMemo(lesson)
 
-    override fun insert(lesson: Lesson) = lessonDatabase.insert(lesson)
+    override fun save(memo: Memo) = restoreDatabase.insertMemo(memo)
 }

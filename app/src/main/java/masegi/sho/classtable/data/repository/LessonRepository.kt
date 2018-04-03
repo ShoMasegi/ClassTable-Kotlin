@@ -22,7 +22,9 @@ interface LessonRepository {
     fun getLessons(week: DayOfWeek, start: Int, end: Int): Maybe<List<Lesson>>
     fun delete(lesson: Lesson)
     fun insert(lesson: Lesson)
+    fun getTasks(lesson: Lesson): Maybe<List<Task>>
     fun save(task: Task)
     fun delete(task: Task)
+    fun getMemo(lesson: Lesson): Maybe<Memo>
     fun save(memo: Memo)
 }

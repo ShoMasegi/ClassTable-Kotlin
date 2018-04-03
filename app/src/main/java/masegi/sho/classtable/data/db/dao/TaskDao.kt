@@ -30,7 +30,7 @@ abstract class TaskDao {
 
     @CheckResult
     @Query("SELECT * FROM task WHERE tid = :tid AND lid = :lid")
-    abstract fun getTasks(tid: Int, lid: Int): Flowable<List<Task>>
+    abstract fun getTasks(tid: Int, lid: Int): Maybe<List<Task>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract fun insert(task: Task)

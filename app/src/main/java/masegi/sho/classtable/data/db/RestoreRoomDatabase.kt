@@ -22,7 +22,7 @@ class RestoreRoomDatabase @Inject constructor(
 
     override fun getAllTask(tid: Int): Flowable<List<Task>> = taskDao.getAllTask(tid)
 
-    override fun getTasks(lesson: Lesson): Flowable<List<Task>> = taskDao.getTasks(lesson.tid, lesson.id)
+    override fun getTasks(lesson: Lesson): Maybe<List<Task>> = taskDao.getTasks(lesson.tid, lesson.id)
 
     override fun getTask(tid: Int, id: Int): Maybe<Task> = taskDao.getTask(tid, id)
 
