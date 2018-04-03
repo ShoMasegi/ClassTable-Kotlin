@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="masegi.sho.classtable.presentation.views.memo.MemoEditActivity">
+    tools:context="masegi.sho.classtable.presentation.views.editmemo.EditMemoActivity">
 
 </android.support.constraint.ConstraintLayout>

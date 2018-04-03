@@ -4,12 +4,14 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AppCompatActivity
 import masegi.sho.classtable.R
+import masegi.sho.classtable.data.model.Memo
 import masegi.sho.classtable.kotlin.data.model.Lesson
 import masegi.sho.classtable.kotlin.data.model.Task
 import masegi.sho.classtable.presentation.views.detail.DetailActivity
 import masegi.sho.classtable.presentation.views.detail.DetailFragment
 import masegi.sho.classtable.presentation.views.editlesson.EditLessonActivity
 import masegi.sho.classtable.presentation.views.editlesson.EditLessonFragment
+import masegi.sho.classtable.presentation.views.editmemo.EditMemoActivity
 import masegi.sho.classtable.presentation.views.edittask.EditTaskActivity
 import masegi.sho.classtable.presentation.views.main.home.HomeFragment
 import masegi.sho.classtable.presentation.views.main.today.TodayFragment
@@ -72,6 +74,15 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
     }
 
     internal fun navigateToEditTask(task: Task) {
+
+    }
+
+    internal fun navigateToEditMemoActivity(memo: Memo) {
+
+        EditMemoActivity.start(activity, memo)
+    }
+
+    internal fun navigateToEditMemo(memo: Memo) {
 
     }
 

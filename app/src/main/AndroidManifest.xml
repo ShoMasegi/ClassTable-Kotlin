@@ -21,7 +21,7 @@
         <activity android:name=".presentation.views.editlesson.EditLessonActivity" />
         <activity android:name=".presentation.views.edittime.EditTimeActivity" />
         <activity android:name=".presentation.views.setting.SettingActivity" />
-        <activity android:name=".presentation.views.memo.MemoEditActivity" />
+        <activity android:name=".presentation.views.editmemo.EditMemoActivity" />
         <activity android:name=".presentation.views.todolist.TodoListActivity" />
         <activity android:name=".presentation.views.edittask.EditTaskActivity"></activity>
     </application>

@@ -15,6 +15,7 @@ import com.github.clans.fab.FloatingActionMenu
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.activity_detail.*
 import masegi.sho.classtable.R
+import masegi.sho.classtable.data.model.Memo
 
 import masegi.sho.classtable.databinding.FragmentDetailBinding
 import masegi.sho.classtable.databinding.ItemTodoBinding
@@ -102,7 +103,9 @@ class DetailFragment : DaggerFragment() {
         activity?.findViewById<FloatingActionButton>(R.id.fab2)?.setOnClickListener {
 
             fabMenu?.close(true)
-            // TODO: navigate to edit memo activity
+            navigationController.navigateToEditMemoActivity(
+                    binding.memo ?: Memo(viewModel.lesson.id, viewModel.lesson.tid)
+            )
         }
     }
 
