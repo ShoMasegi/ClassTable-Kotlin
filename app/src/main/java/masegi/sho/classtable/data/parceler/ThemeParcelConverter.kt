@@ -8,7 +8,7 @@ import org.parceler.ParcelConverter
  * Created by masegi on 2018/03/30.
  */
 
-class ThemeConverter : ParcelConverter<ThemeColor> {
+class ThemeParcelConverter : ParcelConverter<ThemeColor> {
 
     override fun fromParcel(parcel: Parcel?): ThemeColor {
 

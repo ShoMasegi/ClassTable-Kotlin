@@ -6,6 +6,8 @@ import masegi.sho.classtable.presentation.views.detail.DetailActivity
 import masegi.sho.classtable.presentation.views.detail.DetailActivityModule
 import masegi.sho.classtable.presentation.views.editlesson.EditLessonActivity
 import masegi.sho.classtable.presentation.views.editlesson.EditLessonActivityModule
+import masegi.sho.classtable.presentation.views.edittask.EditTaskActivity
+import masegi.sho.classtable.presentation.views.edittask.EditTaskActivityModule
 import masegi.sho.classtable.presentation.views.main.MainActivity
 import masegi.sho.classtable.presentation.views.main.MainActivityModule
 
@@ -25,4 +27,6 @@ interface ActivityBindingModule {
     @ContributesAndroidInjector(modules = [DetailActivityModule::class])
     fun contributeDetailActivity(): DetailActivity
 
+    @ContributesAndroidInjector(modules = [EditTaskActivityModule::class])
+    fun contributeEditTaskActivity(): EditTaskActivity
 }

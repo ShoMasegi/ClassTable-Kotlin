@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ListView
+import com.github.clans.fab.FloatingActionButton
+import com.github.clans.fab.FloatingActionMenu
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.activity_detail.*
 import masegi.sho.classtable.R
@@ -46,7 +48,10 @@ class DetailFragment : DaggerFragment() {
         binding = FragmentDetailBinding.inflate(inflater, container, false)
         viewModel.lesson = Parcels.unwrap(arguments!!.getParcelable(EXTRA_LESSON))
         binding.lesson = viewModel.lesson
-        listAdapter = TaskAdapter(arrayListOf(), binding.todoListParent, binding.todoList) { }
+        listAdapter = TaskAdapter(arrayListOf(), binding.todoListParent, binding.todoList) {
+
+            navigationController.navigateToEditTaskActivity(it)
+        }
         return binding.root
     }
 
@@ -85,15 +90,19 @@ class DetailFragment : DaggerFragment() {
 
     private fun setupViews() {
 
-        fab1.setOnClickListener {
+        val fabMenu: FloatingActionMenu? = activity?.findViewById(R.id.fab_menu)
 
-            fab_menu.close(true)
-            // TODO: Navigation to edit task
+        activity?.findViewById<FloatingActionButton>(R.id.fab1)?.setOnClickListener {
+
+            fabMenu?.close(true)
+            navigationController.navigateToEditTaskActivity(
+                    Task(tid = viewModel.lesson.tid, lid = viewModel.lesson.id)
+            )
         }
-        fab2.setOnClickListener {
+        activity?.findViewById<FloatingActionButton>(R.id.fab2)?.setOnClickListener {
 
-            fab_menu.close(true)
-            // TODO: Navigation to edit Memo
+            fabMenu?.close(true)
+            // TODO: navigate to edit memo activity
         }
     }
 
