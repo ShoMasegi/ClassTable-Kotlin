@@ -33,3 +33,15 @@ fun View.bindSquareThemeColor(newThemeColor: ThemeColor?) {
     }
     background = drawable
 }
+
+@BindingAdapter("circleTheme")
+fun View.bindCircleThemeCOlor(newThemeColor: ThemeColor?) {
+
+    val theme = newThemeColor ?: ThemeColor.BLUE
+    val drawable = GradientDrawable().apply {
+
+        shape = GradientDrawable.OVAL
+        setColor(ContextCompat.getColor(context, theme.primaryColorResId))
+    }
+    background = drawable
+}

@@ -1,6 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
 
-</android.support.constraint.ConstraintLayout>
+    <data>
+        <variable
+            name="task"
+            type="masegi.sho.classtable.kotlin.data.model.Task" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="42dp"
+        android:clickable="true"
+        android:foreground="?selectableItemBackground">
+
+        <View
+            android:id="@+id/todo_color"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            circleTheme="@{task.theme}"
+            android:layout_marginStart="16dp"
+            android:background="@color/itembox_blue"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/todo_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{task.name}"
+            android:textColor="@color/char_black"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintStart_toEndOf="@id/todo_color"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/todo_due_date"
+            tools:text="General event"/>
+
+        <TextView
+            android:id="@+id/todo_due_date"
+            android:layout_width="59dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:gravity="end"
+            android:textColor="@color/char_black"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="8th May" />
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

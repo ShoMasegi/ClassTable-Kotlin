@@ -4,6 +4,7 @@ import android.arch.persistence.room.Embedded
 import android.arch.persistence.room.Entity
 import android.arch.persistence.room.PrimaryKey
 import android.databinding.BaseObservable
+import masegi.sho.classtable.util.ext.ordinal
 import org.parceler.Parcel
 
 
@@ -31,10 +32,9 @@ data class Lesson(
     private constructor() : this(name = "", week = DayOfWeek.SUN)
 
     var weekString: String
-        set(value) {
-
-            week = DayOfWeek.getValue(value)
-        }
+        set(value) { week = DayOfWeek.getValue(value) }
         get() = week.rawValue
 
+    val startPeriod: String
+        get() = start.ordinal
 }

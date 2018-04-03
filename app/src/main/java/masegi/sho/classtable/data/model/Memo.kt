@@ -11,5 +11,5 @@ import android.arch.persistence.room.PrimaryKey
 data class Memo(
         @PrimaryKey var lid: Int,
         var tid: Int,
-        var content: String
+        var content: String = ""
 )
