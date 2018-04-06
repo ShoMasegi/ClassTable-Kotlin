@@ -35,6 +35,8 @@
     <string name="late">Late</string>
     <string name="absent">Absent</string>
     <string name="times">times</string>
+    <string name="add_note">Add note</string>
+    <string name="task_name">Task Name</string>
 
     <string-array name="edit">
         <item>Edit Name</item>
