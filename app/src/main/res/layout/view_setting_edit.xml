@@ -33,7 +33,7 @@
             android:inputType="textCapSentences|textMultiLine"
             android:textColor="@color/sub_char_black"
             android:textColorHint="@color/sub_char_black"
-            android:textCursorDrawable="@null"
+            android:textCursorDrawable="@drawable/cursor_color"
             android:theme="@style/ClearEditText"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
