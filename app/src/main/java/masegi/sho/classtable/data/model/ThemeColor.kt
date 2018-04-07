@@ -10,20 +10,21 @@ enum class ThemeColor(
         val id: Int,
         val themeResId: Int,
         val primaryColorResId: Int,
-        val primaryColorDarkResId: Int
+        val primaryColorDarkResId: Int,
+        val colorName: String
 )
 {
 
-    DEFAULT(0, R.style.AppTheme, R.color.default_color, R.color.grey600),
-    RED(1, R.style.AppTheme_Red, R.color.colorPrimary_red, R.color.colorPrimaryDark_red),
-    PURPLE(2, R.style.AppTheme_Purple, R.color.colorPrimary_purple, R.color.colorPrimaryDark_purple),
-    BLUE(3, R.style.AppTheme_Blue, R.color.colorPrimary_blue, R.color.colorPrimaryDark_blue),
-    LIGHTBLUE(4, R.style.AppTheme_LightBlue, R.color.colorPrimary_light_blue, R.color.colorPrimaryDark_light_blue),
-    TEAL(5, R.style.AppTheme_Teal, R.color.colorPrimary_teal, R.color.colorPrimaryDark_teal),
-    GREEN(6, R.style.AppTheme_Green, R.color.colorPrimary_green, R.color.colorPrimaryDark_green),
-    YELLOW(7, R.style.AppTheme_Yellow, R.color.colorPrimary_yellow, R.color.colorPrimaryDark_yellow),
-    ORANGE(8, R.style.AppTheme_Orange, R.color.colorPrimary_orange, R.color.colorPrimaryDark_orange),
-    BROWN(9, R.style.AppTheme_Brown, R.color.colorPrimary_brown, R.color.colorPrimaryDark_brown);
+    DEFAULT(0, R.style.AppTheme, R.color.default_color, R.color.grey600, "Default color"),
+    RED(1, R.style.AppTheme_Red, R.color.colorPrimary_red, R.color.colorPrimaryDark_red, "Red color"),
+    PURPLE(2, R.style.AppTheme_Purple, R.color.colorPrimary_purple, R.color.colorPrimaryDark_purple, "Purple color"),
+    BLUE(3, R.style.AppTheme_Blue, R.color.colorPrimary_blue, R.color.colorPrimaryDark_blue, "Blue color"),
+    LIGHTBLUE(4, R.style.AppTheme_LightBlue, R.color.colorPrimary_light_blue, R.color.colorPrimaryDark_light_blue, "Light blue color"),
+    TEAL(5, R.style.AppTheme_Teal, R.color.colorPrimary_teal, R.color.colorPrimaryDark_teal, "Teal color"),
+    GREEN(6, R.style.AppTheme_Green, R.color.colorPrimary_green, R.color.colorPrimaryDark_green, "Green color"),
+    YELLOW(7, R.style.AppTheme_Yellow, R.color.colorPrimary_yellow, R.color.colorPrimaryDark_yellow, "Yellow color"),
+    ORANGE(8, R.style.AppTheme_Orange, R.color.colorPrimary_orange, R.color.colorPrimaryDark_orange, "Orange color"),
+    BROWN(9, R.style.AppTheme_Brown, R.color.colorPrimary_brown, R.color.colorPrimaryDark_brown, "Brown color");
 
 
     companion object {
