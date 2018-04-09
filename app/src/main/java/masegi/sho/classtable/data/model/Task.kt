@@ -31,5 +31,5 @@ data class Task(
         get() = CalendarUtil.calendarToCreateDate(createdAt)
 
     val dueAtString: String
-        get() = CalendarUtil.calendarToDueDate(dueAt)
+        get() = CalendarUtil.calendarToSimpleDate(dueAt)
 }

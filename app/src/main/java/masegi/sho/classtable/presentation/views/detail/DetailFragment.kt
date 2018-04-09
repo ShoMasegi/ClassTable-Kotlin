@@ -3,17 +3,15 @@ package masegi.sho.classtable.presentation.views.detail
 
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.BaseAdapter
-import android.widget.ListView
 import com.github.clans.fab.FloatingActionButton
 import com.github.clans.fab.FloatingActionMenu
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.activity_detail.*
 import masegi.sho.classtable.R
 import masegi.sho.classtable.data.model.Memo
 
@@ -23,7 +21,6 @@ import masegi.sho.classtable.kotlin.data.model.Lesson
 import masegi.sho.classtable.kotlin.data.model.Task
 import masegi.sho.classtable.presentation.NavigationController
 import masegi.sho.classtable.presentation.Result
-import masegi.sho.classtable.utli.CalendarUtil
 import masegi.sho.classtable.utli.ext.observe
 import org.parceler.Parcels
 import javax.inject.Inject
@@ -41,7 +38,7 @@ class DetailFragment : DaggerFragment() {
 
         ViewModelProviders.of(this, viewModelFactory).get(DetailViewModel::class.java)
     }
-    private lateinit var listAdapter: TaskAdapter
+    private lateinit var adapter: TasksAdapter
 
 
     // MARK: - Fragment
@@ -52,7 +49,7 @@ class DetailFragment : DaggerFragment() {
         binding = FragmentDetailBinding.inflate(inflater, container, false)
         viewModel.lesson = Parcels.unwrap(arguments!!.getParcelable(EXTRA_LESSON))
         binding.lesson = viewModel.lesson
-        listAdapter = TaskAdapter(arrayListOf(), binding.todoListParent, binding.todoList) {
+        adapter = TasksAdapter(arrayListOf()) {
 
             navigationController.navigateToEditTaskActivity(
                     it,
@@ -60,6 +57,7 @@ class DetailFragment : DaggerFragment() {
                     viewModel.lesson.name
             )
         }
+        binding.todoList.adapter = adapter
         return binding.root
     }
 
@@ -82,8 +80,9 @@ class DetailFragment : DaggerFragment() {
                 is Result.Success -> {
 
                     binding.tasks = result.data
-                    listAdapter.tasks = result.data
-                    listAdapter.notifyDataSetChanged()
+                    adapter.tasks = result.data
+                    adapter.notifyDataSetChanged()
+                    resizeListView(result.data.size)
                 }
             }
         }
@@ -118,61 +117,40 @@ class DetailFragment : DaggerFragment() {
         }
     }
 
+    private fun resizeListView(itemCount: Int) {
+
+        val count = if (itemCount > 3) 3 else itemCount
+        val itemHeight: Float = resources.displayMetrics.density * 42
+        val params = binding.todoListParent.layoutParams
+        params.height = count * itemHeight.toInt()
+        binding.todoListParent.layoutParams = params
+    }
+
 
     // MARK: - ListViewAdapter
 
-    private class TaskAdapter(
+    private class TasksAdapter(
             var tasks: List<Task>,
-            private val parent: ViewGroup,
-            private val listView: ListView,
             var onTaskClick: ((Task) -> Unit)?
-    ) : BaseAdapter() {
+    ) : RecyclerView.Adapter<TasksAdapter.ViewHolder>() {
 
-        override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
 
-            val binding: ItemTodoBinding = if (convertView != null) {
-
-                val inflater = LayoutInflater.from(parent?.context)
-                DataBindingUtil.inflate(inflater, R.layout.item_todo, parent, false)
-            }
-            else {
-
-                DataBindingUtil.bind(convertView)
-            }
-            binding.task = getItem(position)
-            binding.todoDueDate.text = CalendarUtil.calendarToSimpleDate(getItem(position).dueAt)
-            binding.root.setOnClickListener { onTaskClick?.invoke(getItem(position)) }
-            return binding.root
+            val inflater = LayoutInflater.from(parent?.context)
+            val binding: ItemTodoBinding = ItemTodoBinding.inflate(inflater, parent, false)
+            return ViewHolder(binding)
         }
 
-        override fun getItem(position: Int): Task = tasks[position]
+        override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
 
-        override fun getItemId(position: Int): Long = position.toLong()
-
-        override fun getCount(): Int = tasks.size
-
-        override fun notifyDataSetChanged() {
-
-            super.notifyDataSetChanged()
-            val itemCount = if (count > 3) 3 else count
-            if (count in 1..3) {
-
-                val item = getView(0, null, parent)
-                item.measure(
-                        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-                        View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
-                )
-                val params = listView.layoutParams
-                params.height = itemCount * item.measuredHeight
-                listView.layoutParams = params
-            }
-            else {
-
-                val params = listView.layoutParams
-                params.height = ViewGroup.LayoutParams.WRAP_CONTENT
-                listView.layoutParams = params
-            }
+            val task = tasks[position]
+            holder?.binding?.task = task
+            holder?.binding?.root?.setOnClickListener { onTaskClick?.invoke(task) }
         }
+
+        override fun getItemCount(): Int = if (tasks.size > 3) 3 else tasks.size
+
+        class ViewHolder(var binding: ItemTodoBinding) : RecyclerView.ViewHolder(binding.root)
     }
 
     companion object {

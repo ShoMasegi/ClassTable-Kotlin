@@ -322,7 +322,7 @@
             
             <RelativeLayout
                 android:id="@+id/todo_list_parent"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="128dp"
                 android:layout_marginTop="12dp"
                 app:layout_constraintTop_toBottomOf="@id/sub_todo"
@@ -339,12 +339,13 @@
                     android:layout_centerInParent="true"
                     android:visibility="@{tasks.size > 0 ? View.GONE : View.VISIBLE}"/>
 
-                <ListView
+                <android.support.v7.widget.RecyclerView
                     android:id="@+id/todo_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scrollIndicators="none"
                     android:visibility="@{tasks.size() > 0 ? View.VISIBLE : View.GONE}"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_todo" />
 
             </RelativeLayout>
