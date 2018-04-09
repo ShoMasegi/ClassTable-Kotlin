@@ -101,6 +101,7 @@ class SettingTimeRowView @JvmOverloads constructor(
 
     init {
 
+        dueDate = now
         binding.root.setOnClickListener { showDatePickerDialog() }
         binding.timeView.setOnClickListener { showTimePickerDialog() }
     }
