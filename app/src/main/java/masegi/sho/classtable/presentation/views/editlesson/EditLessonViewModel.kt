@@ -2,6 +2,8 @@ package masegi.sho.classtable.presentation.views.editlesson
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import masegi.sho.classtable.R
@@ -25,6 +27,7 @@ class EditLessonViewModel @Inject constructor(
 
     internal lateinit var lesson: Lesson
     internal var isSaveSuccess: MutableLiveData<SaveResult> = MutableLiveData()
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
 
     // MARK: - Internal
@@ -84,5 +87,12 @@ class EditLessonViewModel @Inject constructor(
                             isSaveSuccess.postValue(SaveResult.success(lesson))
                         }
                 )
+                .addTo(compositeDisposable)
+    }
+
+    override fun onCleared() {
+
+        super.onCleared()
+        compositeDisposable.clear()
     }
 }
