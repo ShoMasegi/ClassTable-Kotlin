@@ -45,6 +45,9 @@ class SettingColorRowView @JvmOverloads constructor(
 
     internal var onColorChangeListener: ((ThemeColor) -> Unit)? = null
 
+    // Do not implement this parameter. This parameter is used by data binding
+    internal var _onColorChangeListener: (() -> Unit)? = null
+
 
     // MARK: - View
 
@@ -81,7 +84,8 @@ class SettingColorRowView @JvmOverloads constructor(
 
                         val themeColor = ThemeColor.getByPrimaryColorResId(mSelectedColors[0])
                         theme = themeColor
-                        themeColor.let { onColorChangeListener?.invoke(it) }
+                        onColorChangeListener?.invoke(themeColor)
+                        _onColorChangeListener?.invoke()
                     }
                 }
 

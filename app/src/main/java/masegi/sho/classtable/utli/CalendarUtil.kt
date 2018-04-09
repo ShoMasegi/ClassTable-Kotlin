@@ -14,7 +14,7 @@ class CalendarUtil {
     companion object {
 
         private const val DATABASE_CALENDAR_FORMAT: String = "yyyyMMddHHmmss"
-        private const val DUE_DATE_FORMAT: String = "EEE, dd MMM,HH:mm"
+        private const val DUE_DATE_FORMAT: String = "EEE, MMM dd, yyyy"
         private const val CREATE_DATE_FORMAT: String = "EEE,dd MMM"
         private const val SIMPLE_DATE_FORMAT: String = " MMM"
         private const val SIMPLE_WEEK_FORMAR: String = "EEEE "
