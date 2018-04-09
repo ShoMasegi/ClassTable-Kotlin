@@ -4,10 +4,13 @@ package masegi.sho.classtable.presentation.views.edittask
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import android.support.annotation.StringRes
+import android.support.design.widget.Snackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import dagger.android.support.DaggerFragment
+import masegi.sho.classtable.R
 
 import masegi.sho.classtable.databinding.FragmentEditTaskBinding
 import masegi.sho.classtable.kotlin.data.model.Task
@@ -16,10 +19,7 @@ import org.parceler.Parcels
 import javax.inject.Inject
 
 
-/**
- * A simple [Fragment] subclass.
- */
-class EditTaskFragment : Fragment() {
+class EditTaskFragment : DaggerFragment() {
 
 
     // MARK: - Property
@@ -43,9 +43,33 @@ class EditTaskFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        super.onViewCreated(view, savedInstanceState)
+        setupViews()
+    }
+
 
     // MARK: - Private
 
+    private fun setupViews() {
+
+        binding.saveButton.setOnClickListener {
+
+            if (binding.task?.name.isNullOrEmpty()) {
+
+                showSnackBar(R.string.null_todo_taskName)
+                return@setOnClickListener
+            }
+            binding.task?.let { viewModel.save(it) }
+            activity?.finish()
+        }
+        binding.closeButton.setOnClickListener { activity?.finish() }
+    }
+
+    private fun showSnackBar(@StringRes message: Int) =
+            Snackbar.make(binding.parentLayout, message, Snackbar.LENGTH_LONG)
+                    .show()
 
     companion object {
 

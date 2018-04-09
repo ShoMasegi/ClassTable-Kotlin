@@ -1,7 +1,10 @@
 package masegi.sho.classtable.presentation.views.edittask
 
 import android.arch.lifecycle.ViewModel
+import kotlinx.coroutines.experimental.CommonPool
+import kotlinx.coroutines.experimental.launch
 import masegi.sho.classtable.data.repository.LessonRepository
+import masegi.sho.classtable.kotlin.data.model.Task
 import javax.inject.Inject
 
 /**
@@ -12,7 +15,5 @@ class EditTaskViewModel @Inject constructor(
         private val repository: LessonRepository
 ): ViewModel() {
 
-
-    // MARK: - Property
-
+    internal fun save(task: Task) = launch(CommonPool) { repository.save(task) }
 }
