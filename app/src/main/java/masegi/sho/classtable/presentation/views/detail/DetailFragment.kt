@@ -43,6 +43,9 @@ class DetailFragment : DaggerFragment() {
     }
     private lateinit var listAdapter: TaskAdapter
 
+
+    // MARK: - Fragment
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -51,7 +54,11 @@ class DetailFragment : DaggerFragment() {
         binding.lesson = viewModel.lesson
         listAdapter = TaskAdapter(arrayListOf(), binding.todoListParent, binding.todoList) {
 
-            navigationController.navigateToEditTaskActivity(it)
+            navigationController.navigateToEditTaskActivity(
+                    it,
+                    viewModel.lesson.theme,
+                    viewModel.lesson.name
+            )
         }
         return binding.root
     }
@@ -97,7 +104,9 @@ class DetailFragment : DaggerFragment() {
 
             fabMenu?.close(true)
             navigationController.navigateToEditTaskActivity(
-                    Task(tid = viewModel.lesson.tid, lid = viewModel.lesson.id)
+                    Task(tid = viewModel.lesson.tid, lid = viewModel.lesson.id),
+                    viewModel.lesson.theme,
+                    viewModel.lesson.name
             )
         }
         activity?.findViewById<FloatingActionButton>(R.id.fab2)?.setOnClickListener {

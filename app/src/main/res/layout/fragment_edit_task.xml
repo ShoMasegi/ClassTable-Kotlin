@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="task"
+            type="masegi.sho.classtable.kotlin.data.model.Task" />
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
+        android:fitsSystemWindows="true"
+        android:clickable="true"
+        tools:context="masegi.sho.classtable.presentation.views.edittask.EditTaskFragment">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.AppBarLayout
+                android:id="@+id/appbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/AppTheme.AppBarOverlay"
+                android:focusableInTouchMode="true"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <requestFocus />
+
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    style="@style/Toolbar" >
+
+                    <android.support.v7.widget.AppCompatButton
+                        android:id="@+id/close_button"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:background="@drawable/ic_close_black_24dp"
+                        android:layout_gravity="center_vertical|left"
+                        android:padding="16dp" />
+
+                    <android.support.v7.widget.AppCompatButton
+                        android:id="@+id/save_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        style="@style/Widget.AppCompat.Button.Borderless"
+                        android:textColor="@android:color/white"
+                        android:text="save"
+                        android:layout_gravity="center_vertical|right"/>
+
+                </android.support.v7.widget.Toolbar>
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/task_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:theme="@style/ClearEditText"
+                    style="@style/ClearEditText"
+                    android:hint="@string/task_name"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:textColor="@android:color/white"
+                    android:textColorHint="@android:color/white"
+                    android:textCursorDrawable="@drawable/cursor_white"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginEnd="32dp"
+                    android:paddingBottom="12dp"
+                    android:paddingTop="12dp"/>
+
+            </android.support.design.widget.AppBarLayout>
+
+            <ScrollView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/appbar"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingBottom="16dp">
+
+                    <masegi.sho.classtable.presentation.customview.SettingColorRowView
+                        android:id="@+id/color_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        selectedTheme="@={task.theme}"/>
+
+                    <View style="@style/Border"/>
+
+                    <masegi.sho.classtable.presentation.customview.SettingTimeRowView
+                        android:id="@+id/time_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        selectedDate="@={task.dueAt}"/>
+
+                    <View style="@style/Border" />
+
+                    <masegi.sho.classtable.presentation.customview.SettingEditRowView
+                        android:id="@+id/edit_note_row"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:titleIcon="@drawable/ic_subject_black_24dp"
+                        app:hint="@string/add_note" />
+
+                    <View style="@style/Border"/>
+
+                </LinearLayout>
+
+            </ScrollView>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</layout>

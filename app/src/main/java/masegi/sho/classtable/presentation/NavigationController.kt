@@ -7,12 +7,14 @@ import masegi.sho.classtable.R
 import masegi.sho.classtable.data.model.Memo
 import masegi.sho.classtable.kotlin.data.model.Lesson
 import masegi.sho.classtable.kotlin.data.model.Task
+import masegi.sho.classtable.kotlin.data.model.ThemeColor
 import masegi.sho.classtable.presentation.views.detail.DetailActivity
 import masegi.sho.classtable.presentation.views.detail.DetailFragment
 import masegi.sho.classtable.presentation.views.editlesson.EditLessonActivity
 import masegi.sho.classtable.presentation.views.editlesson.EditLessonFragment
 import masegi.sho.classtable.presentation.views.editmemo.EditMemoActivity
 import masegi.sho.classtable.presentation.views.edittask.EditTaskActivity
+import masegi.sho.classtable.presentation.views.edittask.EditTaskFragment
 import masegi.sho.classtable.presentation.views.main.home.HomeFragment
 import masegi.sho.classtable.presentation.views.main.today.TodayFragment
 import masegi.sho.classtable.presentation.views.main.todo.TodoFragment
@@ -68,13 +70,14 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         replaceFragment(DetailFragment.newInstance(lesson))
     }
 
-    internal fun navigateToEditTaskActivity(task: Task) {
+    internal fun navigateToEditTaskActivity(task: Task, theme: ThemeColor, title: String) {
 
-        EditTaskActivity.start(activity, task)
+        EditTaskActivity.start(activity, task, theme, title)
     }
 
-    internal fun navigateToEditTask(task: Task) {
+    internal fun navigateToEditTask(task: Task, title: String) {
 
+        replaceFragment(EditTaskFragment.newInstance(task, title))
     }
 
     internal fun navigateToEditMemoActivity(memo: Memo) {
