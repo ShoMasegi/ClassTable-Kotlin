@@ -111,9 +111,7 @@ class DetailFragment : DaggerFragment() {
         activity?.findViewById<FloatingActionButton>(R.id.fab2)?.setOnClickListener {
 
             fabMenu?.close(true)
-            navigationController.navigateToEditMemoActivity(
-                    binding.memo ?: Memo(viewModel.lesson.id, viewModel.lesson.tid)
-            )
+            navigationController.navigateToEditMemoActivity(binding.memo, viewModel.lesson)
         }
     }
 

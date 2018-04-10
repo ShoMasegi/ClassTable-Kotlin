@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <data>
+        <variable
+            name="memo"
+            type="masegi.sho.classtable.data.model.Memo" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context="masegi.sho.classtable.presentation.views.editmemo.EditMemoFragment">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                style="@style/Toolbar" >
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/close_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_close_black_24dp"
+                android:layout_gravity="center_vertical|left"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingEnd="32dp"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/save_button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:textColor="@android:color/white"
+                android:text="save"
+                android:layout_gravity="center_vertical|right"/>
+
+            </android.support.v7.widget.Toolbar>
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="24sp"
+                android:textColor="@android:color/white"
+                android:gravity="center_vertical"
+                android:layout_marginStart="24dp"
+                android:layout_marginEnd="32dp"
+                tools:text="Material Design"/>
+
+        </android.support.design.widget.AppBarLayout>
+
+        <masegi.sho.classtable.presentation.customview.SettingEditRowView
+            android:id="@+id/edit_row"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleIcon="@drawable/ic_subject_black_24dp"
+            app:hint="@string/memo"
+            text="@={memo.content}"
+            app:layout_constraintTop_toBottomOf="@id/appbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

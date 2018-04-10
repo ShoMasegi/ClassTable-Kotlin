@@ -1,8 +1,12 @@
 package masegi.sho.classtable.presentation.views.editmemo
 
+import android.arch.lifecycle.ViewModel
 import android.support.v7.app.AppCompatActivity
 import dagger.Binds
 import dagger.Module
+import dagger.android.ContributesAndroidInjector
+import dagger.multibindings.IntoMap
+import masegi.sho.classtable.di.ViewModelKey
 
 /**
  * Created by masegi on 2018/04/03.
@@ -13,4 +17,10 @@ interface EditMemoActivityModule {
 
     @Binds
     fun providesAppCompatActivity(activity: EditMemoActivity): AppCompatActivity
+
+    @ContributesAndroidInjector
+    fun contributeEditMemoFragment(): EditMemoFragment
+
+    @Binds @IntoMap @ViewModelKey(EditMemoViewModel::class)
+    fun bindEditMemoViewModel(editMemoViewModel: EditMemoViewModel): ViewModel
 }

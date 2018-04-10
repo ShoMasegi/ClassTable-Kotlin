@@ -13,6 +13,7 @@ import masegi.sho.classtable.presentation.views.detail.DetailFragment
 import masegi.sho.classtable.presentation.views.editlesson.EditLessonActivity
 import masegi.sho.classtable.presentation.views.editlesson.EditLessonFragment
 import masegi.sho.classtable.presentation.views.editmemo.EditMemoActivity
+import masegi.sho.classtable.presentation.views.editmemo.EditMemoFragment
 import masegi.sho.classtable.presentation.views.edittask.EditTaskActivity
 import masegi.sho.classtable.presentation.views.edittask.EditTaskFragment
 import masegi.sho.classtable.presentation.views.main.home.HomeFragment
@@ -80,13 +81,14 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         replaceFragment(EditTaskFragment.newInstance(task, title))
     }
 
-    internal fun navigateToEditMemoActivity(memo: Memo) {
+    internal fun navigateToEditMemoActivity(memo: Memo?, lesson: Lesson) {
 
-        EditMemoActivity.start(activity, memo)
+        EditMemoActivity.start(activity, memo, lesson)
     }
 
-    internal fun navigateToEditMemo(memo: Memo) {
+    internal fun navigateToEditMemo(memo: Memo, title: String) {
 
+        replaceFragment(EditMemoFragment.newInstance(memo, title))
     }
 
 
