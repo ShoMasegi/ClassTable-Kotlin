@@ -5,8 +5,12 @@ import android.content.res.TypedArray
 import android.databinding.DataBindingUtil
 import android.graphics.drawable.Drawable
 import android.support.constraint.ConstraintLayout
+import android.support.v7.widget.AppCompatEditText
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.view.LayoutInflater
+import android.widget.EditText
 import android.widget.TextView
 import masegi.sho.classtable.R
 import masegi.sho.classtable.databinding.ViewSettingEditBinding
@@ -51,12 +55,24 @@ class SettingEditRowView @JvmOverloads constructor(
             binding.title.hint = value
         }
 
+    // Do not implements this parameter. this parameter is used by data binding.
+    internal var _afterTextChanged: (() -> Unit)? = null
+
+
     // MARK: - View
 
     constructor(context: Context): this(context, null)
 
     init {
 
+        binding.title.addTextChangedListener(object : TextWatcher {
+
+            override fun afterTextChanged(s: Editable?) { _afterTextChanged?.invoke() }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
         val a: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.SettingEditRowView)
         iconImage = a.getDrawable(R.styleable.SettingEditRowView_titleIcon)
         text = a.getString(R.styleable.SettingEditRowView_text)

@@ -5,6 +5,7 @@ import android.databinding.InverseBindingAdapter
 import android.databinding.InverseBindingListener
 import masegi.sho.classtable.kotlin.data.model.ThemeColor
 import masegi.sho.classtable.presentation.customview.SettingColorRowView
+import masegi.sho.classtable.presentation.customview.SettingEditRowView
 import masegi.sho.classtable.presentation.customview.SettingTimeRowView
 import java.util.*
 
@@ -45,3 +46,20 @@ fun bindDate(
 @InverseBindingAdapter(attribute = "selectedDate", event = "selectedDateAttrChanged")
 fun captureDateChanged(timeRowView: SettingTimeRowView): Calendar
     = timeRowView.dueDate
+
+
+@BindingAdapter(value = ["text", "textAttrChanged"], requireAll = false)
+fun bindText(
+        editRowView: SettingEditRowView,
+        newText: String?,
+        newTextAttrChanged: InverseBindingListener?
+)
+{
+
+    editRowView._afterTextChanged = { newTextAttrChanged?.onChange() }
+    editRowView.text = newText
+}
+
+@InverseBindingAdapter(attribute = "text", event = "textAttrChanged")
+fun captureTextChanged(editRowView: SettingEditRowView): String
+    = editRowView.text ?: ""

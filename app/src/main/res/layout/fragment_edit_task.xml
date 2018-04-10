@@ -115,7 +115,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:titleIcon="@drawable/ic_subject_black_24dp"
-                        app:hint="@string/add_note" />
+                        app:hint="@string/add_note"
+                        text="@={task.content}"/>
 
                     <View style="@style/Border"/>
 
