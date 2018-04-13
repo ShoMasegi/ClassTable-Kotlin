@@ -70,6 +70,7 @@
                     android:hint="@string/task_name"
                     android:maxLines="1"
                     android:ellipsize="end"
+                    android:inputType="text"
                     android:textColor="@android:color/white"
                     android:textColorHint="@android:color/white"
                     android:textCursorDrawable="@drawable/cursor_white"
