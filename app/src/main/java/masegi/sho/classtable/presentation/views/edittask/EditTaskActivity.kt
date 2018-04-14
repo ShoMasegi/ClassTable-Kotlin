@@ -43,10 +43,7 @@ class EditTaskActivity : DaggerAppCompatActivity() {
         title = this.resources.getString(R.string.todo)
         if (savedInstanceState == null) {
 
-            navigationController.navigateToEditTask(
-                    Parcels.unwrap(bundle.getParcelable(EXTRA_TASK)),
-                    bundle.getString(EXTRA_TITLE)
-            )
+            navigationController.navigateToEditTask(Parcels.unwrap(bundle.getParcelable(EXTRA_TASK)))
         }
     }
 
@@ -66,27 +63,22 @@ class EditTaskActivity : DaggerAppCompatActivity() {
         private const val EXTRA_TASK_BUNDLE = "EXTRA_TASK_BUNDLE"
         private const val EXTRA_TASK = "EXTRA_TASK"
         private const val EXTRA_THEME = "EXTRA_THEME"
-        private const val EXTRA_TITLE = "EXTRA_TITLE"
 
-        private fun createIntent(context: Context, task: Task, theme: ThemeColor, title: String): Intent =
+        private fun createIntent(context: Context, task: Task, theme: ThemeColor): Intent =
 
                 Intent(context, EditTaskActivity::class.java).apply {
 
-                    if (task != null) {
+                    val bundle = Bundle().apply {
 
-                        val bundle = Bundle().apply {
-
-                            putParcelable(EXTRA_TASK, Parcels.wrap(task))
-                            putParcelable(EXTRA_THEME, Parcels.wrap(theme))
-                            putString(EXTRA_TITLE, title)
-                        }
-                        putExtra(EXTRA_TASK_BUNDLE, bundle)
+                        putParcelable(EXTRA_TASK, Parcels.wrap(task))
+                        putParcelable(EXTRA_THEME, Parcels.wrap(theme))
                     }
+                    putExtra(EXTRA_TASK_BUNDLE, bundle)
                 }
 
-        fun start(context: Context, task: Task, theme: ThemeColor, title: String) {
+        fun start(context: Context, task: Task, theme: ThemeColor) {
 
-            createIntent(context, task, theme, title).let { context.startActivity(it) }
+            createIntent(context, task, theme).let { context.startActivity(it) }
         }
     }
 }

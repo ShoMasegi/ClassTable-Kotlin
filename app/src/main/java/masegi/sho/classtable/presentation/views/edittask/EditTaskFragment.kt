@@ -74,15 +74,13 @@ class EditTaskFragment : DaggerFragment() {
     companion object {
 
         private const val EXTRA_TASK = "EXTRA_TASK"
-        private const val EXTRA_TITLE = "EXTRA_TITLE"
 
-        internal fun newInstance(task: Task, title: String): EditTaskFragment =
+        internal fun newInstance(task: Task): EditTaskFragment =
                 EditTaskFragment().apply {
 
                     arguments = Bundle().apply {
 
                         putParcelable(EXTRA_TASK, Parcels.wrap(task))
-                        putString(EXTRA_TITLE, title)
                     }
                 }
     }

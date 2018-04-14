@@ -71,14 +71,14 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
         replaceFragment(DetailFragment.newInstance(lesson))
     }
 
-    internal fun navigateToEditTaskActivity(task: Task, theme: ThemeColor, title: String) {
+    internal fun navigateToEditTaskActivity(task: Task, theme: ThemeColor) {
 
-        EditTaskActivity.start(activity, task, theme, title)
+        EditTaskActivity.start(activity, task, theme)
     }
 
-    internal fun navigateToEditTask(task: Task, title: String) {
+    internal fun navigateToEditTask(task: Task) {
 
-        replaceFragment(EditTaskFragment.newInstance(task, title))
+        replaceFragment(EditTaskFragment.newInstance(task))
     }
 
     internal fun navigateToEditMemoActivity(memo: Memo?, lesson: Lesson) {

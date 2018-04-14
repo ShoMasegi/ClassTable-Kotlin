@@ -53,8 +53,7 @@ class DetailFragment : DaggerFragment() {
 
             navigationController.navigateToEditTaskActivity(
                     it,
-                    viewModel.lesson.theme,
-                    viewModel.lesson.name
+                    viewModel.lesson.theme
             )
         }
         binding.todoList.adapter = adapter
@@ -103,9 +102,8 @@ class DetailFragment : DaggerFragment() {
 
             fabMenu?.close(true)
             navigationController.navigateToEditTaskActivity(
-                    Task(tid = viewModel.lesson.tid, lid = viewModel.lesson.id),
-                    viewModel.lesson.theme,
-                    viewModel.lesson.name
+                    Task(lesson = viewModel.lesson),
+                    viewModel.lesson.theme
             )
         }
         activity?.findViewById<FloatingActionButton>(R.id.fab2)?.setOnClickListener {
