@@ -46,10 +46,6 @@ class TodoFragment : DaggerFragment(), RecyclerItemTouchHelper.RecyclerItemTouch
 
     // MARK: - Fragment
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
@@ -119,6 +115,10 @@ class TodoFragment : DaggerFragment(), RecyclerItemTouchHelper.RecyclerItemTouch
         }
         snackbar.show()
     }
+
+
+    // MARK: - RecyclerItemTouchHelperListener
+
     override fun onSwipe(viewHolder: RecyclerView.ViewHolder?, direction: Int, position: Int) {
 
         showDeletedTaskSnackbar(todoListAdapter.tasks[position], position)
