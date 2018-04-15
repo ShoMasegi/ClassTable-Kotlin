@@ -11,6 +11,7 @@ import dagger.android.support.DaggerAppCompatActivity
 import masegi.sho.classtable.R
 import masegi.sho.classtable.databinding.ActivityMainBinding
 import masegi.sho.classtable.presentation.NavigationController
+import masegi.sho.classtable.utli.ext.elevationForPostLollipop
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity() {
@@ -38,35 +39,39 @@ class MainActivity : DaggerAppCompatActivity() {
         setupBottomNavigation(savedInstanceState)
     }
 
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+
+        super.onRestoreInstanceState(savedInstanceState)
+        setupToolbar(BottomNavigationItem.forId(binding.bottomNavigation.selectedItemId))
+    }
+
 
     // MARK: - Private
 
     private fun setupBottomNavigation(savedInstanceState: Bundle?) {
 
-        binding.include!!.bottomNavigation.setOnNavigationItemSelectedListener { item ->
+        binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
 
             val navigationItem = BottomNavigationItem.forId(item.itemId)
-            navigationItem.navigate(navigationController)
             setupToolbar(navigationItem)
+            navigationItem.navigate(navigationController)
             true
         }
         if (savedInstanceState == null) {
 
-            binding.include!!.bottomNavigation.selectedItemId = R.id.nav_home
+            binding.bottomNavigation.selectedItemId = R.id.nav_home
         }
     }
 
     private fun setupToolbar(navigationItem: BottomNavigationItem) {
 
-        if (navigationItem == BottomNavigationItem.TODAY) {
+        binding.toolbar.elevationForPostLollipop = if (navigationItem.isUseToolbarElevation) {
 
-            binding.toolbar.elevation = 0F
-            binding.tabLayout.visibility = View.VISIBLE
+            resources.getDimension(R.dimen.elevation_app_bar)
         }
         else {
 
-            binding.toolbar.elevation = resources.getDimensionPixelSize(R.dimen.elevation_toolbar).toFloat()
-            binding.tabLayout.visibility = View.GONE
+            0F
         }
     }
 
@@ -75,13 +80,14 @@ class MainActivity : DaggerAppCompatActivity() {
 
     enum class BottomNavigationItem(
             @MenuRes val menuId: Int,
+            val isUseToolbarElevation: Boolean,
             val navigate: NavigationController.() -> Unit
     )
     {
 
-        HOME(R.id.nav_home, { navigateToHome() }),
-        TODAY(R.id.nav_today, { navigateToToday() }),
-        TODO(R.id.nav_todo, { navigateToTodo() });
+        HOME(R.id.nav_home, true, { navigateToHome() }),
+        TODAY(R.id.nav_today, false, { navigateToToday() }),
+        TODO(R.id.nav_todo, true, { navigateToTodo() });
 
         companion object {
 
