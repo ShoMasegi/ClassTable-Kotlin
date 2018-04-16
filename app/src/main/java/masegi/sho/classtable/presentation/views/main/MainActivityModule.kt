@@ -10,6 +10,7 @@ import masegi.sho.classtable.di.ViewModelKey
 import masegi.sho.classtable.presentation.views.main.home.HomeFragment
 import masegi.sho.classtable.presentation.views.main.home.HomeViewModel
 import masegi.sho.classtable.presentation.views.main.today.LessonListFragment
+import masegi.sho.classtable.presentation.views.main.today.LessonListViewModel
 import masegi.sho.classtable.presentation.views.main.today.TodayFragment
 import masegi.sho.classtable.presentation.views.main.today.TodayViewModel
 import masegi.sho.classtable.presentation.views.main.todo.TodoFragment
@@ -45,4 +46,7 @@ interface MainActivityModule {
 
     @Binds @IntoMap @ViewModelKey(TodoViewModel::class)
     fun bindTodoViewmodel(todoViewModel: TodoViewModel): ViewModel
+
+    @Binds @IntoMap @ViewModelKey(LessonListViewModel::class)
+    fun bindLessonListViewModel(lessonListViewModel: LessonListViewModel): ViewModel
 }

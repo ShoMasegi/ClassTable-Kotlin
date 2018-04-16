@@ -20,8 +20,6 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="tabMaxWidth">56dp</item>
-        <item name="tabPaddingEnd">18dp</item>
-        <item name="tabPaddingStart">18dp</item>
         <item name="tabGravity">center</item>
         <item name="tabTextAppearance">@style/TabTextAppearance</item>
     </style>
