@@ -53,8 +53,8 @@ class MainActivity : DaggerAppCompatActivity() {
         binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
 
             val navigationItem = BottomNavigationItem.forId(item.itemId)
-            setupToolbar(navigationItem)
             navigationItem.navigate(navigationController)
+            setupToolbar(navigationItem)
             true
         }
         if (savedInstanceState == null) {
