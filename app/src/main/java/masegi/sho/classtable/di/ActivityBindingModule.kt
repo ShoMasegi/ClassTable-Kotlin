@@ -12,6 +12,8 @@ import masegi.sho.classtable.presentation.views.edittask.EditTaskActivity
 import masegi.sho.classtable.presentation.views.edittask.EditTaskActivityModule
 import masegi.sho.classtable.presentation.views.main.MainActivity
 import masegi.sho.classtable.presentation.views.main.MainActivityModule
+import masegi.sho.classtable.presentation.views.setting.SettingActivity
+import masegi.sho.classtable.presentation.views.setting.SettingActivityModule
 
 /**
  * Created by masegi on 2018/03/12.
@@ -34,4 +36,7 @@ interface ActivityBindingModule {
 
     @ContributesAndroidInjector(modules = [EditMemoActivityModule::class])
     fun contributeEditMemoActivity(): EditMemoActivity
+
+    @ContributesAndroidInjector(modules = [SettingActivityModule::class])
+    fun contributeSettingActivity(): SettingActivity
 }

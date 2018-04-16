@@ -6,6 +6,8 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.annotation.IdRes
 import android.support.annotation.MenuRes
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import dagger.android.support.DaggerAppCompatActivity
 import masegi.sho.classtable.R
@@ -43,6 +45,25 @@ class MainActivity : DaggerAppCompatActivity() {
 
         super.onRestoreInstanceState(savedInstanceState)
         setupToolbar(BottomNavigationItem.forId(binding.bottomNavigation.selectedItemId))
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        return when (item?.itemId) {
+
+            R.id.menu_setting -> {
+
+                navigationController.navigateToSettingActivity()
+                false
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+
     }
 
 
@@ -100,7 +121,7 @@ class MainActivity : DaggerAppCompatActivity() {
 
     companion object {
 
-        fun createIntent(context: Context): Intent = Intent(context, MainActivity::class.java)
+        private fun createIntent(context: Context): Intent = Intent(context, MainActivity::class.java)
 
         fun start(context: Context) {
             createIntent(context).let {

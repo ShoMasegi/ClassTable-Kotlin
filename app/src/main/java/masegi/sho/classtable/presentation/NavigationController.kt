@@ -19,6 +19,8 @@ import masegi.sho.classtable.presentation.views.edittask.EditTaskFragment
 import masegi.sho.classtable.presentation.views.main.home.HomeFragment
 import masegi.sho.classtable.presentation.views.main.today.TodayFragment
 import masegi.sho.classtable.presentation.views.main.todo.TodoFragment
+import masegi.sho.classtable.presentation.views.setting.SettingActivity
+import masegi.sho.classtable.presentation.views.setting.SettingFragment
 import javax.inject.Inject
 
 /**
@@ -89,6 +91,16 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
     internal fun navigateToEditMemo(memo: Memo, title: String) {
 
         replaceFragment(EditMemoFragment.newInstance(memo, title))
+    }
+
+    internal fun navigateToSettingActivity() {
+
+        SettingActivity.start(activity)
+    }
+
+    internal fun navigateToSetting() {
+
+        replaceFragment(SettingFragment.newInstance())
     }
 
 
