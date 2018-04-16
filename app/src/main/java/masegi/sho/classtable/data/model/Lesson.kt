@@ -23,7 +23,7 @@ data class Lesson(
         var section: Int = 1,
         var week: DayOfWeek,
         @Embedded var room: Room = Room(),
-        var teacher: String? = null,
+        var teacher: String = "",
         @Embedded var attendance: Attendance = Attendance(),
         var theme: ThemeColor = ThemeColor.DEFAULT
 ) : BaseObservable()
