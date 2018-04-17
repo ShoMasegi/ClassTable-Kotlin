@@ -4,9 +4,7 @@ import android.databinding.BindingAdapter
 import android.databinding.InverseBindingAdapter
 import android.databinding.InverseBindingListener
 import masegi.sho.classtable.kotlin.data.model.ThemeColor
-import masegi.sho.classtable.presentation.customview.SettingColorRowView
-import masegi.sho.classtable.presentation.customview.SettingEditRowView
-import masegi.sho.classtable.presentation.customview.SettingTimeRowView
+import masegi.sho.classtable.presentation.customview.*
 import java.util.*
 
 /**
@@ -63,3 +61,15 @@ fun bindText(
 @InverseBindingAdapter(attribute = "text", event = "textAttrChanged")
 fun captureTextChanged(editRowView: SettingEditRowView): String
     = editRowView.text ?: ""
+
+@BindingAdapter("settingEnabled")
+fun SettingSwitchRowView.setSettingEnabled(boolean: Boolean) { this.isEnabled = boolean }
+
+@BindingAdapter("settingDefaultValue")
+fun SettingSwitchRowView.setSettingDefaultValue(defaultValue: Boolean) = this.setDefault(defaultValue)
+
+@BindingAdapter("settingTitle")
+fun SettingSubTitleRow.setSettingTitle(title: String) { this.title = title }
+
+@BindingAdapter("settingSubTitle")
+fun SettingSubTitleRow.setSettingSubTitle(subtitle: String) { this.subtitle = subtitle }

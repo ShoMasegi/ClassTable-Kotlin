@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Settings" />
+
+    <style name="Settings.TitleText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/char_black</item>
+    </style>
+
+    <style name="Settings.TitleText.Single">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/char_black</item>
+    </style>
+
+    <style name="Settings.DescriptionText" >
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/sub_char_black</item>
+    </style>
+
+    <style name="Settings.TextSubheading">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="Settings.SingleTitleRow">
+        <item name="android:layout_height">54dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/char_black</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:lines">1</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+    </style>
+
+    <style name="Settings.GroupHeaderRow">
+        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:lines">1</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+</resources>
