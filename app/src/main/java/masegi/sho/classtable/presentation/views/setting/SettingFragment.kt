@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import dagger.android.support.DaggerFragment
+import masegi.sho.classtable.data.model.Pref
 
 import masegi.sho.classtable.databinding.FragmentSettingBinding
 import javax.inject.Inject
@@ -32,6 +33,7 @@ class SettingFragment : DaggerFragment() {
                               savedInstanceState: Bundle?): View? {
 
         binding = FragmentSettingBinding.inflate(inflater, container!!, false)
+        binding.pref = Pref(name = "Sample", dayLessonCount = 5)
         return binding.root
     }
 

@@ -35,6 +35,7 @@
     <string name="late">Late</string>
     <string name="absent">Absent</string>
     <string name="times">times</string>
+    <string name="time">Time</string>
     <string name="add_note">Add note</string>
     <string name="task_name">Task Name</string>
 
@@ -61,6 +62,7 @@
     <string name="settings_attendance_title">Attendance management</string>
     <string name="settings_attendance_description">Management your attendance enable.</string>
     <string name="settings_management_mode">Management Mode</string>
+    <string name="settings_management_mode_chose">Chose management mode.</string>
     <string name="settings_edit_table">Edit Tables</string>
 
     <string name="settings_pref_file_key">preferenceKey</string>
