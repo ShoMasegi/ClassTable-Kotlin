@@ -5,9 +5,12 @@ import android.content.Context
 import dagger.Module
 import dagger.Provides
 import masegi.sho.classtable.data.db.LessonDatabase
+import masegi.sho.classtable.data.db.PrefDatabase
 import masegi.sho.classtable.data.db.RestoreDatabase
 import masegi.sho.classtable.data.repository.LessonDataRepository
 import masegi.sho.classtable.data.repository.LessonRepository
+import masegi.sho.classtable.data.repository.PrefDataRepository
+import masegi.sho.classtable.data.repository.PrefRepository
 import javax.inject.Singleton
 
 /**
@@ -26,4 +29,10 @@ internal object AppModule {
             restoreDatabase: RestoreDatabase
     ): LessonRepository =
             LessonDataRepository(lessonDatabase, restoreDatabase)
+
+    @Singleton @Provides @JvmStatic
+    fun providePrefRepository(
+            database: PrefDatabase
+    ): PrefRepository =
+            PrefDataRepository(database)
 }
