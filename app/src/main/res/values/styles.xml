@@ -50,4 +50,15 @@
         <item name="colorControlActivated">@android:color/transparent</item>
     </style>
 
+    <style name="AppTheme.AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert" >
+        <item name="android:textColorPrimary">@color/char_black</item>
+        <item name="android:textColorSecondary">@color/sub_char_black</item>
+        <item name="android:colorControlNormal">@color/colorPrimary</item>
+        <item name="android:colorAccent">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppTheme.NumberPicker">
+        <item name="android:textColorPrimary">@color/char_black</item>
+    </style>
+
 </resources>

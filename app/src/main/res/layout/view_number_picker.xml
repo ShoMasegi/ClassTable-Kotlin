@@ -11,12 +11,11 @@
             android:id="@+id/number_picker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@android:style/Widget.Material.NumberPicker"
+            android:theme="@style/AppTheme.NumberPicker"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:targetApi="n" />
+            app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
             android:layout_width="wrap_content"

@@ -3,6 +3,8 @@ package masegi.sho.classtable.presentation.customview
 import android.app.Dialog
 import android.content.Context
 import android.databinding.DataBindingUtil
+import android.support.annotation.StringRes
+import android.support.annotation.StyleRes
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
@@ -18,7 +20,9 @@ class NumberPickerDialog : DialogFragment() {
 
     // MARK: - Builder
 
-    internal class Builder(val context: Context) {
+    internal class Builder(val context: Context, @StyleRes private val themeResId: Int) {
+
+        constructor(context: Context): this(context, 0)
 
 
         // MARK: - Property
@@ -34,7 +38,7 @@ class NumberPickerDialog : DialogFragment() {
 
         internal fun create(): Dialog {
 
-            val builder = AlertDialog.Builder(context)
+            val builder = AlertDialog.Builder(context, themeResId)
             val inflater = LayoutInflater.from(context)
             val binding: ViewNumberPickerBinding = DataBindingUtil.inflate(
                     inflater,
