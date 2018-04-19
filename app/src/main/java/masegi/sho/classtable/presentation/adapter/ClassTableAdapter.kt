@@ -33,7 +33,6 @@ class ClassTableAdapter(
     // MARK: - Property
 
     internal lateinit var classTable: ClassTable
-    private val prefs = Prefs
 
 
     // MARK: - Internal
@@ -41,13 +40,14 @@ class ClassTableAdapter(
     internal fun rebuild(source: LessonDataSource) {
 
         dataSource = source
-        classTable.sectionCount = prefs.dayLessonCount
-        classTable.weeks = prefs.weeks
+        classTable.sectionCount = Prefs.dayLessonCount
+        classTable.weeks = Prefs.weeks
         classTable.build()
     }
 
     internal fun datasetChanged(source: LessonDataSource) {
 
+        if (dataSource == source) { return }
         dataSource = source
         classTable.build()
     }

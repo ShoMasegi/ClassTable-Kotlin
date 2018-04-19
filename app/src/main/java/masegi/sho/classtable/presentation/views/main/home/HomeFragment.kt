@@ -3,11 +3,9 @@ package masegi.sho.classtable.presentation.views.main.home
 
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
-import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
@@ -36,7 +34,7 @@ class HomeFragment : DaggerFragment(), OnTableItemClickListener {
     private lateinit var adapter: ClassTableAdapter
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-    private val homeViewModel: HomeViewModel by lazy {
+    private val viewModel: HomeViewModel by lazy {
 
         ViewModelProviders.of(activity!!, viewModelFactory).get(HomeViewModel::class.java)
     }
@@ -44,19 +42,29 @@ class HomeFragment : DaggerFragment(), OnTableItemClickListener {
 
     // MARK: - Fragment
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        super.onCreate(savedInstanceState)
+        adapter = ClassTableAdapter(LessonDataSource(listOf()), this)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         binding = FragmentHomeBinding.inflate(inflater, container!!, false)
-        adapter = ClassTableAdapter(LessonDataSource(listOf()), this)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        super.onViewCreated(view, savedInstanceState)
         binding.classTable.apply {
 
             weeks = Prefs.weeks
             sectionCount = Prefs.dayLessonCount
             adapter = this@HomeFragment.adapter
-            build()
         }
-        homeViewModel.lessons.observe(this) { result ->
+        viewModel.lessons.observe(this) { result ->
 
             when(result) {
 
@@ -66,7 +74,6 @@ class HomeFragment : DaggerFragment(), OnTableItemClickListener {
                 }
             }
         }
-        return binding.root
     }
 
 
@@ -117,7 +124,7 @@ class HomeFragment : DaggerFragment(), OnTableItemClickListener {
         val builder = AlertDialog.Builder(context!!).apply {
 
             setMessage(context.resources.getString(R.string.delete_class_question) + " : ${lesson.name}")
-            setPositiveButton("DELETE") { _, _ -> homeViewModel.delete(lesson) }
+            setPositiveButton("DELETE") { _, _ -> viewModel.delete(lesson) }
             setNegativeButton("CANCEL") { _, _ -> }
         }
         builder.create().show()

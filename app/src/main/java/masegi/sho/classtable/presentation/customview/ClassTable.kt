@@ -60,8 +60,8 @@ class ClassTable(
     internal fun build() {
 
         removeAllViews()
-        rowCount = Prefs.dayLessonCount + 1
-        columnCount = Prefs.weeks.size + 1
+        rowCount = sectionCount + 1
+        columnCount = weeks.size + 1
         setupFrame()
         setupContent()
     }
