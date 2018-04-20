@@ -11,14 +11,12 @@ import masegi.sho.classtable.kotlin.data.model.DayOfWeek.*
  */
 
 @Entity(tableName = "pref")
-data class Pref(
+data class PrefEntity(
         @PrimaryKey
-        var tid: Int = 0,
-        var name: String = "",
-        @Ignore
-        private var _weeks: List<DayOfWeek> = mutableListOf(MON, TUE, WED, THU, FRI),
+        var tid: Int = 1,
+        var name: String = "Default Table",
         var weekString: String = "0111110",
-        var dayLessonCount: Int = 0,
+        var dayLessonCount: Int = 5,
         var shouldNotify: Boolean = false,
         var attendManage: Boolean = false,
         var attendMode: AttendMode = AttendMode.NOTIFICATION
@@ -28,27 +26,21 @@ data class Pref(
 
     // MARK: - Property
 
-    @Ignore
-    var weeks: List<DayOfWeek> = _weeks
+    var weeks: List<DayOfWeek>
         set(value) {
 
-            val result: String = ""
+            var result: String = ""
             DayOfWeek.values().forEach {
 
-                result + if (value.contains(it)) '1' else '0'
+                result += if (value.contains(it)) '1' else '0'
             }
             weekString = result
-            field = value
         }
         get() {
 
-            var index: Int = 0
-            val list: List<Boolean> = weekString.map { it == '1' }
+            val string: String = weekString
             val result: MutableList<DayOfWeek> = mutableListOf()
-            list.forEach {
-
-                if (it) result.add(DayOfWeek.getValue(index++))
-            }
+            string.forEachIndexed { i, char -> if (char == '1') result.add(DayOfWeek.getValue(i)) }
             return result
         }
 }

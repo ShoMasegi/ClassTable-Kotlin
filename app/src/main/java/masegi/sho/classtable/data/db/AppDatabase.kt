@@ -9,7 +9,7 @@ import masegi.sho.classtable.data.db.dao.PrefDao
 import masegi.sho.classtable.data.db.dao.TaskDao
 import masegi.sho.classtable.data.db.mapper.Converters
 import masegi.sho.classtable.data.model.Memo
-import masegi.sho.classtable.data.model.Pref
+import masegi.sho.classtable.data.model.PrefEntity
 import masegi.sho.classtable.kotlin.data.model.Lesson
 import masegi.sho.classtable.kotlin.data.model.Task
 
@@ -20,7 +20,7 @@ import masegi.sho.classtable.kotlin.data.model.Task
 @Database(
         entities = [
             Lesson::class,
-            Pref::class,
+            PrefEntity::class,
             Task::class,
             Memo::class
         ],

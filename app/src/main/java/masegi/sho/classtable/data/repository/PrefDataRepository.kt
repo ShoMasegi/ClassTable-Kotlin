@@ -3,7 +3,7 @@ package masegi.sho.classtable.data.repository
 import io.reactivex.Flowable
 import io.reactivex.Maybe
 import masegi.sho.classtable.data.db.PrefDatabase
-import masegi.sho.classtable.data.model.Pref
+import masegi.sho.classtable.data.model.PrefEntity
 import javax.inject.Inject
 
 /**
@@ -14,9 +14,9 @@ class PrefDataRepository @Inject constructor(
         private val database: PrefDatabase
 ) : PrefRepository {
 
-    override val prefs: Flowable<List<Pref>> = database.getAll()
+    override val prefs: Flowable<List<PrefEntity>> = database.getAll()
 
-    override fun getPref(tid: Int): Maybe<Pref> = database.get(tid)
+    override fun getPref(tid: Int): Maybe<PrefEntity> = database.get(tid)
 
-    override fun insert(pref: Pref) = database.insert(pref)
+    override fun insert(pref: PrefEntity) = database.insert(pref)
 }
