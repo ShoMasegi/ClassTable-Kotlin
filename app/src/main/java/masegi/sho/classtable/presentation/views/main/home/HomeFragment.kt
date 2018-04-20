@@ -59,21 +59,13 @@ class HomeFragment : DaggerFragment(), OnTableItemClickListener {
 
         super.onViewCreated(view, savedInstanceState)
         binding.classTable.adapter = adapter
-        viewModel.data.observe(this) { result ->
+        viewModel.lessons.observe(this) { result ->
 
             when(result) {
 
                 is Result.Success -> {
 
-                    if (adapter.days == Prefs.weeks &&
-                            adapter.dayLessonCount == Prefs.dayLessonCount) {
-
-                        adapter.datasetChanged(LessonDataSource(result.data.first))
-                    }
-                    else {
-
-                        adapter.build(LessonDataSource(result.data.first))
-                    }
+                    adapter.build(LessonDataSource(result.data))
                 }
             }
         }
