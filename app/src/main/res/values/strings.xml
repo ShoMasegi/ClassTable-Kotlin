@@ -1,6 +1,16 @@
 <resources>
     <string name="app_name">ClassTable</string>
+
+    <!-- Preference key -->
     <string name="pref_key_stamp">pref_key_stamp</string>
+    <string name="pref_key_table">pref_key_table</string>
+    <string name="pref_key_tid">pref_key_tid</string>
+    <string name="pref_key_name">pref_key_name</string>
+    <string name="pref_key_week">pref_key_week</string>
+    <string name="pref_key_lesson_count">pref_key_lesson_count</string>
+    <string name="pref_key_notify">pref_key_notify</string>
+    <string name="pref_key_mode">pref_key_mode</string>
+    <string name="pref_key_manage">pref_key_manage</string>
 
     <!-- Error Message -->
     <string name="error_no_classname">Must fill in ClassName.</string>

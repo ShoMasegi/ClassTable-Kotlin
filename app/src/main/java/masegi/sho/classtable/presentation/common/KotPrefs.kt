@@ -15,4 +15,9 @@ object KotPrefs : KotprefModel() {
             default = 0,
             key = R.string.pref_key_stamp
     )
+
+    var tid: Int by intPref(
+            default = 0,
+            key = R.string.pref_key_table
+    )
 }
