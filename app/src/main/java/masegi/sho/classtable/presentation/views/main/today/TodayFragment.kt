@@ -12,7 +12,6 @@ import android.view.View
 import android.view.ViewGroup
 import dagger.android.support.DaggerFragment
 import masegi.sho.classtable.data.Prefs
-import masegi.sho.classtable.data.model.Pref
 
 import masegi.sho.classtable.databinding.FragmentTodayBinding
 import masegi.sho.classtable.kotlin.data.model.DayOfWeek
