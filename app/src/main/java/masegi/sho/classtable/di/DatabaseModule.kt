@@ -45,8 +45,9 @@ import javax.inject.Singleton
     @Singleton @Provides
     fun provideDb(app: Application): AppDatabase =
             Room.databaseBuilder(app, AppDatabase::class.java, "classtable.db")
-                .fallbackToDestructiveMigration()
-                .build()
+                    .fallbackToDestructiveMigration()
+                    .allowMainThreadQueries()
+                    .build()
 
     @Singleton @Provides
     fun provideLessonDao(db: AppDatabase): LessonDao = db.lessonDao()
