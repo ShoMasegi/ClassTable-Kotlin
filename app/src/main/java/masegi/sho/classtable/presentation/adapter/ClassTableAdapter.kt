@@ -24,7 +24,7 @@ interface OnTableItemClickListener {
 }
 
 class ClassTableAdapter(
-        var dataSource: LessonDataSource,
+        private var dataSource: LessonDataSource,
         private var listener: OnTableItemClickListener
 )
 {
@@ -37,11 +37,19 @@ class ClassTableAdapter(
 
     // MARK: - Internal
 
-    internal fun rebuild(source: LessonDataSource) {
+    internal var days: List<DayOfWeek>
+        private set(value) { classTable.weeks = value }
+        get() = classTable.weeks
+
+    internal var dayLessonCount: Int
+        private set(value) { classTable.sectionCount = value }
+        get() = classTable.sectionCount
+
+    internal fun build(source: LessonDataSource) {
 
         dataSource = source
-        classTable.sectionCount = Prefs.dayLessonCount
-        classTable.weeks = Prefs.weeks
+        days = Prefs.weeks
+        dayLessonCount = Prefs.dayLessonCount
         classTable.build()
     }
 

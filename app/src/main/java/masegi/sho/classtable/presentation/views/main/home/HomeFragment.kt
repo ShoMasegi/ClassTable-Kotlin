@@ -58,19 +58,22 @@ class HomeFragment : DaggerFragment(), OnTableItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
-        binding.classTable.apply {
-
-            weeks = Prefs.weeks
-            sectionCount = Prefs.dayLessonCount
-            adapter = this@HomeFragment.adapter
-        }
-        viewModel.lessons.observe(this) { result ->
+        binding.classTable.adapter = adapter
+        viewModel.data.observe(this) { result ->
 
             when(result) {
 
                 is Result.Success -> {
 
-                    adapter.datasetChanged(LessonDataSource(result.data))
+                    if (adapter.days == Prefs.weeks &&
+                            adapter.dayLessonCount == Prefs.dayLessonCount) {
+
+                        adapter.datasetChanged(LessonDataSource(result.data.first))
+                    }
+                    else {
+
+                        adapter.build(LessonDataSource(result.data.first))
+                    }
                 }
             }
         }
@@ -93,7 +96,7 @@ class HomeFragment : DaggerFragment(), OnTableItemClickListener {
 
                 R.id.menu_add, R.id.menu_edit -> {
 
-                    val lesson: Lesson = item ?: Lesson(name = "", week = day, start = start)
+                    val lesson: Lesson = item ?: Lesson(tid = Prefs.tid, name = "", week = day, start = start)
                     navigationController.navigateToEditLessonActivity(lesson)
                     true
                 }
