@@ -42,7 +42,7 @@ dependencies {
             supportLibrary: "27.0.2",
             dagger        : "2.13",
             arch          : "1.0.0",
-            kotpref       : "2.3.0",
+            kotpref       : "2.5.0",
             parcel        : "1.1.1",
             coroutines    : '0.21'
     ]
