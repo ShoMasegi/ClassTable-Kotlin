@@ -1,5 +1,6 @@
 package masegi.sho.classtable.presentation.views.main
 
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
@@ -8,10 +9,10 @@ import android.support.annotation.IdRes
 import android.support.annotation.MenuRes
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import dagger.android.support.DaggerAppCompatActivity
 import masegi.sho.classtable.R
 import masegi.sho.classtable.databinding.ActivityMainBinding
+import masegi.sho.classtable.di.ViewModelFactory
 import masegi.sho.classtable.presentation.NavigationController
 import masegi.sho.classtable.utli.ext.elevationForPostLollipop
 import javax.inject.Inject
@@ -22,13 +23,15 @@ class MainActivity : DaggerAppCompatActivity() {
     // MARK: - Property
 
     @Inject lateinit var navigationController: NavigationController
+    @Inject lateinit var viewModelFactory: ViewModelFactory
 
     private val binding by lazy {
 
-        DataBindingUtil.setContentView<ActivityMainBinding>(
-                this,
-                R.layout.activity_main
-        )
+        DataBindingUtil.setContentView<ActivityMainBinding>(this, R.layout.activity_main)
+    }
+    private val viewModel by lazy {
+
+        ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
     }
 
 
@@ -37,6 +40,7 @@ class MainActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+        viewModel
         setSupportActionBar(binding.toolbar)
         setupBottomNavigation(savedInstanceState)
     }

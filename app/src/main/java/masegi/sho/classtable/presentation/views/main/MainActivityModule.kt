@@ -38,6 +38,9 @@ interface MainActivityModule {
     @ContributesAndroidInjector
     fun contributeLessonListFragment(): LessonListFragment
 
+    @Binds @IntoMap @ViewModelKey(MainViewModel::class)
+    fun bindMainViewModel(mainViewModel: MainViewModel): ViewModel
+
     @Binds @IntoMap @ViewModelKey(HomeViewModel::class)
     fun bindHomeViewModel(homeViewModel: HomeViewModel): ViewModel
 
