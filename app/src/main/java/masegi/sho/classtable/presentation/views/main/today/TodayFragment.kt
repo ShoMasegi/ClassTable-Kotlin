@@ -6,7 +6,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.app.FragmentStatePagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +15,8 @@ import masegi.sho.classtable.data.Prefs
 
 import masegi.sho.classtable.databinding.FragmentTodayBinding
 import masegi.sho.classtable.kotlin.data.model.DayOfWeek
+import masegi.sho.classtable.presentation.Result
+import masegi.sho.classtable.utli.ext.observe
 import java.util.*
 import javax.inject.Inject
 
@@ -31,23 +33,64 @@ class TodayFragment : DaggerFragment() {
 
         ViewModelProviders.of(this, viewModelFactory).get(TodayViewModel::class.java)
     }
+    private var days: List<DayOfWeek> = Prefs.weeks
+
+
+    // MARK: - Fragment
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         binding = FragmentTodayBinding.inflate(inflater, container, false)
         viewPagerAdapter = LessonsViewPagerAdapter(childFragmentManager)
-        binding.viewPager.adapter = viewPagerAdapter
-        viewPagerAdapter.setDaysOfWeek(Prefs.weeks)
-        binding.tabLayout.setupWithViewPager(binding.viewPager)
+        setupViewPager(days)
+        moveToPreviousTab()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         super.onViewCreated(view, savedInstanceState)
-        val today = DayOfWeek.getValue(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1)
-        binding.viewPager.currentItem = Prefs.weeks.indexOfFirst { it == today }
+        viewModel.pref.observe(this) { result ->
+
+            when (result) {
+
+                is Result.Success -> {
+
+                    days = result.data.weeks
+                    setupViewPager(days)
+                    moveToPreviousTab()
+                }
+            }
+        }
+    }
+
+    override fun onPause() {
+
+        super.onPause()
+        val currentItem = binding.viewPager.currentItem
+        if (currentItem < 0 || days.size <= currentItem) return
+        PreviousDayPrefs.previousDayTab = days[binding.viewPager.currentItem]
+    }
+
+
+    // MARK: - Private
+
+    private fun setupViewPager(days: List<DayOfWeek>) {
+
+        viewPagerAdapter.setDaysOfWeek(days)
+        binding.viewPager.adapter = viewPagerAdapter
+        binding.tabLayout.setupWithViewPager(binding.viewPager)
+    }
+
+    private fun moveToPreviousTab() {
+
+        var to: DayOfWeek? = PreviousDayPrefs.previousDayTab
+        if (to == null) {
+
+            to = DayOfWeek.getValue(Calendar.getInstance().get(Calendar.DAY_OF_WEEK) - 1)
+        }
+        binding.viewPager.currentItem = Prefs.weeks.indexOfFirst { it == to }
     }
 
     companion object {
@@ -59,7 +102,7 @@ class TodayFragment : DaggerFragment() {
 
 class LessonsViewPagerAdapter(
         fragmentManager: FragmentManager
-) : FragmentPagerAdapter(fragmentManager) {
+) : FragmentStatePagerAdapter(fragmentManager) {
 
     private val tabs = arrayListOf<Tab>()
 

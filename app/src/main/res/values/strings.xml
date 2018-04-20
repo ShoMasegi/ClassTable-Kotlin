@@ -11,6 +11,7 @@
     <string name="pref_key_notify">pref_key_notify</string>
     <string name="pref_key_mode">pref_key_mode</string>
     <string name="pref_key_manage">pref_key_manage</string>
+    <string name="pref_key_previous_day">pref_key_previous_day</string>
 
     <!-- Error Message -->
     <string name="error_no_classname">Must fill in ClassName.</string>

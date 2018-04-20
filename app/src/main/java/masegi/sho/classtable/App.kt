@@ -8,6 +8,7 @@ import masegi.sho.classtable.data.parceler.ThemeParcelConverter
 import masegi.sho.classtable.di.DatabaseModule
 import masegi.sho.classtable.kotlin.data.model.ThemeColor
 import masegi.sho.classtable.kotlin.di.DaggerAppComponent
+import masegi.sho.classtable.presentation.views.main.today.PreviousDayPrefs
 import org.parceler.Parcel
 import org.parceler.ParcelClass
 import org.parceler.ParcelClasses
@@ -27,6 +28,12 @@ open class App : DaggerApplication() {
 
         super.onCreate()
         Kotpref.init(this)
+    }
+
+    override fun onTerminate() {
+
+        PreviousDayPrefs.previousDayTab = null
+        super.onTerminate()
     }
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {

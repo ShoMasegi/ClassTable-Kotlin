@@ -3,8 +3,12 @@ package masegi.sho.classtable.presentation.views.main.today
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.ViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import masegi.sho.classtable.data.Prefs
 import masegi.sho.classtable.data.model.Memo
+import masegi.sho.classtable.data.model.PrefEntity
 import masegi.sho.classtable.data.repository.LessonRepository
+import masegi.sho.classtable.data.repository.PrefRepository
 import masegi.sho.classtable.kotlin.data.model.Lesson
 import masegi.sho.classtable.presentation.Result
 import masegi.sho.classtable.presentation.common.mapper.toResult
@@ -16,10 +20,18 @@ import javax.inject.Inject
  */
 
 class TodayViewModel @Inject constructor(
-        private val repository: LessonRepository
+        private val prefRepository: PrefRepository
 ) : ViewModel() {
 
 
     // MARK: - Property
 
+    internal val pref: LiveData<Result<PrefEntity>> by lazy {
+
+        prefRepository.prefs
+                .map { it.firstOrNull { it.tid == Prefs.tid } ?: PrefEntity() }
+                .subscribeOn(Schedulers.io())
+                .toResult(AndroidSchedulers.mainThread())
+                .toLiveData()
+    }
 }
