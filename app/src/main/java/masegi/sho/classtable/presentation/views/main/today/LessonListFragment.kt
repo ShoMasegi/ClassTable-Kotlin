@@ -81,20 +81,6 @@ class LessonListFragment : DaggerFragment() {
                 is Result.Failure -> isEmpty.set(true)
             }
         }
-        viewModel.lessons.observe(this) { result ->
-
-            when (result) {
-
-                is Result.Success -> {
-
-                    val lessons = result.data
-                }
-                is Result.Failure -> {
-
-                    isEmpty.set(true)
-                }
-            }
-        }
     }
 
 

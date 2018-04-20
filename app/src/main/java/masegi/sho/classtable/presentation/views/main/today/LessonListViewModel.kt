@@ -28,24 +28,16 @@ class LessonListViewModel @Inject constructor(
 
     internal lateinit var day: DayOfWeek
 
-    internal val lessons: LiveData<Result<List<Lesson>>> by lazy {
-
-        repository.lessons.map { ls -> ls.filter { it.week == day } }
-                .subscribeOn(Schedulers.io())
-                .toResult(AndroidSchedulers.mainThread())
-                .toLiveData()
-    }
-
     internal val data: LiveData<Result<List<Pair<Lesson, Memo?>>>> by lazy {
 
-        Flowables.combineLatest(
+        Flowables.zip(
                 repository.lessons.map { ls -> ls.filter { it.week == day } },
                 repository.memos,
                 { lessons, memos ->
 
                     val data: MutableList<Pair<Lesson, Memo?>> = mutableListOf()
                     lessons.forEach { l -> data.add(l to memos.firstOrNull { it.lid == l.id }) }
-                    data.sortedByDescending { it.first.start }
+                    data.sortedBy { it.first.start }
                 }
         ).subscribeOn(Schedulers.io())
                 .toResult(AndroidSchedulers.mainThread())
