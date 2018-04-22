@@ -82,6 +82,7 @@ class MainActivity : DaggerAppCompatActivity() {
             setupToolbar(navigationItem)
             true
         }
+        binding.bottomNavigation.setOnNavigationItemReselectedListener {  }
         if (savedInstanceState == null) {
 
             binding.bottomNavigation.selectedItemId = R.id.nav_home
