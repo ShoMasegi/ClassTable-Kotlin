@@ -57,6 +57,7 @@ class LessonListFragment : DaggerFragment(), LifecycleOwner {
 
         binding = FragmentLessonListBinding.inflate(inflater, container, false)
         binding.isEmpty = isEmpty
+        isEmpty.set(false)
         listAdapter = LessonListAdapter(listOf()) { navigationController.navigateToDetailActivity(it) }
         binding.listView.run {
 
