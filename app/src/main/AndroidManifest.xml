@@ -23,7 +23,8 @@
         <activity android:name=".presentation.views.setting.SettingActivity" />
         <activity android:name=".presentation.views.editmemo.EditMemoActivity" />
         <activity android:name=".presentation.views.todolist.TodoListActivity" />
-        <activity android:name=".presentation.views.edittask.EditTaskActivity"></activity>
+        <activity android:name=".presentation.views.edittask.EditTaskActivity" />
+        <activity android:name=".presentation.views.edittable.EditTableActivity"></activity>
     </application>
 
 </manifest>

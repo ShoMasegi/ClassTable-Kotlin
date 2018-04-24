@@ -15,6 +15,7 @@ import masegi.sho.classtable.data.model.PrefEntity
 
 import masegi.sho.classtable.databinding.FragmentSettingBinding
 import masegi.sho.classtable.kotlin.data.model.DayOfWeek
+import masegi.sho.classtable.presentation.NavigationController
 import masegi.sho.classtable.presentation.Result
 import masegi.sho.classtable.presentation.common.KotPrefs
 import masegi.sho.classtable.presentation.customview.NumberPickerDialog
@@ -30,6 +31,7 @@ class SettingFragment : DaggerFragment() {
     private var prefs: List<PrefEntity> = listOf()
     private var pref = PrefEntity()
     private lateinit var binding: FragmentSettingBinding
+    @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     private val viewModel: SettingViewModel by lazy {
 
@@ -82,7 +84,7 @@ class SettingFragment : DaggerFragment() {
         binding.selectWeek.setOnClickListener { showChooseDaysDialog() }
         binding.count.onClicked = { showDayLessonCountDialog() }
         binding.table.onClicked = { showChooseTableDialog() }
-        binding.editTables.setOnClickListener {  }
+        binding.editTables.setOnClickListener { navigationController.navigateToEditTableActivity() }
         binding.editTime.setOnClickListener {  }
     }
 

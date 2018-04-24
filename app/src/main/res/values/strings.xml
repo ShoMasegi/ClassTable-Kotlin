@@ -20,6 +20,7 @@
     <string name="error_classname_used">This class name is already used.</string>
     <string name="error_default">Please Check items.</string>
     <string name="error_delete_table">Can not delete this table, because it is currently in use.</string>
+    <string name="error_save_same_name_table">This table name is already exist.</string>
 
     <string name="delete_class_question">"Delete this class? : "</string>
     <string name="dummy_sentence">Lorem ipsum dolor sit amet,

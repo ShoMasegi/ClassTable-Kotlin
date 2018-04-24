@@ -14,6 +14,8 @@ import masegi.sho.classtable.presentation.views.editlesson.EditLessonActivity
 import masegi.sho.classtable.presentation.views.editlesson.EditLessonFragment
 import masegi.sho.classtable.presentation.views.editmemo.EditMemoActivity
 import masegi.sho.classtable.presentation.views.editmemo.EditMemoFragment
+import masegi.sho.classtable.presentation.views.edittable.EditTableActivity
+import masegi.sho.classtable.presentation.views.edittable.EditTableFragment
 import masegi.sho.classtable.presentation.views.edittask.EditTaskActivity
 import masegi.sho.classtable.presentation.views.edittask.EditTaskFragment
 import masegi.sho.classtable.presentation.views.main.home.HomeFragment
@@ -101,6 +103,16 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
     internal fun navigateToSetting() {
 
         replaceFragment(SettingFragment.newInstance())
+    }
+
+    internal fun navigateToEditTableActivity() {
+
+        EditTableActivity.start(activity)
+    }
+
+    internal fun navigateToEditTable() {
+
+        replaceFragment(EditTableFragment.newInstance())
     }
 
 

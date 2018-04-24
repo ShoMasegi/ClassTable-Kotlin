@@ -13,6 +13,6 @@ interface PrefRepository {
     val prefs: Flowable<List<PrefEntity>>
 
     fun getPref(tid: Int): Maybe<PrefEntity>
-
     fun insert(pref: PrefEntity)
+    fun delete(pref: PrefEntity)
 }

@@ -12,8 +12,8 @@ import masegi.sho.classtable.kotlin.data.model.DayOfWeek.*
 
 @Entity(tableName = "pref")
 data class PrefEntity(
-        @PrimaryKey
-        var tid: Int = 1,
+        @PrimaryKey(autoGenerate = true)
+        var tid: Int = 0,
         var name: String = "Default Table",
         var weekString: String = "0111110",
         var dayLessonCount: Int = 5,
@@ -43,4 +43,16 @@ data class PrefEntity(
             string.forEachIndexed { i, char -> if (char == '1') result.add(DayOfWeek.getValue(i)) }
             return result
         }
+
+    override fun equals(other: Any?): Boolean {
+
+        if (other?.javaClass != javaClass) return false
+        return if (other is PrefEntity) {
+
+            tid == other.tid && name == other.name && weekString == other.weekString
+                    && dayLessonCount == other.dayLessonCount && shouldNotify == other.shouldNotify
+                    && attendManage == other.attendManage && attendMode == other.attendMode
+        }
+        else false
+    }
 }

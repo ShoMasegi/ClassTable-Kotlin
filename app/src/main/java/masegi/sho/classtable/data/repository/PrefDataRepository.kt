@@ -19,4 +19,6 @@ class PrefDataRepository @Inject constructor(
     override fun getPref(tid: Int): Maybe<PrefEntity> = database.get(tid)
 
     override fun insert(pref: PrefEntity) = database.insert(pref)
+
+    override fun delete(pref: PrefEntity) = database.delete(pref.tid)
 }
