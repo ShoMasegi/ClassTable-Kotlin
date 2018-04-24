@@ -1,6 +1,7 @@
 package masegi.sho.classtable.presentation.views.main.home
 
 
+import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -25,7 +26,7 @@ import masegi.sho.classtable.utli.ext.observe
 import javax.inject.Inject
 
 
-class HomeFragment : DaggerFragment(), OnTableItemClickListener {
+class HomeFragment : DaggerFragment(), OnTableItemClickListener, LifecycleOwner {
 
 
     // MARK: - Property
@@ -45,6 +46,7 @@ class HomeFragment : DaggerFragment(), OnTableItemClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
+        lifecycle.addObserver(viewModel)
         adapter = ClassTableAdapter(LessonDataSource(listOf()), this)
     }
 

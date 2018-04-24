@@ -20,9 +20,6 @@ class LessonRoomDatabase @Inject constructor(
     override fun getAllLessons(): Flowable<List<Lesson>> =
             lessonDao.getAllLessons()
 
-    override fun getALlLessons(tid: Int): Flowable<List<Lesson>> =
-            lessonDao.getAllLessons(tid)
-
     override fun getLesson(tid: Int, id: Int): Maybe<Lesson> =
             lessonDao.getLesson(tid, id)
 
@@ -33,16 +30,11 @@ class LessonRoomDatabase @Inject constructor(
             startTo: Int
     ): Maybe<List<Lesson>> = lessonDao.getLessons(tid, week.toString(), startFrom, startTo)
 
-
-
     override fun getLessons(tid: Int, name: String): Flowable<List<Lesson>> =
             lessonDao.getLessons(tid, name)
 
     override fun getLesson(tid: Int, week: DayOfWeek, start: Int): Maybe<Lesson> =
             lessonDao.getLesson(tid, week.toString(), start)
-
-    override fun getWeekLessons(tid: Int, week: DayOfWeek): Flowable<List<Lesson>> =
-            lessonDao.getLessons(tid, week.toString())
 
     override fun deleteAll() = lessonDao.deleteAll()
 

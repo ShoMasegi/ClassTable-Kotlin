@@ -22,7 +22,7 @@ class LessonDataRepository @Inject constructor(
         private val restoreDatabase: RestoreDatabase
 ) : LessonRepository {
 
-    override val lessons: Flowable<List<Lesson>> = lessonDatabase.getALlLessons(Prefs.tid)
+    override val lessons: Flowable<List<Lesson>> = lessonDatabase.getAllLessons()
     override val memos: Flowable<List<Memo>> = restoreDatabase.getAllMemo(Prefs.tid)
     override val tasks: Flowable<List<Task>> = restoreDatabase.getAllTask(Prefs.tid)
 
@@ -31,33 +31,6 @@ class LessonDataRepository @Inject constructor(
 
     override fun getLessons(week: DayOfWeek, start: Int, end: Int): Maybe<List<Lesson>> =
             lessonDatabase.getLessons(Prefs.tid, week, start, end)
-
-
-//    override fun save(lesson: Lesson) { // TODO: RETURN result: Single<Bool>
-//
-//        lessonDatabase.getLessons(
-//                lesson.tid,
-//                lesson.week,
-//                lesson.start,
-//                lesson.start + lesson.section - 1
-//        ).subscribeOn(Schedulers.io())
-//            .subscribeBy(
-//                    onSuccess = {
-//
-//                        if (it.isNotEmpty()) {
-//
-//                            it.forEach { if (it.id != lesson.id) { return@subscribeBy } }
-//                            this.insert(lesson)
-//                        }
-//                        else {
-//
-//                            this.insert(lesson)
-//                        }
-//                    },
-//                    onError = { },
-//                    onComplete = { this.insert(lesson) }
-//            )
-//    }
 
     override fun insert(lesson: Lesson) = lessonDatabase.insert(lesson)
 
