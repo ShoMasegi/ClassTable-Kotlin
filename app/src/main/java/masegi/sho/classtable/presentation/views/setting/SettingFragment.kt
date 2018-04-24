@@ -30,6 +30,11 @@ class SettingFragment : DaggerFragment() {
 
     private var prefs: List<PrefEntity> = listOf()
     private var pref = PrefEntity()
+        set(value) {
+
+            field = value
+            binding.pref = value
+        }
     private lateinit var binding: FragmentSettingBinding
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -45,7 +50,7 @@ class SettingFragment : DaggerFragment() {
                               savedInstanceState: Bundle?): View? {
 
         binding = FragmentSettingBinding.inflate(inflater, container!!, false)
-        binding.pref = PrefEntity(name = "Sample", dayLessonCount = 5)
+        binding.pref = PrefEntity()
         return binding.root
     }
 
@@ -59,11 +64,7 @@ class SettingFragment : DaggerFragment() {
                 is Result.Success -> {
 
                     prefs = result.data
-                    result.data.firstOrNull { it.tid == KotPrefs.tid }?.let {
-
-                        this.pref = it
-                        binding.pref = it
-                    }
+                    result.data.firstOrNull { it.tid == KotPrefs.tid }?.let { pref = it }
                 }
             }
         }
@@ -74,6 +75,7 @@ class SettingFragment : DaggerFragment() {
 
         super.onPause()
         Prefs.sync(pref)
+        KotPrefs.tid = pref.tid
     }
 
 
@@ -91,10 +93,6 @@ class SettingFragment : DaggerFragment() {
     private fun showChooseDaysDialog() {
 
         val week = DayOfWeek.values()
-        val map: List<Boolean> = week.map {
-
-            pref.weeks.contains(it)
-        }
         val defaultValue: BooleanArray = week.map { pref.weeks.contains(it) }.toBooleanArray()
         AlertDialog.Builder(context!!)
                 .setMultiChoiceItems(
@@ -123,13 +121,12 @@ class SettingFragment : DaggerFragment() {
         AlertDialog.Builder(context!!)
                 .setSingleChoiceItems(
                         names.toTypedArray(),
-                        tids.indexOf(Prefs.tid),
+                        tids.indexOf(pref.tid),
                         { _, which -> checkId = tids[which] }
                 )
                 .setPositiveButton(android.R.string.ok) { _, _ ->
 
-                    pref.tid = checkId
-                    viewModel.insert(pref)
+                    prefs.firstOrNull { it.tid == checkId }?.let { pref = it }
                 }
                 .setNegativeButton(android.R.string.cancel, null)
                 .setTitle(R.string.dialog_choose_table)
