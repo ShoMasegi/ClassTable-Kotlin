@@ -22,7 +22,7 @@ class MainViewModel @Inject constructor(
 
         if (KotPrefs.tid == 0) {
 
-            launch(CommonPool) { prefRepository.insert(PrefEntity()) }
+            launch(CommonPool) { prefRepository.insert(PrefEntity(tid = 1)) }
             KotPrefs.tid = 1
             Prefs.sync(PrefEntity())
         }
