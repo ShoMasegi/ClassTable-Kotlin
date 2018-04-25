@@ -1,5 +1,6 @@
 package masegi.sho.classtable.presentation.views.main.todo
 
+import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.ObservableField
@@ -28,7 +29,7 @@ import masegi.sho.classtable.utli.ext.observe
 import javax.inject.Inject
 
 
-class TodoFragment : DaggerFragment(), RecyclerItemTouchHelper.RecyclerItemTouchHelperListener {
+class TodoFragment : DaggerFragment(), RecyclerItemTouchHelper.RecyclerItemTouchHelperListener, LifecycleOwner {
 
 
     // MARK: - Property
@@ -45,6 +46,12 @@ class TodoFragment : DaggerFragment(), RecyclerItemTouchHelper.RecyclerItemTouch
 
 
     // MARK: - Fragment
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        super.onCreate(savedInstanceState)
+        lifecycle.addObserver(viewModel)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
