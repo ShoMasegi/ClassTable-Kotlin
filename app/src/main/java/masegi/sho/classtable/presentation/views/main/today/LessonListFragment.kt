@@ -1,6 +1,7 @@
 package masegi.sho.classtable.presentation.views.main.today
 
 
+import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.ObservableField
@@ -24,7 +25,7 @@ import masegi.sho.classtable.utli.ext.observe
 import javax.inject.Inject
 
 
-class LessonListFragment : DaggerFragment() {
+class LessonListFragment : DaggerFragment(), LifecycleOwner {
 
 
     // MARK: - Property
@@ -46,7 +47,8 @@ class LessonListFragment : DaggerFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        day = DayOfWeek.Companion.getValue(arguments!!.getInt(ARG_DAY_OF_WEEK))
+        lifecycle.addObserver(viewModel)
+        day = DayOfWeek.getValue(arguments!!.getInt(ARG_DAY_OF_WEEK))
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,

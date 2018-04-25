@@ -23,8 +23,8 @@ class LessonDataRepository @Inject constructor(
 ) : LessonRepository {
 
     override val lessons: Flowable<List<Lesson>> = lessonDatabase.getAllLessons()
-    override val memos: Flowable<List<Memo>> = restoreDatabase.getAllMemo(Prefs.tid)
-    override val tasks: Flowable<List<Task>> = restoreDatabase.getAllTask(Prefs.tid)
+    override val memos: Flowable<List<Memo>> = restoreDatabase.getAllMemo()
+    override val tasks: Flowable<List<Task>> = restoreDatabase.getAllTask()
 
     override fun getLesson(week: DayOfWeek, start: Int): Maybe<Lesson> =
             lessonDatabase.getLesson(Prefs.tid, week, start)
