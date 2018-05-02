@@ -117,12 +117,13 @@ class LessonListFragment : DaggerFragment(), LifecycleOwner {
         override fun onBindViewHolder(holder: LessonViewHolder?, position: Int) {
 
             val lesson = data[position].first
+            val _lesson = data.first { it.first.id == lesson.id }.first  // 複数コマの授業の最初のデータを取るため
             holder?.binding?.let {
 
                 it.lesson = lesson
                 it.time = times?.get(lesson.start)
                 it.memo = data[position].second
-                it.root.setOnClickListener { onItemClick?.invoke(lesson) }
+                it.root.setOnClickListener { onItemClick?.invoke(_lesson) }
             }
         }
 
