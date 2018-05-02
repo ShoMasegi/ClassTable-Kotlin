@@ -13,6 +13,7 @@ import masegi.sho.classtable.data.repository.LessonRepository
 import masegi.sho.classtable.data.repository.PrefRepository
 import masegi.sho.classtable.kotlin.data.model.DayOfWeek
 import masegi.sho.classtable.kotlin.data.model.Lesson
+import masegi.sho.classtable.kotlin.data.model.Time
 import masegi.sho.classtable.presentation.Result
 import masegi.sho.classtable.presentation.common.mapper.toResult
 import masegi.sho.classtable.utli.ResettableLazy
@@ -39,7 +40,7 @@ class LessonListViewModel @Inject constructor(
 
     internal val data: LiveData<Result<List<Pair<Lesson, Memo?>>>> by ResettableLazy(manager) {
 
-        Flowables.zip(
+        Flowables.zip( // TODO: zipする必要ない...?
                 repository.lessons.map { ls ->
 
                     ls.filter { it.tid == Prefs.tid && it.week == day }
@@ -54,6 +55,18 @@ class LessonListViewModel @Inject constructor(
                     data.sortedBy { it.first.start }
                 }
         ).subscribeOn(Schedulers.io())
+                .toResult(AndroidSchedulers.mainThread())
+                .toLiveData()
+    }
+    internal val times: LiveData<Result<Map<Int, Time>>> by lazy {
+
+        prefRepository.times
+                .map { ts ->
+
+                    val map = mutableMapOf<Int, Time>()
+                    ts.map { map[it.periodNum] = it }
+                    map.toMap()
+                }
                 .toResult(AndroidSchedulers.mainThread())
                 .toLiveData()
     }

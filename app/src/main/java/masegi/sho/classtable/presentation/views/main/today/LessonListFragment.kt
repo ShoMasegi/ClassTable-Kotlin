@@ -19,6 +19,7 @@ import masegi.sho.classtable.databinding.FragmentLessonListBinding
 import masegi.sho.classtable.databinding.ItemLessonCardBinding
 import masegi.sho.classtable.kotlin.data.model.DayOfWeek
 import masegi.sho.classtable.kotlin.data.model.Lesson
+import masegi.sho.classtable.kotlin.data.model.Time
 import masegi.sho.classtable.presentation.NavigationController
 import masegi.sho.classtable.presentation.Result
 import masegi.sho.classtable.utli.ext.observe
@@ -75,12 +76,22 @@ class LessonListFragment : DaggerFragment(), LifecycleOwner {
 
                 is Result.Success -> {
 
-                    val data = result.data
-                    isEmpty.set(data.isEmpty())
-                    listAdapter.data = data
+                    isEmpty.set(result.data.isEmpty())
+                    listAdapter.data = result.data
                     listAdapter.notifyDataSetChanged()
                 }
                 is Result.Failure -> isEmpty.set(true)
+            }
+        }
+        viewModel.times.observe(this) { result ->
+
+            when (result) {
+
+                is Result.Success -> {
+
+                    listAdapter.times = result.data
+                    listAdapter.notifyDataSetChanged()
+                }
             }
         }
     }
@@ -90,6 +101,7 @@ class LessonListFragment : DaggerFragment(), LifecycleOwner {
 
     private class LessonListAdapter (
             var data: List<Pair<Lesson, Memo?>>,
+            var times: Map<Int, Time>? = null,
             var onItemClick: ((Lesson) -> Unit)?
     ) : RecyclerView.Adapter<LessonListAdapter.LessonViewHolder>() {
 
@@ -105,9 +117,13 @@ class LessonListFragment : DaggerFragment(), LifecycleOwner {
         override fun onBindViewHolder(holder: LessonViewHolder?, position: Int) {
 
             val lesson = data[position].first
-            holder?.binding?.lesson = lesson
-            holder?.binding?.memo = data[position].second
-            holder?.binding?.root?.setOnClickListener { onItemClick?.invoke(lesson) }
+            holder?.binding?.let {
+
+                it.lesson = lesson
+                it.time = times?.get(lesson.start)
+                it.memo = data[position].second
+                it.root.setOnClickListener { onItemClick?.invoke(lesson) }
+            }
         }
 
         class LessonViewHolder(var binding: ItemLessonCardBinding) : RecyclerView.ViewHolder(binding.root)
