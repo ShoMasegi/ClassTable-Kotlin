@@ -7,10 +7,7 @@ import android.arch.persistence.room.RoomDatabase
 import dagger.Module
 import dagger.Provides
 import masegi.sho.classtable.data.db.*
-import masegi.sho.classtable.data.db.dao.LessonDao
-import masegi.sho.classtable.data.db.dao.MemoDao
-import masegi.sho.classtable.data.db.dao.PrefDao
-import masegi.sho.classtable.data.db.dao.TaskDao
+import masegi.sho.classtable.data.db.dao.*
 import masegi.sho.classtable.data.model.Memo
 import javax.inject.Singleton
 
@@ -39,8 +36,9 @@ import javax.inject.Singleton
 
     @Singleton @Provides
     fun providePrefDatabase(
-            prefDao: PrefDao
-    ): PrefDatabase = PrefRoomDatabase(prefDao)
+            prefDao: PrefDao,
+            timeDao: TimeDao
+    ): PrefDatabase = PrefRoomDatabase(prefDao, timeDao)
 
     @Singleton @Provides
     fun provideDb(app: Application): AppDatabase =
@@ -60,4 +58,7 @@ import javax.inject.Singleton
 
     @Singleton @Provides
     fun providePrefDao(db: AppDatabase): PrefDao = db.prefDao()
+
+    @Singleton @Provides
+    fun provideTimeDao(db: AppDatabase): TimeDao = db.timeDao()
 }

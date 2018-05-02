@@ -1,5 +1,8 @@
 package masegi.sho.classtable.kotlin.data.model
 
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.Ignore
+import android.arch.persistence.room.PrimaryKey
 import masegi.sho.classtable.util.ext.ordinal
 import masegi.sho.classtable.utli.CalendarUtil
 import java.util.*
@@ -8,18 +11,21 @@ import java.util.*
  * Created by masegi on 2018/03/04.
  */
 
+@Entity(tableName = "time")
 data class Time(
-        var periodNum: Int,
-        var startHour: Int,
-        var startMin: Int,
-        var endHour: Int,
-        var endMin: Int
+        var tid: Int = 0,
+        @PrimaryKey var periodNum: Int = 0,
+        var startHour: Int = 0,
+        var startMin: Int = 0,
+        var endHour: Int = 0,
+        var endMin: Int = 0
 )
 {
 
 
     // MARK: - Property
 
+    @Ignore
     var startTime: String = ""
         private set
         get() {
@@ -32,6 +38,7 @@ data class Time(
             return CalendarUtil.calendarToSimpleTime(calendar)
         }
 
+    @Ignore
     var endTime: String = ""
         private set
         get() {
@@ -44,6 +51,7 @@ data class Time(
             return CalendarUtil.calendarToSimpleTime(calendar)
         }
 
+    @Ignore
     var period: String = ""
         private set
         get() = periodNum.ordinal + " Period"
