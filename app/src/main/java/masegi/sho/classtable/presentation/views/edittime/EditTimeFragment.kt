@@ -16,6 +16,8 @@ import masegi.sho.classtable.data.Prefs
 import masegi.sho.classtable.databinding.FragmentEditTimeBinding
 import masegi.sho.classtable.databinding.ItemEditTimeBinding
 import masegi.sho.classtable.kotlin.data.model.Time
+import masegi.sho.classtable.presentation.Result
+import masegi.sho.classtable.utli.ext.observe
 import javax.inject.Inject
 
 class EditTimeFragment : DaggerFragment() {
@@ -31,6 +33,7 @@ class EditTimeFragment : DaggerFragment() {
     }
     private lateinit var adapter: LessonTimeAdapter
     private var timesMap: MutableMap<Int, Time> = mutableMapOf()
+    private var addedTime = false
 
 
     // MARK: - Fragment
@@ -50,8 +53,25 @@ class EditTimeFragment : DaggerFragment() {
             adapter = this@EditTimeFragment.adapter
             addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
         }
-        viewModel
+        viewModel.times.observe(this) { result ->
+
+            when (result) {
+
+                is Result.Success -> {
+
+                    timesMap.clear()
+                    timesMap.putAll(result.data)
+                    adapter.notifyDataSetChanged()
+                }
+            }
+        }
         return binding.root
+    }
+
+    override fun onPause() {
+
+        super.onPause()
+        if (addedTime) viewModel.save(timesMap)
     }
 
 
@@ -65,11 +85,15 @@ class EditTimeFragment : DaggerFragment() {
                 .setOnSetTimeListener {
 
                     timesMap[time.periodNum] = time
-                    adapter.notifyDataSetChanged()
+                    adapter.notifyItemChanged(time.periodNum - 1)
+                    addedTime = true
                 }
                 .show(it)
         }
     }
+
+
+    // MARK: - LessonTimeAdapter
 
     private class LessonTimeAdapter(
             var times: Map<Int, Time>,
