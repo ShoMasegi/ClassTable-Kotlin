@@ -60,4 +60,8 @@
         <item name="android:textColorPrimary">@color/char_black</item>
     </style>
 
+    <style name="TimePickerDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+
 </resources>

@@ -23,9 +23,6 @@
     <string name="error_save_same_name_table">This table name is already exist.</string>
 
     <string name="delete_class_question">"Delete this class? : "</string>
-    <string name="dummy_sentence">Lorem ipsum dolor sit amet,
-        consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna wirl aliqua.
-        Ut enim ad minim ikad veniam, quis nostrud exercitatn ullamco laboris nisinuli.</string>
     <string name="no_todo_sub">You have no tasks!</string>
     <string name="no_todo_main">You have no tasks to do!</string>
     <string name="no_class">You have no class today!</string>
@@ -79,7 +76,7 @@
 
     <string name="settings_pref_file_key">preferenceKey</string>
     <string name="settings_pref_table_id_key">tableIdKey</string>
-    <string name="settings_class_time">Edit Class Times</string>
+    <string name="settings_class_time">Edit Class Time</string>
 
 
     <!-- Setting Dialog strings -->
@@ -103,7 +100,6 @@
     <string name="menu_todo">Todo</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_about">About me</string>
-    <string name="title_activity_edit_table">EditTable</string>
 
     <string name="about_me">I\'m a senior majoring in Mechanical Engineering Informatics.</string>
 

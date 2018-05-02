@@ -18,6 +18,8 @@ import masegi.sho.classtable.presentation.views.edittable.EditTableActivity
 import masegi.sho.classtable.presentation.views.edittable.EditTableFragment
 import masegi.sho.classtable.presentation.views.edittask.EditTaskActivity
 import masegi.sho.classtable.presentation.views.edittask.EditTaskFragment
+import masegi.sho.classtable.presentation.views.edittime.EditTimeActivity
+import masegi.sho.classtable.presentation.views.edittime.EditTimeFragment
 import masegi.sho.classtable.presentation.views.main.home.HomeFragment
 import masegi.sho.classtable.presentation.views.main.today.TodayFragment
 import masegi.sho.classtable.presentation.views.main.todo.TodoFragment
@@ -113,6 +115,16 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
     internal fun navigateToEditTable() {
 
         replaceFragment(EditTableFragment.newInstance())
+    }
+
+    internal fun navigateToEditTimeActivity() {
+
+        EditTimeActivity.start(activity)
+    }
+
+    internal fun navigateToEditTime() {
+
+        replaceFragment(EditTimeFragment.newInstance())
     }
 
 

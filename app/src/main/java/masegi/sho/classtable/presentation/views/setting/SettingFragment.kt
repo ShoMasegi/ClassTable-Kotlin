@@ -87,7 +87,7 @@ class SettingFragment : DaggerFragment() {
         binding.count.onClicked = { showDayLessonCountDialog() }
         binding.table.onClicked = { showChooseTableDialog() }
         binding.editTables.setOnClickListener { navigationController.navigateToEditTableActivity() }
-        binding.editTime.setOnClickListener {  }
+        binding.editTime.setOnClickListener { navigationController.navigateToEditTimeActivity() }
     }
 
     private fun showChooseDaysDialog() {
