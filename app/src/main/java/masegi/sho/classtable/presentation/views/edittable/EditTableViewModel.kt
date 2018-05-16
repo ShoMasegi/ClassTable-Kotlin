@@ -7,6 +7,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.launch
 import masegi.sho.classtable.data.model.PrefEntity
+import masegi.sho.classtable.data.repository.LessonRepository
 import masegi.sho.classtable.data.repository.PrefRepository
 import masegi.sho.classtable.presentation.Result
 import masegi.sho.classtable.presentation.common.mapper.toResult
@@ -18,12 +19,13 @@ import javax.inject.Inject
  */
 
 class EditTableViewModel @Inject constructor(
-        private val repository: PrefRepository
+        private val prefRepository: PrefRepository,
+        private val lessonRepository: LessonRepository
 ) : ViewModel() {
 
     internal val prefs: LiveData<Result<List<PrefEntity>>> by lazy {
 
-        repository.prefs
+        prefRepository.prefs
                 .subscribeOn(Schedulers.io())
                 .toResult(AndroidSchedulers.mainThread())
                 .toLiveData()
@@ -31,11 +33,15 @@ class EditTableViewModel @Inject constructor(
 
     internal fun insert(pref: PrefEntity) {
 
-        launch(CommonPool) { repository.insert(pref) }
+        launch(CommonPool) { prefRepository.insert(pref) }
     }
 
     internal fun delete(pref: PrefEntity) {
 
-        launch(CommonPool) { repository.delete(pref) }
+        launch(CommonPool) {
+
+            prefRepository.delete(pref)
+            lessonRepository.delete(pref.tid)
+        }
     }
 }
