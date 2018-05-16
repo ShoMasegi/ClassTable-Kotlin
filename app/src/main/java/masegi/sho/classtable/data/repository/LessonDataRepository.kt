@@ -22,6 +22,7 @@ class LessonDataRepository @Inject constructor(
         private val restoreDatabase: RestoreDatabase
 ) : LessonRepository {
 
+
     override val lessons: Flowable<List<Lesson>> = lessonDatabase.getAllLessons()
     override val memos: Flowable<List<Memo>> = restoreDatabase.getAllMemo()
     override val tasks: Flowable<List<Task>> = restoreDatabase.getAllTask()
@@ -36,13 +37,26 @@ class LessonDataRepository @Inject constructor(
 
     override fun delete(lesson: Lesson) = lessonDatabase.delete(lesson.tid, lesson.id)
 
+    override fun deleteAllLesson(tid: Int) = lessonDatabase.deleteAll(tid)
+
     override fun getTasks(lesson: Lesson) = restoreDatabase.getTasks(lesson)
 
     override fun save(task: Task) = restoreDatabase.insertTask(task)
 
     override fun delete(task: Task) = restoreDatabase.deleteTask(task.tid, task.id)
 
+    override fun deleteAllTask(tid: Int) = restoreDatabase.deleteAllTask(tid)
+
     override fun getMemo(lesson: Lesson): Maybe<Memo> = restoreDatabase.getMemo(lesson)
 
     override fun save(memo: Memo) = restoreDatabase.insertMemo(memo)
+
+    override fun deleteAllMemo(tid: Int) = restoreDatabase.deleteAllMemo(tid)
+
+    override fun delete(tid: Int) {
+
+        deleteAllLesson(tid)
+        deleteAllTask(tid)
+        deleteAllMemo(tid)
+    }
 }
