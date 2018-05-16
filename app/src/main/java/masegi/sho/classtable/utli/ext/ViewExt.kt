@@ -14,3 +14,19 @@ var View.elevationForPostLollipop: Float
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) { elevation = value }
     }
 
+fun View.setVisible(visible: Boolean) {
+
+    if (visible)  toVisible() else toGone()
+}
+
+fun View.toVisible() {
+    visibility = View.VISIBLE
+}
+
+fun View.toGone() {
+    visibility = View.GONE
+}
+
+fun View.toInvisible() {
+    visibility = View.INVISIBLE
+}
