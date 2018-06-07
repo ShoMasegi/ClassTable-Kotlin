@@ -18,6 +18,6 @@ interface LessonDatabase {
     fun getLesson(tid: Int, week: DayOfWeek, start: Int): Maybe<Lesson>
     fun deleteAll()
     fun deleteAll(tid: Int)
-    fun delete(tid: Int, id: Int)
+    fun delete(lesson: Lesson)
     fun insert(lesson: Lesson)
 }

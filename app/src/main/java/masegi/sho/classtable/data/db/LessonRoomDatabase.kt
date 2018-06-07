@@ -40,7 +40,7 @@ class LessonRoomDatabase @Inject constructor(
 
     override fun deleteAll(tid: Int) = lessonDao.deleteAll(tid)
 
-    override fun delete(tid: Int, id: Int) = lessonDao.delete(tid, id)
+    override fun delete(lesson: Lesson) = lessonDao.delete(lesson.tid, lesson.id)
 
     override fun insert(lesson: Lesson) {
 

@@ -35,7 +35,12 @@ class LessonDataRepository @Inject constructor(
 
     override fun insert(lesson: Lesson) = lessonDatabase.insert(lesson)
 
-    override fun delete(lesson: Lesson) = lessonDatabase.delete(lesson.tid, lesson.id)
+    override fun delete(lesson: Lesson) {
+
+        lessonDatabase.delete(lesson)
+        restoreDatabase.deleteTask(lesson)
+        restoreDatabase.deleteMemo(lesson)
+    }
 
     override fun deleteAllLesson(tid: Int) = lessonDatabase.deleteAll(tid)
 
