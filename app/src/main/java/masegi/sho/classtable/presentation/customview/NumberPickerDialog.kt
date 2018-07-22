@@ -3,13 +3,13 @@ package masegi.sho.classtable.presentation.customview
 import android.app.Dialog
 import android.content.Context
 import android.databinding.DataBindingUtil
-import android.support.annotation.StringRes
 import android.support.annotation.StyleRes
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import masegi.sho.classtable.R
 import masegi.sho.classtable.databinding.ViewNumberPickerBinding
+import masegi.sho.classtable.utli.ext.setVisible
 
 /**
  * Created by masegi on 2018/03/30.
@@ -27,6 +27,7 @@ class NumberPickerDialog : DialogFragment() {
 
         // MARK: - Property
 
+        internal var mIsHiddenTimesLabel: Boolean = false
         internal var mTitle: String = ""
         internal var mMinValue: Int = 0
         internal var mMaxValue: Int = 0
@@ -52,6 +53,7 @@ class NumberPickerDialog : DialogFragment() {
                 maxValue = mMaxValue
                 value = mDefaultValue
             }
+            binding.timesLabel.setVisible(!mIsHiddenTimesLabel)
             builder.setTitle(mTitle)
                     .setView(binding.root)
                     .setPositiveButton(android.R.string.ok) { _, _ ->
