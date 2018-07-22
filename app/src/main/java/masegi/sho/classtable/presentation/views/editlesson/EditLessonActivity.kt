@@ -34,12 +34,7 @@ class EditLessonActivity : DaggerAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setSupportActionBar(binding.toolbar)
-        supportActionBar?.let {
-
-            it.setDisplayHomeAsUpEnabled(true)
-            it.setDisplayShowTitleEnabled(false)
-        }
+        binding
         if (savedInstanceState == null) {
 
             navigationController.navigateToEditLesson(

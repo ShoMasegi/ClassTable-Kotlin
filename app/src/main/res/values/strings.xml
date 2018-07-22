@@ -47,6 +47,8 @@
     <string name="time">Time</string>
     <string name="add_note">Add note</string>
     <string name="task_name">Task Name</string>
+    <string name="room_hint">Room</string>
+    <string name="start">Start</string>
 
     <string-array name="edit">
         <item>Edit Name</item>
