@@ -117,9 +117,9 @@ class DetailFragment : DaggerFragment() {
 
         val count = if (itemCount > 3) 3 else itemCount
         val itemHeight: Float = resources.displayMetrics.density * 42
-        val params = binding.todoListParent.layoutParams
+        val params = binding.todoList.layoutParams
         params.height = count * itemHeight.toInt()
-        binding.todoListParent.layoutParams = params
+        binding.todoList.layoutParams = params
     }
 
 

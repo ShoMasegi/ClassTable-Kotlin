@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="elevation_toolbar">4dp</dimen>
-    <dimen name="app_bar_height">200dp</dimen>
+    <dimen name="app_bar_height">230dp</dimen>
 
     <!-- ColorPickerDialog dimens. -->
     <dimen name="circle_size">50dp</dimen>

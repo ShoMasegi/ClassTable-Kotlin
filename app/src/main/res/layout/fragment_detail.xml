@@ -22,21 +22,23 @@
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="16dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".presentation.views.detail.DetailFragment" >
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingBottom="32dp">
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/account_box"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:src="@drawable/ic_account_box_black_24dp"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="20dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -48,45 +50,75 @@
                 android:textColor="@color/char_black"
                 android:textSize="18sp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginStart="12dp"
+                android:layout_marginStart="72dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/account_box"
-                app:layout_constraintBottom_toBottomOf="@id/account_box"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/account_box"
+                tools:text="Google"/>
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/location_on"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="20dp"
                 android:src="@drawable/ic_location_on_black_24dp"
                 app:layout_constraintStart_toStartOf="@id/account_box"
                 app:layout_constraintTop_toBottomOf="@id/account_box" />
 
             <TextView
+                android:id="@+id/room_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text='@{!lesson.room.name.isEmpty() ? lesson.room.name : "No Location"}'
+                android:textColor="@color/char_black"
                 android:textSize="18sp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginStart="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/location_on"
-                app:layout_constraintBottom_toBottomOf="@id/location_on" />
+                app:layout_constraintStart_toStartOf="@id/teacher_name"
+                app:layout_constraintBottom_toBottomOf="@id/location_on"
+                tools:text="Google"/>
+
+            <View
+                android:id="@+id/border"
+                style="@style/Border"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/location_on"/>
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/time_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_access_time_black_24dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/border" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="72dp"
+                android:text="@string/time"
+                android:textColor="@color/char_black"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/time_icon"
+                app:layout_constraintStart_toStartOf="parent" />
 
             <LinearLayout
                 android:id="@+id/info_section"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal"
-                android:weightSum="5"
-                android:layout_marginTop="24dp"
-                android:paddingBottom="8dp"
-                android:paddingTop="8dp"
-                android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                app:layout_constraintTop_toBottomOf="@id/location_on"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                android:paddingStart="16dp"
+                android:weightSum="5"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@id/time_icon"
+                app:layout_constraintTop_toBottomOf="@id/time_icon">
 
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -98,17 +130,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="4dp"
-                        android:text="@string/day_of_week"/>
+                        android:text="@string/day_of_week" />
 
                     <TextView
                         android:id="@+id/week"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignStart="@id/sub_week"
+                        android:layout_below="@id/sub_week"
                         android:text="@{lesson.weekString}"
                         android:textColor="@color/char_black"
                         android:textSize="21sp"
-                        android:layout_alignStart="@id/sub_week"
-                        android:layout_below="@id/sub_week" />
+                        tools:text="Monday"/>
 
                 </RelativeLayout>
 
@@ -128,11 +161,12 @@
                         android:id="@+id/start"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignStart="@id/sub_start"
+                        android:layout_below="@id/sub_start"
                         android:text="@{lesson.startPeriod}"
                         android:textColor="@color/char_black"
                         android:textSize="21sp"
-                        android:layout_alignStart="@id/sub_start"
-                        android:layout_below="@id/sub_start" />
+                        tools:text="1st"/>
 
                 </RelativeLayout>
 
@@ -152,39 +186,58 @@
                         android:id="@+id/section"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignStart="@id/sub_section"
+                        android:layout_below="@id/sub_section"
                         android:text="@{String.valueOf(lesson.section)}"
                         android:textColor="@color/char_black"
                         android:textSize="21sp"
-                        android:layout_alignStart="@id/sub_section"
-                        android:layout_below="@id/sub_section" />
+                        tools:text="2"/>
 
                 </RelativeLayout>
 
             </LinearLayout>
 
+            <View
+                android:id="@+id/border2"
+                style="@style/Border"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/info_section" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/attend_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_equalizer"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/border2" />
+
             <TextView
-                android:id="@+id/sub_attendance"
+                android:id="@+id/attend_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/attendance_state"
                 android:textColor="@color/char_black"
                 android:textSize="15sp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="24dp"
-                app:layout_constraintTop_toBottomOf="@id/info_section"
+                android:layout_marginStart="72dp"
+                app:layout_constraintBottom_toBottomOf="@id/attend_icon"
                 app:layout_constraintStart_toStartOf="parent"/>
-            
+
             <LinearLayout
-                android:id="@+id/attendance"
+                android:id="@+id/attend_section"
                 android:layout_width="0dp"
                 android:layout_height="72dp"
+                android:layout_marginTop="20dp"
                 android:orientation="horizontal"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:layout_marginTop="12dp"
-                app:layout_constraintStart_toStartOf="parent"
+                android:paddingEnd="16dp"
+                android:paddingStart="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/sub_attendance">
+                app:layout_constraintStart_toStartOf="@id/attend_icon"
+                app:layout_constraintTop_toBottomOf="@id/attend_label">
 
                 <RelativeLayout
                     android:layout_width="0dp"
@@ -196,7 +249,6 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
-                        android:layout_marginStart="8dp"
                         android:text="@string/attend"
                         android:textSize="12sp" />
 
@@ -207,7 +259,8 @@
                         android:layout_centerInParent="true"
                         android:text="@{String.valueOf(lesson.attendance.attend)}"
                         android:textColor="@color/char_black"
-                        android:textSize="48sp" />
+                        android:textSize="48sp"
+                        tools:text="10"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -218,14 +271,6 @@
                         android:layout_marginEnd="4dp"
                         android:text="@string/times"
                         android:textSize="10sp" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@color/border_black" />
 
                 </RelativeLayout>
 
@@ -239,7 +284,6 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
-                        android:layout_marginStart="8dp"
                         android:text="@string/late"
                         android:textSize="12sp" />
 
@@ -250,7 +294,8 @@
                         android:layout_centerInParent="true"
                         android:text="@{String.valueOf(lesson.attendance.late)}"
                         android:textColor="@color/char_black"
-                        android:textSize="48sp" />
+                        android:textSize="48sp"
+                        tools:text="10"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -261,14 +306,6 @@
                         android:layout_marginEnd="4dp"
                         android:text="@string/times"
                         android:textSize="10sp" />
-
-                    <View
-                        android:layout_width="1dp"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginBottom="8dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@color/border_black" />
 
                 </RelativeLayout>
 
@@ -282,7 +319,6 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_alignParentTop="true"
-                        android:layout_marginStart="8dp"
                         android:text="@string/absent"
                         android:textSize="12sp" />
 
@@ -293,7 +329,8 @@
                         android:layout_centerInParent="true"
                         android:text="@{String.valueOf(lesson.attendance.absence)}"
                         android:textColor="@color/char_black"
-                        android:textSize="48sp" />
+                        android:textSize="48sp"
+                        tools:text="10"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -309,88 +346,128 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/sub_todo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/menu_todo"
-                android:textColor="@color/char_black"
-                android:textSize="15sp"
-                android:layout_marginTop="12dp"
-                app:layout_constraintTop_toBottomOf="@id/attendance"
-                app:layout_constraintStart_toStartOf="@id/sub_attendance"/>
-            
-            <RelativeLayout
-                android:id="@+id/todo_list_parent"
-                android:layout_width="match_parent"
-                android:layout_height="128dp"
-                android:layout_marginTop="12dp"
-                app:layout_constraintTop_toBottomOf="@id/sub_todo"
+            <View
+                android:id="@+id/border3"
+                style="@style/Border"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
+                app:layout_constraintTop_toBottomOf="@+id/attend_section" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/todo_section"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp"
+                app:layout_constraintTop_toBottomOf="@id/border3"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="@{tasks.size > 0 ? View.VISIBLE : View.GONE}" >
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/todo_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/ic_check_box"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <TextView
-                    android:id="@+id/no_task"
-                    android:layout_width="match_parent"
-                    android:layout_height="42dp"
-                    android:gravity="center"
-                    android:text="@string/no_todo_sub"
-                    android:textSize="16sp"
-                    android:layout_centerInParent="true"
-                    android:visibility="@{tasks.size > 0 ? View.GONE : View.VISIBLE}"/>
+                    android:id="@+id/todo_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="72dp"
+                    android:text="@string/menu_todo"
+                    android:textColor="@color/char_black"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/todo_icon"/>
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/todo_list"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_height="128dp"
                     android:scrollIndicators="none"
-                    android:visibility="@{tasks.size() > 0 ? View.VISIBLE : View.GONE}"
+                    android:layout_marginTop="12dp"
                     app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-                    tools:listitem="@layout/item_todo" />
+                    tools:listitem="@layout/item_todo"
+                    app:layout_constraintTop_toBottomOf="@id/todo_icon"
+                    app:layout_constraintStart_toStartOf="@id/todo_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
-            </RelativeLayout>
+                <TextView
+                    android:id="@+id/todo_more_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    android:text="@string/tasks_more_three"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/todo_list"
+                    android:visibility="@{tasks.size() > 3 ? View.VISIBLE : View.GONE}"/>
 
-            <TextView
-                android:id="@+id/todo_more_text"
-                android:layout_width="wrap_content"
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/memo_section"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="12dp"
-                android:text="@string/tasks_more_three"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/todo_list_parent"
-                android:visibility="@{tasks.size() > 3 ? View.VISIBLE : View.GONE}"/>
-
-            <TextView
-                android:id="@+id/sub_memo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/memo"
-                android:textColor="@color/char_black"
-                android:textSize="15sp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="@id/sub_attendance"
-                app:layout_constraintTop_toBottomOf="@id/todo_more_text"/>
-
-            <TextView
-                android:id="@+id/memo_view"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text=
-                    "@{!(memo.content.isEmpty() || memo == null) ? memo.content : @string/no_memo}"
-                android:textColor=
-                    "@{!(memo.content.isEmpty() || memo == null) ? @color/char_black : @color/char_default}"
-                android:gravity=
-                    "@{!(memo.content.isEmpty() || memo == null) ? Gravity.NO_GRAVITY : Gravity.CENTER}"
-                android:textSize="16sp"
-                android:layout_marginTop="16dp"
-                android:layout_marginStart="36dp"
-                android:layout_marginEnd="36dp"
-                android:layout_marginBottom="48dp"
+                app:layout_constraintTop_toBottomOf="@id/todo_section"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/sub_memo"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-            
+                android:visibility=
+                    "@{(memo.content.isEmpty() || memo == null) ? View.GONE : View.VISIBLE}">
+
+                <View
+                    android:id="@+id/border4"
+                    style="@style/Border"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/memo_section"/>
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:id="@+id/memo_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="20dp"
+                    android:src="@drawable/ic_comment"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/border4"/>
+
+                <TextView
+                    android:id="@+id/memo_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="72dp"
+                    android:text="@string/memo"
+                    android:textColor="@color/char_black"
+                    android:textSize="15sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="@id/memo_icon"/>
+
+                <TextView
+                    android:id="@+id/memo_view"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginEnd="24dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@{memo.content}"
+                    android:textColor="@color/char_black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/memo_icon"
+                    app:layout_constraintTop_toBottomOf="@id/memo_icon"
+                    tools:text="@tools:sample/lorem/random" />
+
+            </android.support.constraint.ConstraintLayout>
+
         </android.support.constraint.ConstraintLayout>
 
     </android.support.v4.widget.NestedScrollView>
