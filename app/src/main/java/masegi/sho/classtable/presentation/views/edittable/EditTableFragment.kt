@@ -53,6 +53,9 @@ class EditTableFragment : DaggerFragment() {
         ViewModelProviders.of(this, viewModelFactory).get(EditTableViewModel::class.java)
     }
 
+
+    // MARK: - Fragment
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 

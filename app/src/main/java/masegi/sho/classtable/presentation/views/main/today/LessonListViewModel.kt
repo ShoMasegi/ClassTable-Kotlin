@@ -58,6 +58,7 @@ class LessonListViewModel @Inject constructor(
                 .toResult(AndroidSchedulers.mainThread())
                 .toLiveData()
     }
+
     internal val times: LiveData<Result<Map<Int, Time>>> by lazy {
 
         prefRepository.times
@@ -70,6 +71,7 @@ class LessonListViewModel @Inject constructor(
                 .toResult(AndroidSchedulers.mainThread())
                 .toLiveData()
     }
+
     private val prefUpdated: Flowable<Boolean> by lazy {
 
         prefRepository.prefs

@@ -24,6 +24,9 @@
     <color name="todo_default_color">#2196f3</color>
     <color name="delete_red_color">#fa315b</color>
 
+    <color name="text_input_hint">#77FFFFFF</color>
+    <color name="text_input_hint_accent">#FD82AB</color>
+
     <!-- Greyscales -->
     <color name="white">#ffffff</color>
     <color name="grey50">#FAFAFA</color>

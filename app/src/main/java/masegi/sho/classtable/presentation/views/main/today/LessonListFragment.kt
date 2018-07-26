@@ -23,6 +23,7 @@ import masegi.sho.classtable.kotlin.data.model.Time
 import masegi.sho.classtable.presentation.NavigationController
 import masegi.sho.classtable.presentation.Result
 import masegi.sho.classtable.utli.ext.observe
+import masegi.sho.classtable.utli.ext.setVisible
 import javax.inject.Inject
 
 
@@ -40,7 +41,6 @@ class LessonListFragment : DaggerFragment(), LifecycleOwner {
     }
     private lateinit var day: DayOfWeek
     private lateinit var listAdapter: LessonListAdapter
-    private val isEmpty: ObservableField<Boolean> = ObservableField(false)
 
 
     // MARK: - Fragment
@@ -56,7 +56,6 @@ class LessonListFragment : DaggerFragment(), LifecycleOwner {
                               savedInstanceState: Bundle?): View? {
 
         binding = FragmentLessonListBinding.inflate(inflater, container, false)
-        binding.isEmpty = isEmpty
         listAdapter = LessonListAdapter(listOf()) { navigationController.navigateToDetailActivity(it) }
         binding.listView.run {
 
@@ -76,11 +75,16 @@ class LessonListFragment : DaggerFragment(), LifecycleOwner {
 
                 is Result.Success -> {
 
-                    isEmpty.set(result.data.isEmpty())
+                    binding.listView.setVisible(!result.data.isEmpty())
+                    binding.emptyState.setVisible(result.data.isEmpty())
                     listAdapter.data = result.data
                     listAdapter.notifyDataSetChanged()
                 }
-                is Result.Failure -> isEmpty.set(true)
+                is Result.Failure -> {
+
+                    binding.listView.setVisible(false)
+                    binding.emptyState.setVisible(true)
+                }
             }
         }
         viewModel.times.observe(this) { result ->

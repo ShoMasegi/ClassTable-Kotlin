@@ -7,6 +7,8 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.annotation.IdRes
 import android.support.annotation.MenuRes
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentTransaction
 import android.view.Menu
 import android.view.MenuItem
 import dagger.android.support.DaggerAppCompatActivity
@@ -14,6 +16,9 @@ import masegi.sho.classtable.R
 import masegi.sho.classtable.databinding.ActivityMainBinding
 import masegi.sho.classtable.di.ViewModelFactory
 import masegi.sho.classtable.presentation.NavigationController
+import masegi.sho.classtable.presentation.views.main.home.HomeFragment
+import masegi.sho.classtable.presentation.views.main.today.TodayFragment
+import masegi.sho.classtable.presentation.views.main.todo.TodoFragment
 import masegi.sho.classtable.utli.ext.elevationForPostLollipop
 import javax.inject.Inject
 
@@ -33,6 +38,9 @@ class MainActivity : DaggerAppCompatActivity() {
 
         ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
     }
+    private var homeFragment: Fragment? = null
+    private var todayFragment: Fragment? = null
+    private var todoFragment: Fragment? = null
 
 
     // MARK: - Activity
@@ -41,6 +49,7 @@ class MainActivity : DaggerAppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         viewModel
+        initFragment()
         setSupportActionBar(binding.toolbar)
         setupBottomNavigation(savedInstanceState)
     }
@@ -78,7 +87,7 @@ class MainActivity : DaggerAppCompatActivity() {
         binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
 
             val navigationItem = BottomNavigationItem.forId(item.itemId)
-            navigationItem.navigate(navigationController)
+            navigationItem.navigate(this)
             setupToolbar(navigationItem)
             true
         }
@@ -101,19 +110,59 @@ class MainActivity : DaggerAppCompatActivity() {
         }
     }
 
+    private fun initFragment() {
+
+        todayFragment = supportFragmentManager.findFragmentByTag(TodayFragment.toString())
+        homeFragment = supportFragmentManager.findFragmentByTag(HomeFragment.toString())
+        todoFragment = supportFragmentManager.findFragmentByTag(TodoFragment.toString())
+        if (todayFragment == null) {
+
+            todayFragment = TodayFragment.newInstance()
+        }
+        if (homeFragment == null) {
+
+            homeFragment = HomeFragment.newInstance()
+        }
+        if (todoFragment == null) {
+
+            todoFragment = TodoFragment.newInstance()
+        }
+    }
+
+    private fun switchFragment(fragment: Fragment, tag: String): Boolean {
+
+        val containerId = R.id.content
+        if (fragment.isAdded) { return false }
+        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
+        val currentFragment: Fragment? = supportFragmentManager.findFragmentById(containerId)
+        currentFragment?.let { transaction.detach(it) }
+        if (fragment.isDetached) {
+
+             transaction.attach(fragment)
+        }
+        else {
+
+            transaction.add(containerId, fragment, tag)
+        }
+        transaction.setTransition(FragmentTransaction.TRANSIT_NONE)
+                .commit()
+        fragmentManager.executePendingTransactions()
+        return true
+    }
+
 
     // MARK: - BottomNavigationItem
 
     enum class BottomNavigationItem(
             @MenuRes val menuId: Int,
             val isUseToolbarElevation: Boolean,
-            val navigate: NavigationController.() -> Unit
+            val navigate: MainActivity.() -> Unit
     )
     {
 
-        HOME(R.id.nav_home, true, { navigateToHome() }),
-        TODAY(R.id.nav_today, false, { navigateToToday() }),
-        TODO(R.id.nav_todo, true, { navigateToTodo() });
+        HOME(R.id.nav_home, true, { homeFragment?.let { switchFragment(it, HomeFragment.toString()) } }),
+        TODAY(R.id.nav_today, false, { todayFragment?.let { switchFragment(it, TodayFragment.toString()) } }),
+        TODO(R.id.nav_todo, true, { todoFragment?.let { switchFragment(it, TodoFragment.toString()) } });
 
         companion object {
 

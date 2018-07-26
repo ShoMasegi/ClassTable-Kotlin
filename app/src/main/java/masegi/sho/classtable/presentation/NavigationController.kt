@@ -2,6 +2,7 @@ package masegi.sho.classtable.presentation
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
 import masegi.sho.classtable.R
 import masegi.sho.classtable.data.model.Memo
@@ -143,4 +144,5 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
             transaction.commit()
         }
     }
+
 }

@@ -43,7 +43,7 @@ class SettingColorRowView @JvmOverloads constructor(
             binding.colorView.bindCircleThemeColor(value)
         }
 
-    internal var onColorChangeListener: ((ThemeColor) -> Unit)? = null
+   internal var onColorChangeListener: ((ThemeColor) -> Unit)? = null
 
     // Do not implement this parameter. This parameter is used by data binding
     internal var _onColorChangeListener: (() -> Unit)? = null
@@ -61,6 +61,13 @@ class SettingColorRowView @JvmOverloads constructor(
 
             showColorPickerDialog()
         }
+    }
+
+    // MARK: - Internal
+
+    internal fun setOnChangedListener(listener: (ThemeColor) -> Unit) {
+
+        this.onColorChangeListener = listener
     }
 
 

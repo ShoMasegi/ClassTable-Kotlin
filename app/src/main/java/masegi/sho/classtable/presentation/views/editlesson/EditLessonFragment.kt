@@ -8,21 +8,20 @@ import android.support.v7.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
 import dagger.android.support.DaggerFragment
 import masegi.sho.classtable.R
 
 import masegi.sho.classtable.data.Prefs
 import masegi.sho.classtable.databinding.FragmentEditLessonBinding
 import masegi.sho.classtable.kotlin.data.model.Lesson
-import masegi.sho.classtable.kotlin.data.model.ThemeColor
 import masegi.sho.classtable.presentation.SaveResult
-import masegi.sho.classtable.presentation.customview.ColorPickerDialog.ColorPickerDialog
 import masegi.sho.classtable.presentation.customview.NumberPickerDialog
 import masegi.sho.classtable.utli.ext.observe
 import org.parceler.Parcels
-import java.util.ArrayList
 import javax.inject.Inject
+import android.view.WindowManager
+import android.support.v4.content.ContextCompat
+import masegi.sho.classtable.kotlin.data.model.ThemeColor
 
 
 class EditLessonFragment : DaggerFragment() {
@@ -46,6 +45,7 @@ class EditLessonFragment : DaggerFragment() {
         binding = FragmentEditLessonBinding.inflate(inflater, container!!, false)
         viewModel.lesson = Parcels.unwrap(arguments!!.getParcelable(EXTRA_LESSON))
         binding.lesson = viewModel.lesson
+        changeThemeColor(viewModel.lesson.theme)
         return binding.root
     }
 
@@ -82,50 +82,61 @@ class EditLessonFragment : DaggerFragment() {
 
     private fun setupViews() {
 
-        setupSpinners()
         binding.saveButton.setOnClickListener { viewModel.save() }
-        binding.cancelButton.setOnClickListener { activity?.onBackPressed() }
-        binding.colorView.setOnClickListener { showColorPickerDialog() }
-        binding.attendTextView.setOnClickListener { showNumberPickerDialog(AttendType.ATTEND) }
-        binding.lateTextView.setOnClickListener { showNumberPickerDialog(AttendType.LATE) }
-        binding.absentTextView.setOnClickListener { showNumberPickerDialog(AttendType.ABSENT) }
-    }
+        binding.attendParent.setOnClickListener { showNumberPickerDialog(AttendType.ATTEND) }
+        binding.lateParent.setOnClickListener { showNumberPickerDialog(AttendType.LATE) }
+        binding.absentParent.setOnClickListener { showNumberPickerDialog(AttendType.ABSENT) }
+        binding.closeButton.setOnClickListener { activity?.onBackPressed() }
+        binding.dayOfWeekRow.setOnClickListener {
 
-    private fun setupSpinners() {
+            AlertDialog.Builder(this!!.context!!)
+                    .setTitle(R.string.day_of_week)
+                    .setItems(Prefs.weeks.map { it.rawValue }.toTypedArray()) { _, index ->
 
-        val intAdapter: ArrayAdapter<Int> = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item)
-        for (i in 1 until Prefs.dayLessonCount + 1) { intAdapter.add(i) }
-        binding.sectionSpinner.adapter = intAdapter
-        binding.startSpinner.adapter = intAdapter
+                        viewModel.lesson.week = Prefs.weeks[index]
+                        viewModel.lesson.notifyChange()
+                    }
+                    .create()
+                    .show()
+        }
+        binding.startTimeRow.setOnClickListener {
 
-        val stringAdapter: ArrayAdapter<String> = ArrayAdapter(context, android.R.layout.simple_spinner_dropdown_item)
-        Prefs.weeks.forEach { stringAdapter.add(it.rawValue) }
-        binding.weekSpinner.adapter = stringAdapter
-    }
+            NumberPickerDialog.Builder(this!!.context!!).apply {
 
-    private fun showColorPickerDialog() {
+                mMinValue = 1
+                mMaxValue = Prefs.dayLessonCount
+                mTitle = context.resources.getString(R.string.start_time)
+                mDefaultValue = viewModel.lesson.start
+                mIsHiddenTimesLabel = true
+                mCallback = {
 
-        val dialog: ColorPickerDialog = ColorPickerDialog.newInstance(
-                ColorPickerDialog.SELECTION_SINGLE,
-                ThemeColor.primaryColorResIdList,
-                4,
-                ColorPickerDialog.SIZE_SMALL
-        )
-        dialog.setOnDialogButtonListener(object : ColorPickerDialog.OnDialogButtonListener {
-
-            override fun onDonePressed(mSelectedColors: ArrayList<Int>) {
-
-                if (mSelectedColors.size > 0) {
-
-                    val theme = ThemeColor.getByPrimaryColorResId(mSelectedColors[0])
-                    viewModel.lesson.theme = theme
+                    viewModel.lesson.start = it
                     viewModel.lesson.notifyChange()
                 }
-            }
+            }.create().show()
+        }
+        binding.sectionRow.setOnClickListener {
 
-            override fun onDismiss() {}
-        })
-        dialog.show(fragmentManager, "color_picker")
+            NumberPickerDialog.Builder(this!!.context!!).apply {
+
+                mMinValue = 1
+                mMaxValue = Prefs.dayLessonCount
+                mTitle = context.resources.getString(R.string.section)
+                mDefaultValue = viewModel.lesson.section
+                mIsHiddenTimesLabel = true
+                mCallback = {
+
+                    viewModel.lesson.section = it
+                    viewModel.lesson.notifyChange()
+                }
+            }.create().show()
+        }
+        binding.appBar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+
+            val factor = (-verticalOffset).toFloat() / appBarLayout.totalScrollRange.toFloat()
+            binding.toolbarTextColorFactor = factor
+        }
+        binding.colorRow.setOnChangedListener { changeThemeColor(it) }
     }
 
     private fun showNumberPickerDialog(type: AttendType) {
@@ -167,10 +178,30 @@ class EditLessonFragment : DaggerFragment() {
 
             mMinValue = 0
             mMaxValue = 15
-            mTitle = type.title + " times"
+            mTitle = type.title
             mDefaultValue = defValue
             mCallback = callback
         }.create().show()
+    }
+
+    private fun changeThemeColor(theme: ThemeColor) {
+
+        val window = activity?.window
+        window?.let {
+
+            it.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+            val colorPrimary: Int
+            val colorPrimaryDark: Int
+            if (theme == ThemeColor.DEFAULT) {
+                colorPrimary = ContextCompat.getColor(context!!, R.color.colorPrimary)
+                colorPrimaryDark = ContextCompat.getColor(context!!, R.color.colorPrimaryDark)
+            } else {
+                colorPrimary = ContextCompat.getColor(context!!, theme.primaryColorResId)
+                colorPrimaryDark = ContextCompat.getColor(context!!, theme.primaryColorDarkResId)
+            }
+            it.statusBarColor = colorPrimaryDark
+            binding.appBar.setBackgroundColor(colorPrimary)
+        }
     }
 
 
