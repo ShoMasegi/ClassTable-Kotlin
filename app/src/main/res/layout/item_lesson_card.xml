@@ -167,10 +167,12 @@
                 android:text='@{memo.content.isEmpty() ? "No Memo" : memo.content}'
                 android:textColor="@color/char_black"
                 android:textSize="14sp"
+                android:maxLines="2"
+                android:ellipsize="end"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@id/location_name"
                 app:layout_constraintTop_toTopOf="@id/title_memo"
-                app:layout_constraintBottom_toBottomOf="@id/title_memo"
+                app:layout_constraintBottom_toBottomOf="parent"
                 tools:text="No Memo"/>
 
         </android.support.constraint.ConstraintLayout>
