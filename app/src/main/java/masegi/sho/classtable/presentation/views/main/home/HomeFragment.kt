@@ -22,6 +22,7 @@ import masegi.sho.classtable.presentation.NavigationController
 import masegi.sho.classtable.presentation.Result
 import masegi.sho.classtable.presentation.adapter.ClassTableAdapter
 import masegi.sho.classtable.presentation.adapter.OnTableItemClickListener
+import masegi.sho.classtable.presentation.common.notification.LessonAlarm
 import masegi.sho.classtable.utli.ext.observe
 import javax.inject.Inject
 
@@ -68,6 +69,7 @@ class HomeFragment : DaggerFragment(), OnTableItemClickListener, LifecycleOwner 
                 is Result.Success -> {
 
                     adapter.build(LessonDataSource(result.data))
+                    context?.let { LessonAlarm(it).toggleRegister(result.data.first()) }
                 }
             }
         }
