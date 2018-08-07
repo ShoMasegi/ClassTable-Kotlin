@@ -19,6 +19,8 @@ import masegi.sho.classtable.data.repository.PrefRepository
 import masegi.sho.classtable.presentation.Result
 import masegi.sho.classtable.presentation.common.mapper.toResult
 import masegi.sho.classtable.presentation.common.notification.LessonAlarm
+import masegi.sho.classtable.presentation.common.notification.NotificationContent
+import masegi.sho.classtable.presentation.common.notification.showNotification
 import masegi.sho.classtable.utli.ext.observe
 import masegi.sho.classtable.utli.ext.toLiveData
 import javax.inject.Inject
@@ -35,8 +37,8 @@ class LocationService: Service(), LifecycleOwner {
         lifecycleRegistry.markState(Lifecycle.State.CREATED)
         AndroidInjection.inject(this)
         val notification = NotificationCompat.Builder(this).apply {
-            setContentTitle("Title")
-            setContentText("Content of notification")
+            setContentTitle("ClassTable")
+            setContentText("Checking attendance ...")
             setSmallIcon(R.mipmap.ic_launcher)
         }.build()
         startForeground(1, notification)
@@ -45,7 +47,7 @@ class LocationService: Service(), LifecycleOwner {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.e("Service", "LocationService.onStartCommand")
         lifecycleRegistry.markState(Lifecycle.State.STARTED)
-        observeValue()
+        observeValue(intent)
         return super.onStartCommand(intent, flags, startId)
     }
 
@@ -56,7 +58,6 @@ class LocationService: Service(), LifecycleOwner {
     }
 
     override fun onBind(intent: Intent?): IBinder? {
-
         return null
     }
 
@@ -67,8 +68,9 @@ class LocationService: Service(), LifecycleOwner {
 
     // MARK - Private
 
-    private fun observeValue() {
+    private fun observeValue(intent: Intent?) {
 
+        Log.e("Service", "LocationService.observeValue")
         lessonRepository.lessons
                 .map { ls -> ls.filter { it.tid == Prefs.tid } }
                 .subscribeOn(Schedulers.io())
@@ -81,6 +83,10 @@ class LocationService: Service(), LifecycleOwner {
                         is Result.Success -> {
 
                             Log.e("Service", "LocationService.Success: lesson - ${result.data.count()}")
+                            intent?.let {
+
+                                showNotification(NotificationContent.parse(intent))
+                            }
                             LessonAlarm(this).toggleRegister(result.data.first())
                             stopSelf()
                         }
@@ -96,10 +102,13 @@ class LocationService: Service(), LifecycleOwner {
     companion object {
 
         fun createIntent(
-                context: Context
+                context: Context,
+                notificationContent: NotificationContent
         ): Intent {
 
-            return Intent(context, LocationService::class.java)
+            return Intent(context, LocationService::class.java).apply {
+                notificationContent.putExtrasTo(this)
+            }
         }
     }
 }

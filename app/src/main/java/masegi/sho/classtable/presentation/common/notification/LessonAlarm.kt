@@ -51,7 +51,11 @@ class LessonAlarm constructor(val context: Context) {
 
     private fun createAlarmIntent(context: Context, lesson: Lesson): PendingIntent {
 
-        val intent = LocationService.createIntent(context)
+        val notificationContent = NotificationContent.OnlyNotifyNotification(lesson)
+        val intent = LocationService.createIntent(
+                context,
+                notificationContent
+        )
         return PendingIntent.getService(
                 context,
                 lesson.id.hashCode(),
