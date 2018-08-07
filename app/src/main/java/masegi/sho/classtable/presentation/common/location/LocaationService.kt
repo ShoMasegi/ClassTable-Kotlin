@@ -1,5 +1,6 @@
 package masegi.sho.classtable.presentation.common.location
 
+import android.app.PendingIntent
 import android.app.Service
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleOwner
@@ -14,12 +15,14 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import masegi.sho.classtable.R
 import masegi.sho.classtable.data.Prefs
+import masegi.sho.classtable.data.model.AttendType
 import masegi.sho.classtable.data.repository.LessonRepository
 import masegi.sho.classtable.data.repository.PrefRepository
 import masegi.sho.classtable.presentation.Result
 import masegi.sho.classtable.presentation.common.mapper.toResult
 import masegi.sho.classtable.presentation.common.notification.LessonAlarm
 import masegi.sho.classtable.presentation.common.notification.NotificationContent
+import masegi.sho.classtable.presentation.common.notification.TaskAttendanceService
 import masegi.sho.classtable.presentation.common.notification.showNotification
 import masegi.sho.classtable.utli.ext.observe
 import masegi.sho.classtable.utli.ext.toLiveData
@@ -85,7 +88,12 @@ class LocationService: Service(), LifecycleOwner {
                             Log.e("Service", "LocationService.Success: lesson - ${result.data.count()}")
                             intent?.let {
 
-                                showNotification(NotificationContent.parse(intent))
+                                val actionIntents: MutableMap<AttendType, PendingIntent> = mutableMapOf()
+                                AttendType.values().forEach {
+
+                                    actionIntents[it] = TaskAttendanceService.createPendingIntent(this, result.data.first(), it)
+                                }
+                                showNotification(NotificationContent.parse(intent), actionIntents)
                             }
                             LessonAlarm(this).toggleRegister(result.data.first())
                             stopSelf()

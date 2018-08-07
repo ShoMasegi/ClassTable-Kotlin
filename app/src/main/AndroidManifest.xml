@@ -26,6 +26,7 @@
         <activity android:name=".presentation.views.edittask.EditTaskActivity" />
         <activity android:name=".presentation.views.edittable.EditTableActivity"></activity>
         <service android:name=".presentation.common.location.LocationService" />
+        <service android:name=".presentation.common.notification.TaskAttendanceService" />
     </application>
 
 </manifest>

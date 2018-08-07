@@ -21,6 +21,7 @@ import org.parceler.Parcels
 import javax.inject.Inject
 import android.view.WindowManager
 import android.support.v4.content.ContextCompat
+import masegi.sho.classtable.data.model.AttendType
 import masegi.sho.classtable.kotlin.data.model.ThemeColor
 
 
@@ -74,11 +75,6 @@ class EditLessonFragment : DaggerFragment() {
 
 
     // MARK: - Private
-
-    private enum class AttendType(val title: String) {
-
-        ATTEND("Attend"), LATE("Late"), ABSENT("Absent")
-    }
 
     private fun setupViews() {
 
