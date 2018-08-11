@@ -5,11 +5,27 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.util.Log
+import dagger.android.AndroidInjection
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.subscribeBy
+import io.reactivex.schedulers.Schedulers
 import masegi.sho.classtable.data.model.AttendType
+import masegi.sho.classtable.data.repository.LessonRepository
 import masegi.sho.classtable.kotlin.data.model.Lesson
+import javax.inject.Inject
 
 
-class TaskAttendanceService: IntentService("TakeAttendanceService") {
+class TakeAttendanceService: IntentService("TakeAttendanceService") {
+
+    @Inject lateinit var lessonRepository: LessonRepository
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
+
+    override fun onCreate() {
+        super.onCreate()
+        AndroidInjection.inject(this)
+    }
 
     override fun onHandleIntent(intent: Intent?) {
 
@@ -18,10 +34,37 @@ class TaskAttendanceService: IntentService("TakeAttendanceService") {
             val ordinal = it.getIntExtra(EXTRA_ATTEND_TYPE, 0)
             val lid = it.getIntExtra(EXTRA_LESSON_ID, 0)
             val type: AttendType = AttendType.values()[ordinal]
+            lessonRepository.getLesson(lid)
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .subscribeBy(
+                            onSuccess = {
+
+                                if (it != null) {
+
+                                    when (type) {
+                                        AttendType.ATTEND -> it.attendance.attend++
+                                        AttendType.LATE -> it.attendance.late++
+                                        AttendType.ABSENT -> it.attendance.absence++
+                                    }
+                                    lessonRepository.insert(it)
+                                    Log.e("TakeAttendanceService", "take attendance")
+                                }
+                            },
+                            onError = {
+                                Log.e("TakeAttendanceService", "onError")
+                            }
+                    )
+                    .addTo(compositeDisposable)
             Log.e("TaskAttendanceService", "AttendType : $type")
             dismissNotification(lid)
         }
         Log.e("TaskAttendanceService", "onHandleIntent")
+    }
+
+    override fun onDestroy() {
+
+        compositeDisposable.dispose()
+        super.onDestroy()
     }
 
     companion object {
@@ -31,7 +74,7 @@ class TaskAttendanceService: IntentService("TakeAttendanceService") {
 
         private fun createIntent(context: Context): Intent {
 
-            return Intent(context, TaskAttendanceService::class.java)
+            return Intent(context, TakeAttendanceService::class.java)
         }
 
         fun createPendingIntent(context: Context, lesson: Lesson, type: AttendType): PendingIntent {

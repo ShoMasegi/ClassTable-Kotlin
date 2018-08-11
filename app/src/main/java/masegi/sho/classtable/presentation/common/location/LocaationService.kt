@@ -12,6 +12,9 @@ import android.support.v4.app.NotificationCompat
 import android.util.Log
 import dagger.android.AndroidInjection
 import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.schedulers.Schedulers
 import masegi.sho.classtable.R
 import masegi.sho.classtable.data.Prefs
@@ -20,24 +23,20 @@ import masegi.sho.classtable.data.repository.LessonRepository
 import masegi.sho.classtable.data.repository.PrefRepository
 import masegi.sho.classtable.presentation.Result
 import masegi.sho.classtable.presentation.common.mapper.toResult
-import masegi.sho.classtable.presentation.common.notification.LessonAlarm
-import masegi.sho.classtable.presentation.common.notification.NotificationContent
-import masegi.sho.classtable.presentation.common.notification.TaskAttendanceService
-import masegi.sho.classtable.presentation.common.notification.showNotification
+import masegi.sho.classtable.presentation.common.notification.*
 import masegi.sho.classtable.utli.ext.observe
 import masegi.sho.classtable.utli.ext.toLiveData
 import javax.inject.Inject
 
 
-class LocationService: Service(), LifecycleOwner {
+class LocationService: Service() {
 
     @Inject lateinit var lessonRepository: LessonRepository
     @Inject lateinit var prefRepository: PrefRepository
-    private val lifecycleRegistry: LifecycleRegistry = LifecycleRegistry(this)
+    private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun onCreate() {
         super.onCreate()
-        lifecycleRegistry.markState(Lifecycle.State.CREATED)
         AndroidInjection.inject(this)
         val notification = NotificationCompat.Builder(this).apply {
             setContentTitle("ClassTable")
@@ -49,23 +48,18 @@ class LocationService: Service(), LifecycleOwner {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.e("Service", "LocationService.onStartCommand")
-        lifecycleRegistry.markState(Lifecycle.State.STARTED)
         observeValue(intent)
         return super.onStartCommand(intent, flags, startId)
     }
 
     override fun onDestroy() {
         Log.e("Service", "LocationService.onDestroy")
-        lifecycleRegistry.markState(Lifecycle.State.DESTROYED)
+        compositeDisposable.dispose()
         super.onDestroy()
     }
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
-    }
-
-    override fun getLifecycle(): Lifecycle {
-        return lifecycleRegistry
     }
 
 
@@ -76,35 +70,30 @@ class LocationService: Service(), LifecycleOwner {
         Log.e("Service", "LocationService.observeValue")
         lessonRepository.lessons
                 .map { ls -> ls.filter { it.tid == Prefs.tid } }
-                .subscribeOn(Schedulers.io())
-                .toResult(AndroidSchedulers.mainThread())
-                .toLiveData()
-                .observe(this) { result ->
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeBy(
+                        onNext = { lessons ->
 
-                    when(result) {
-
-                        is Result.Success -> {
-
-                            Log.e("Service", "LocationService.Success: lesson - ${result.data.count()}")
+                            Log.e("Service", "LocationService.Success: lesson - ${lessons.count()}")
                             intent?.let {
 
                                 val actionIntents: MutableMap<AttendType, PendingIntent> = mutableMapOf()
                                 AttendType.values().forEach {
 
-                                    actionIntents[it] = TaskAttendanceService.createPendingIntent(this, result.data.first(), it)
+                                    actionIntents[it] = TakeAttendanceService.createPendingIntent(this, lessons.first(), it)
                                 }
                                 showNotification(NotificationContent.parse(intent), actionIntents)
                             }
-                            LessonAlarm(this).toggleRegister(result.data.first())
+                            LessonAlarm(this).toggleRegister(lessons.first())
                             stopSelf()
-                        }
-                        is Result.Failure -> {
+                        },
+                        onError = {
 
                             Log.e("Service", "LocationService.Error")
                             stopSelf()
                         }
-                    }
-                }
+                )
+                .addTo(compositeDisposable)
     }
 
     companion object {

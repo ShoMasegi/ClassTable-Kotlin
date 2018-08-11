@@ -30,6 +30,9 @@ class LessonDataRepository @Inject constructor(
     override fun getLesson(week: DayOfWeek, start: Int): Maybe<Lesson> =
             lessonDatabase.getLesson(Prefs.tid, week, start)
 
+    override fun getLesson(lid: Int): Maybe<Lesson> =
+            lessonDatabase.getLesson(Prefs.tid, lid)
+
     override fun getLessons(week: DayOfWeek, start: Int, end: Int): Maybe<List<Lesson>> =
             lessonDatabase.getLessons(Prefs.tid, week, start, end)
 
