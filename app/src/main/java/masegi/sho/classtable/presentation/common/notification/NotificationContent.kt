@@ -44,6 +44,32 @@ sealed class NotificationContent(
         }
     }
 
+    data class ActionNotification(
+            override val lesson: Lesson
+    ) : NotificationContent(
+            lesson,
+            NotificationChannelType.CHECKING_ATTENDANCE
+    ) {
+
+        override fun putExtrasTo(intent: Intent) {
+
+            intent.apply {
+
+                val bundle = Bundle().apply { putParcelable(EXTRA_LESSON, Parcels.wrap(lesson)) }
+                putExtra(EXTRA_LESSON_BUNDLE, bundle)
+            }
+        }
+
+        companion object {
+
+            fun parse(intent: Intent): ActionNotification {
+                return ActionNotification(
+                        Parcels.unwrap(intent.getBundleExtra(EXTRA_LESSON_BUNDLE).getParcelable(EXTRA_LESSON))
+                )
+            }
+        }
+    }
+
     abstract fun putExtrasTo(intent: Intent)
 
     companion object {

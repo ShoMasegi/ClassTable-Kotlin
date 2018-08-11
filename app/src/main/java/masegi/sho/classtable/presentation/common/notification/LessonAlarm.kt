@@ -6,7 +6,6 @@ import android.content.Context
 import android.os.Build
 import android.util.Log
 import masegi.sho.classtable.kotlin.data.model.Lesson
-import masegi.sho.classtable.presentation.common.location.LocationService
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -51,8 +50,8 @@ class LessonAlarm constructor(val context: Context) {
 
     private fun createAlarmIntent(context: Context, lesson: Lesson): PendingIntent {
 
-        val notificationContent = NotificationContent.OnlyNotifyNotification(lesson)
-        val intent = LocationService.createIntent(
+        val notificationContent = NotificationContent.ActionNotification(lesson)
+        val intent = NotificationAttendanceService.createIntent(
                 context,
                 notificationContent
         )
