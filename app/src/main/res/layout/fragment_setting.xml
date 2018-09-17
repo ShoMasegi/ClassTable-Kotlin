@@ -78,7 +78,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:settingTitle="@string/settings_notification"
-                app:settingDescription="@string/settings_notification_description"/>
+                app:settingDescription="@string/settings_notification_description"
+                isChecked="@={pref.shouldNotify}"
+                settingDefaultValue="@{pref.shouldNotify}"/>
 
             <View style="@style/Border" />
 
@@ -92,7 +94,8 @@
                 android:layout_height="wrap_content"
                 app:settingTitle="@string/settings_attendance_title"
                 app:settingDescription="@string/settings_attendance_description"
-                settingEnabled="@{false}"/>
+                isChecked="@={pref.attendManage}"
+                settingEnabled="@{pref.shouldNotify}"/>
 
             <View style="@style/Border" />
 
@@ -101,7 +104,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:settingTitle="@string/settings_management_mode"
-                app:settingSubTitle="@string/settings_management_mode_chose"/>
+                app:settingSubTitle="@string/settings_management_mode_chose"
+                settingEnabled="@{pref.attendManage}"/>
 
             <View style="@style/Border" />
 

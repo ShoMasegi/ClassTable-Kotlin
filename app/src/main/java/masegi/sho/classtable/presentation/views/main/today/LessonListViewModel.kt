@@ -15,6 +15,7 @@ import masegi.sho.classtable.kotlin.data.model.DayOfWeek
 import masegi.sho.classtable.kotlin.data.model.Lesson
 import masegi.sho.classtable.kotlin.data.model.Time
 import masegi.sho.classtable.presentation.Result
+import masegi.sho.classtable.presentation.common.KotPrefs
 import masegi.sho.classtable.presentation.common.mapper.toResult
 import masegi.sho.classtable.utli.ResettableLazy
 import masegi.sho.classtable.utli.ResettableLazyManager
@@ -45,16 +46,15 @@ class LessonListViewModel @Inject constructor(
 
                     ls.filter { it.tid == Prefs.tid && it.week == day }
                 },
-                repository.memos.map { m -> m.filter { it.tid == Prefs.tid } },
-                { lessons, memos ->
+                repository.memos.map { m -> m.filter { it.tid == Prefs.tid } }
+        ) { lessons, memos ->
 
-                    val data: MutableList<Pair<Lesson, Memo?>> = mutableListOf()
-                    lessons.forEach { l ->
-                        data.add(l to memos.firstOrNull { it.lid == l.id })
-                    }
-                    data.sortedBy { it.first.start }
-                }
-        ).subscribeOn(Schedulers.io())
+            val data: MutableList<Pair<Lesson, Memo?>> = mutableListOf()
+            lessons.forEach { l ->
+                data.add(l to memos.firstOrNull { it.lid == l.id })
+            }
+            data.sortedBy { it.first.start }
+        }.subscribeOn(Schedulers.io())
                 .toResult(AndroidSchedulers.mainThread())
                 .toLiveData()
     }
@@ -65,7 +65,8 @@ class LessonListViewModel @Inject constructor(
                 .map { ts ->
 
                     val map = mutableMapOf<Int, Time>()
-                    ts.map { map[it.periodNum] = it }
+                    ts.filter { it.tid == KotPrefs.tid }
+                      .map { map[it.periodNum] = it }
                     map.toMap()
                 }
                 .toResult(AndroidSchedulers.mainThread())

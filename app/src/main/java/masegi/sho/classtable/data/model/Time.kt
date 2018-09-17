@@ -56,6 +56,11 @@ data class Time(
         private set
         get() = periodNum.ordinal + " Period"
 
+    @Ignore
+    var isFilled: Boolean = false
+        private set
+        get() = startHour != 0 && startMin != 0 && endHour != 0 && endMin != 0
+
 
     // MARK: - Constructor
 

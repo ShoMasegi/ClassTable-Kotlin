@@ -62,11 +62,30 @@ fun bindText(
 fun captureTextChanged(editRowView: SettingEditRowView): String
     = editRowView.text ?: ""
 
+@BindingAdapter(value = ["isChecked", "isCheckedAttrChanged"], requireAll = false)
+fun bindIsChecked(
+        switchRowView: SettingSwitchRowView,
+        isChecked: Boolean,
+        isCheckedAttrChanged: InverseBindingListener?
+)
+{
+
+    switchRowView.isChecked = isChecked
+    switchRowView._onCheckedChangedStub = { isCheckedAttrChanged?.onChange() }
+}
+
+@InverseBindingAdapter(attribute = "isChecked", event = "isCheckedAttrChanged")
+fun captureIsChecked(switchRowView: SettingSwitchRowView): Boolean
+        = switchRowView.isChecked
+
 @BindingAdapter("settingEnabled")
 fun SettingSwitchRowView.setSettingEnabled(boolean: Boolean) { this.isEnabled = boolean }
 
 @BindingAdapter("settingDefaultValue")
 fun SettingSwitchRowView.setSettingDefaultValue(defaultValue: Boolean) = this.setDefault(defaultValue)
+
+@BindingAdapter("settingEnabled")
+fun SettingSubTitleRow.setSettingEnabled(boolean: Boolean) { this.isEnabled = boolean }
 
 @BindingAdapter("settingTitle")
 fun SettingSubTitleRow.setSettingTitle(title: String) { this.title = title }

@@ -19,7 +19,7 @@ data class PrefEntity(
         var shouldNotify: Boolean = false,
         var attendManage: Boolean = false,
         var attendMode: AttendMode = AttendMode.NOTIFICATION
-)
+) : BaseObservable()
 {
 
 

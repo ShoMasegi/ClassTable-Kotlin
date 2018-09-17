@@ -69,7 +69,7 @@ class HomeFragment : DaggerFragment(), OnTableItemClickListener, LifecycleOwner 
                 is Result.Success -> {
 
                     adapter.build(LessonDataSource(result.data))
-                    context?.let { LessonAlarm(it).toggleRegister(result.data.first()) }
+//                    context?.let { LessonAlarm(it).toggleRegister(result.data.first()) }
                 }
             }
         }

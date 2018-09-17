@@ -23,11 +23,12 @@ class SettingSwitchRowView @JvmOverloads constructor(
 
     // MARK: - Property
 
-    internal var onCheckedChanged: ((Boolean) -> Unit)? = null
+    internal var isChecked: Boolean
         set(value) {
 
-            binding.switchView.setOnCheckedChangeListener { _, isChecked -> value?.invoke(isChecked) }
+            binding.switchView.isChecked = value
         }
+        get() = binding.switchView.isChecked
 
     internal var title: String?
         set(value) {
@@ -43,6 +44,11 @@ class SettingSwitchRowView @JvmOverloads constructor(
         }
         get() = binding.switchDescription.text.toString()
 
+    internal var onCheckedChanged: ((Boolean) -> Unit)? = null
+
+    // Do not implement this parameter. This parameter is used by data binding
+    internal var _onCheckedChangedStub: ((Boolean) -> Unit)? = null
+
     private val binding: ViewSettingSwitchRowBinding =
             ViewSettingSwitchRowBinding.inflate(
                     LayoutInflater.from(context),
@@ -56,6 +62,11 @@ class SettingSwitchRowView @JvmOverloads constructor(
     internal fun setDefault(defaultValue: Boolean) {
 
         binding.switchView.isChecked = defaultValue
+    }
+
+    internal fun setOnCheckedChangedListener(listener: ((Boolean) -> Unit)?) {
+
+        onCheckedChanged = listener
     }
 
 
@@ -78,6 +89,11 @@ class SettingSwitchRowView @JvmOverloads constructor(
             title = typedArray.getString(R.styleable.SettingSwitchRowView_settingTitle)
             description = typedArray.getString(R.styleable.SettingSwitchRowView_settingDescription)
             binding.root.setOnClickListener { toggle() }
+            binding.switchView.setOnCheckedChangeListener { _, isChecked ->
+
+                onCheckedChanged?.invoke(isChecked)
+                _onCheckedChangedStub?.invoke(isChecked)
+            }
             typedArray.recycle()
         }
     }

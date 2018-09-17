@@ -1,0 +1,104 @@
+<resources>
+    <string name="app_name">ClassTable</string>
+
+    <!-- Preference key -->
+    <string name="pref_key_stamp">pref_key_stamp</string>
+    <string name="pref_key_table">pref_key_table</string>
+    <string name="pref_key_tid">pref_key_tid</string>
+    <string name="pref_key_name">pref_key_name</string>
+    <string name="pref_key_week">pref_key_week</string>
+    <string name="pref_key_lesson_count">pref_key_lesson_count</string>
+    <string name="pref_key_notify">pref_key_notify</string>
+    <string name="pref_key_mode">pref_key_mode</string>
+    <string name="pref_key_manage">pref_key_manage</string>
+    <string name="pref_key_previous_day">pref_key_previous_day</string>
+
+    <!-- Error Message -->
+    <string name="error_no_classname">授業名を入力してください</string>
+    <string name="error_overflow">授業のコマ数が一日の授業数を超えています。
+        \nコマ数、または始まりの時間を修正してください。</string>
+    <string name="error_already_exist">この時間にはすでに、他の授業が登録されています。</string>
+    <string name="error_delete_table">このテーブルは現在使われているため削除できません。</string>
+    <string name="error_save_same_name_table">他のテーブルで同じ名前が使われているtめ、使用できません。</string>
+
+    <string name="delete_class_question">"この授業を削除しますか？："</string>
+    <string name="no_todo_main">タスクがありません！</string>
+    <string name="no_class">今日の授業はありません！</string>
+    <string name="tasks_more_three">もっと見る...</string>
+
+    <string name="null_todo_taskName">タスクの名前を入力してください。</string>
+    <string name="delete_task">タスクの削除に成功しました。</string>
+    <string name="delete">削除</string>
+    <string name="todo">タスク</string>
+    <string name="memo">メモ</string>
+    <string name="settings">設定</string>
+    <string name="day_of_week">曜日</string>
+    <string name="start_time">開始時間</string>
+    <string name="section">コマ数</string>
+    <string name="attendance_state">出席状況</string>
+    <string name="attend">出席</string>
+    <string name="late">遅刻</string>
+    <string name="absent">欠席</string>
+    <string name="times">回</string>
+    <string name="time">時間</string>
+    <string name="add_note">詳細</string>
+    <string name="task_name">タスク名</string>
+    <string name="room_hint">教室</string>
+
+    <string-array name="edit">
+        <item>名前を変更</item>
+        <item>削除</item>
+    </string-array>
+
+    <!-- ColorPickerDialog strings. -->
+    <string name="color_picker_default_title">色を選択</string>
+    <string name="color_picker_default_title_multiselect">色を選択</string>
+
+    <!-- Settings strings -->
+    <string name="settings_select_days">曜日を選択</string>
+    <string name="settings_set_time">時間を設定</string>
+    <string name="settings_class_table_group">ClassTable</string>
+    <string name="settings_count_of_class">授業数</string>
+    <string name="settings_choose_table">テーブルを選択</string>
+    <string name="settings_notification">通知</string>
+    <string name="settings_notification_description">通知機能を利用</string>
+    <string name="settings_other">その他</string>
+    <string name="settings_licenses">ライセンス</string>
+    <string name="settings_attendance">出席</string>
+    <string name="settings_attendance_title">出席管理</string>
+    <string name="settings_attendance_description">出席管理の利用</string>
+    <string name="settings_management_mode">出席の管理方法</string>
+    <string name="settings_management_mode_chose">出席管理方法を選ぶ</string>
+    <string name="settings_edit_table">テーブルを編集</string>
+
+    <string name="settings_pref_file_key">preferenceKey</string>
+    <string name="settings_pref_table_id_key">tableIdKey</string>
+    <string name="settings_class_time">時間を編集</string>
+
+
+    <!-- Setting Dialog strings -->
+    <string name="dialog_days_of_week">曜日</string>
+    <string name="dialog_choose_table">テーブルの選択</string>
+    <string name="dialog_count_classes">授業数</string>
+    <string name="dialog_create_table">テーブルを作成</string>
+    <string name="dialog_table_name">テーブル名</string>
+    <string name="dialog_table_edit">テーブルを編集</string>
+    <string name="dialog_table_delete">このテーブルを削除しますか？</string>
+    <string name="dialog_table_delete_message">このテーブルのデータは全て削除されます。</string>
+    <string name="dialog_error">エラー</string>
+
+    <!-- Menu strings -->
+    <string name="menu_add">追加</string>
+    <string name="menu_edit">編集</string>
+    <string name="menu_edit_name">名前の変更</string>
+    <string name="menu_delete">削除</string>
+    <string name="menu_home">ホーム</string>
+    <string name="menu_today">１日表示</string>
+    <string name="menu_todo">タスク</string>
+    <string name="menu_settings">設定</string>
+    <string name="menu_about">開発者について</string>
+
+    <string name="about_me">機械情報工学科の学生です。</string>
+
+    <string name="notification_channel_name_checking_attendance">出席を確認中.....</string>
+</resources>
