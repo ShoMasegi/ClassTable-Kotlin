@@ -5,14 +5,14 @@ import android.annotation.SuppressLint
 import android.app.Dialog
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.FragmentManager
 import masegi.sho.classtable.R
 
 import masegi.sho.classtable.kotlin.data.model.Time
 
 @SuppressLint("ValidFragment")
-class TimePickerDialogFragment private constructor() : DialogFragment() {
+class TimePickerDialogFragment private constructor() : androidx.fragment.app.DialogFragment() {
 
 
     // MARK: - Property
@@ -58,7 +58,7 @@ class TimePickerDialogFragment private constructor() : DialogFragment() {
             return this
         }
 
-        internal fun show(fragmentManager: FragmentManager) {
+        internal fun show(fragmentManager: androidx.fragment.app.FragmentManager) {
 
             dialog.show(fragmentManager, "TimePickerDialog")
         }

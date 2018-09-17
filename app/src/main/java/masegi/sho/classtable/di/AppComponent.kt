@@ -31,7 +31,6 @@ interface AppComponent : AndroidInjector<App> {
         fun application(application: Application): Builder
         fun databaseModule(databaseModule: DatabaseModule): Builder
         fun build(): AppComponent
-
     }
 
     override fun inject(app: App)

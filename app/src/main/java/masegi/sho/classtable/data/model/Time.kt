@@ -1,8 +1,8 @@
 package masegi.sho.classtable.kotlin.data.model
 
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.Ignore
-import android.arch.persistence.room.PrimaryKey
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import masegi.sho.classtable.util.ext.ordinal
 import masegi.sho.classtable.utli.CalendarUtil
 import java.util.*

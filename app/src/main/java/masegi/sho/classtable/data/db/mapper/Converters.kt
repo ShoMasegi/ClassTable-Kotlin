@@ -1,6 +1,6 @@
 package masegi.sho.classtable.data.db.mapper
 
-import android.arch.persistence.room.TypeConverter
+import androidx.room.TypeConverter
 import masegi.sho.classtable.data.model.AttendMode
 import masegi.sho.classtable.kotlin.data.model.DayOfWeek
 import masegi.sho.classtable.kotlin.data.model.ThemeColor

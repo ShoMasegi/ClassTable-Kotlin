@@ -1,8 +1,8 @@
 package masegi.sho.classtable.presentation.common.binding
 
-import android.databinding.BindingAdapter
-import android.databinding.InverseBindingAdapter
-import android.databinding.InverseBindingListener
+import androidx.databinding.BindingAdapter
+import androidx.databinding.InverseBindingAdapter
+import androidx.databinding.InverseBindingListener
 import masegi.sho.classtable.kotlin.data.model.ThemeColor
 import masegi.sho.classtable.presentation.customview.*
 import java.util.*

@@ -1,6 +1,6 @@
 package masegi.sho.classtable.presentation.adapter
 
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -91,9 +91,9 @@ class ClassTableAdapter(
         var lesson: Lesson? = null
             set(value) {
 
-                binding.lesson = value
+                binding?.lesson = value
                 field = value
             }
-        private var binding: ItemLessonBinding = DataBindingUtil.bind(itemView)
+        private var binding: ItemLessonBinding? = DataBindingUtil.bind(itemView)
     }
 }

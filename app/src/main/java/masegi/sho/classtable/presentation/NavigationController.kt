@@ -1,9 +1,9 @@
 package masegi.sho.classtable.presentation
 
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentTransaction
-import android.support.v7.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
+import androidx.appcompat.app.AppCompatActivity
 import masegi.sho.classtable.R
 import masegi.sho.classtable.data.model.Memo
 import masegi.sho.classtable.kotlin.data.model.Lesson
@@ -38,7 +38,7 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
     // MARK: - Property
 
     private val containerId: Int = R.id.content
-    private val fragmentManager: FragmentManager = activity.supportFragmentManager
+    private val fragmentManager: androidx.fragment.app.FragmentManager = activity.supportFragmentManager
 
 
     // MARK: - Internal
@@ -131,7 +131,7 @@ class NavigationController @Inject constructor(private val activity: AppCompatAc
 
     // MARK: - Private
 
-    private fun replaceFragment(fragment: Fragment) {
+    private fun replaceFragment(fragment: androidx.fragment.app.Fragment) {
 
         val transaction = fragmentManager.beginTransaction()
                 .replace(containerId, fragment, null)

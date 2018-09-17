@@ -1,11 +1,11 @@
 package masegi.sho.classtable.presentation.views.edittask
 
 
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.design.widget.Snackbar
+import androidx.annotation.StringRes
+import com.google.android.material.snackbar.Snackbar
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,7 +68,7 @@ class EditTaskFragment : DaggerFragment() {
     }
 
     private fun showSnackBar(@StringRes message: Int) =
-            Snackbar.make(binding.parentLayout, message, Snackbar.LENGTH_LONG)
+            com.google.android.material.snackbar.Snackbar.make(binding.parentLayout, message, com.google.android.material.snackbar.Snackbar.LENGTH_LONG)
                     .show()
 
     companion object {

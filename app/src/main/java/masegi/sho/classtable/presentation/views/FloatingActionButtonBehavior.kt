@@ -1,9 +1,9 @@
 package masegi.sho.classtable.presentation.views
 
 import android.content.Context
-import android.support.design.widget.CoordinatorLayout
-import android.support.design.widget.Snackbar
-import android.support.v4.view.ViewCompat
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import com.google.android.material.snackbar.Snackbar
+import androidx.core.view.ViewCompat
 import android.util.AttributeSet
 import android.view.View
 import com.github.clans.fab.FloatingActionButton
@@ -16,7 +16,7 @@ import com.github.clans.fab.FloatingActionMenu
 class FloatingActionButtonBehavior(
         context: Context,
         attributeSet: AttributeSet
-) : CoordinatorLayout.Behavior<View>(context, attributeSet) {
+) : androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior<View>(context, attributeSet) {
 
 
     // MARK: - Property
@@ -24,25 +24,25 @@ class FloatingActionButtonBehavior(
     private var mTranslationY: Float = 0F
 
 
-    override fun onDependentViewChanged(parent: CoordinatorLayout?, child: View?, dependency: View?): Boolean {
+    override fun onDependentViewChanged(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
 
         if ((child is FloatingActionButton || child is FloatingActionMenu)
-                && dependency is Snackbar.SnackbarLayout) {
+                && dependency is com.google.android.material.snackbar.Snackbar.SnackbarLayout) {
 
-            parent?.let { updateTranslation(it, child, dependency) }
+            parent.let { updateTranslation(it, child, dependency) }
         }
         return false
     }
 
-    override fun layoutDependsOn(parent: CoordinatorLayout?, child: View?, dependency: View?): Boolean {
+    override fun layoutDependsOn(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
 
-        return dependency is Snackbar.SnackbarLayout
+        return dependency is com.google.android.material.snackbar.Snackbar.SnackbarLayout
     }
 
-    override fun onDependentViewRemoved(parent: CoordinatorLayout?, child: View?, dependency: View?) {
+    override fun onDependentViewRemoved(parent: CoordinatorLayout, child: View, dependency: View) {
 
         if ((child is FloatingActionButton || child is FloatingActionMenu)
-        && dependency is Snackbar.SnackbarLayout) {
+        && dependency is com.google.android.material.snackbar.Snackbar.SnackbarLayout) {
 
             parent?.let { updateTranslation(it, child, dependency) }
         }
@@ -78,7 +78,7 @@ class FloatingActionButtonBehavior(
         val dependencies = parent.getDependencies(child)
         dependencies.forEach {
 
-            if (it is Snackbar.SnackbarLayout && parent.doViewsOverlap(child, it)) {
+            if (it is com.google.android.material.snackbar.Snackbar.SnackbarLayout && parent.doViewsOverlap(child, it)) {
 
                 minOffset = Math.min(minOffset, it.translationY - it.height)
             }

@@ -1,10 +1,9 @@
 package masegi.sho.classtable.data.model
 
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.Ignore
-import android.arch.persistence.room.PrimaryKey
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.databinding.BaseObservable
 import masegi.sho.classtable.kotlin.data.model.DayOfWeek
-import masegi.sho.classtable.kotlin.data.model.DayOfWeek.*
 
 /**
  * Created by masegi on 2018/03/10.

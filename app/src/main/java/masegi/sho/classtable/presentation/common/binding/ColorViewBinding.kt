@@ -1,8 +1,8 @@
 package masegi.sho.classtable.presentation.common.binding
 
-import android.databinding.BindingAdapter
+import androidx.databinding.BindingAdapter
 import android.graphics.drawable.GradientDrawable
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.view.View
 import masegi.sho.classtable.kotlin.data.model.ThemeColor
 

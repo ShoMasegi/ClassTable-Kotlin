@@ -1,6 +1,6 @@
 package masegi.sho.classtable.presentation.views.main.home
 
-import android.arch.lifecycle.*
+import androidx.lifecycle.*
 import io.reactivex.Flowable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

@@ -1,6 +1,6 @@
 package masegi.sho.classtable.presentation
 
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 import masegi.sho.classtable.kotlin.data.model.Lesson
 
 /**

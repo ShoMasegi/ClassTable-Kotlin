@@ -1,6 +1,6 @@
 package masegi.sho.classtable.presentation.views.main.todo
 
-import android.arch.lifecycle.*
+import androidx.lifecycle.*
 import io.reactivex.Flowable
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers

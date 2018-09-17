@@ -1,10 +1,10 @@
 package masegi.sho.classtable.presentation.views.editlesson
 
 
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,7 +20,8 @@ import masegi.sho.classtable.utli.ext.observe
 import org.parceler.Parcels
 import javax.inject.Inject
 import android.view.WindowManager
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
+import com.google.android.material.appbar.AppBarLayout
 import masegi.sho.classtable.data.model.AttendType
 import masegi.sho.classtable.kotlin.data.model.ThemeColor
 
@@ -127,11 +128,12 @@ class EditLessonFragment : DaggerFragment() {
                 }
             }.create().show()
         }
-        binding.appBar.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+        val listener = AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
 
             val factor = (-verticalOffset).toFloat() / appBarLayout.totalScrollRange.toFloat()
             binding.toolbarTextColorFactor = factor
         }
+        binding.appBar.addOnOffsetChangedListener(listener)
         binding.colorRow.setOnChangedListener { changeThemeColor(it) }
     }
 

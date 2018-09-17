@@ -1,6 +1,6 @@
 package masegi.sho.classtable.presentation.adapter
 
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import masegi.sho.classtable.databinding.ItemTodoHeaderBinding
@@ -15,7 +15,7 @@ import masegi.sho.classtable.utli.CalendarUtil
 class TodoListAdapter(
         var tasks: MutableList<Task>,
         var onTaskClicked: ((Task) -> Unit)?
-) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+) : androidx.recyclerview.widget.RecyclerView.Adapter<androidx.recyclerview.widget.RecyclerView.ViewHolder>() {
 
 
     // MARK: - Initializer
@@ -51,7 +51,7 @@ class TodoListAdapter(
 
     // MARK: - RecyclerView.Adapter
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): androidx.recyclerview.widget.RecyclerView.ViewHolder {
 
         var inflater = LayoutInflater.from(parent?.context)
         return when (viewType) {
@@ -71,7 +71,7 @@ class TodoListAdapter(
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: androidx.recyclerview.widget.RecyclerView.ViewHolder, position: Int) {
 
         val task = tasks[position]
         if (task.name.isEmpty()) {
@@ -118,7 +118,7 @@ class TodoListAdapter(
         return tasksWithDate
     }
 
-    class HeaderViewHolder(var binding: ItemTodoHeaderBinding) : RecyclerView.ViewHolder(binding.root)
+    class HeaderViewHolder(var binding: ItemTodoHeaderBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root)
 
-    class ItemViewHolder(var binding: ItemTodoListBinding) : RecyclerView.ViewHolder(binding.root)
+    class ItemViewHolder(var binding: ItemTodoListBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root)
 }

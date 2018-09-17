@@ -1,7 +1,7 @@
 package masegi.sho.classtable.presentation.views.detail
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import masegi.sho.classtable.data.model.Memo

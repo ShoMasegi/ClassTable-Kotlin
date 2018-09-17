@@ -1,12 +1,12 @@
 package masegi.sho.classtable.presentation.views.main.today
 
 
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentManager
-import android.support.v4.app.FragmentStatePagerAdapter
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -101,8 +101,8 @@ class TodayFragment : DaggerFragment() {
 }// Required empty public constructor
 
 class LessonsViewPagerAdapter(
-        fragmentManager: FragmentManager
-) : FragmentStatePagerAdapter(fragmentManager) {
+        fragmentManager: androidx.fragment.app.FragmentManager
+) : androidx.fragment.app.FragmentStatePagerAdapter(fragmentManager) {
 
     private val tabs = arrayListOf<Tab>()
 
@@ -119,11 +119,11 @@ class LessonsViewPagerAdapter(
 
         val title: String = day.rawValue.substring(0..2)
         val shortTitle: String = day.rawValue.first().toString()
-        val fragment: Fragment
+        val fragment: androidx.fragment.app.Fragment
             get() = LessonListFragment.newInstance(day)
     }
 
-    override fun getItem(position: Int): Fragment = tabs[position].fragment
+    override fun getItem(position: Int): androidx.fragment.app.Fragment = tabs[position].fragment
 
     override fun getCount(): Int = tabs.size
 

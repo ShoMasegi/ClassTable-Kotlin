@@ -1,6 +1,6 @@
 package masegi.sho.classtable.presentation.common.mapper
 
-import android.support.annotation.CheckResult
+import androidx.annotation.CheckResult
 import io.reactivex.*
 import masegi.sho.classtable.presentation.Result
 

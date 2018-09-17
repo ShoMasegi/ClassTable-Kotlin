@@ -1,8 +1,8 @@
 package masegi.sho.classtable.presentation.views.editmemo
 
 
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.os.Parcel
 import android.view.LayoutInflater

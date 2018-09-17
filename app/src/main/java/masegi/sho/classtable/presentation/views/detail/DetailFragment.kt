@@ -1,11 +1,11 @@
 package masegi.sho.classtable.presentation.views.detail
 
 
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -128,25 +128,25 @@ class DetailFragment : DaggerFragment() {
     private class TasksAdapter(
             var tasks: List<Task>,
             var onTaskClick: ((Task) -> Unit)?
-    ) : RecyclerView.Adapter<TasksAdapter.ViewHolder>() {
+    ) : androidx.recyclerview.widget.RecyclerView.Adapter<TasksAdapter.ViewHolder>() {
 
-        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-            val inflater = LayoutInflater.from(parent?.context)
+            val inflater = LayoutInflater.from(parent.context)
             val binding: ItemTodoBinding = ItemTodoBinding.inflate(inflater, parent, false)
             return ViewHolder(binding)
         }
 
-        override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
             val task = tasks[position]
-            holder?.binding?.task = task
-            holder?.binding?.root?.setOnClickListener { onTaskClick?.invoke(task) }
+            holder.binding.task = task
+            holder.binding.root.setOnClickListener { onTaskClick?.invoke(task) }
         }
 
         override fun getItemCount(): Int = if (tasks.size > 3) 3 else tasks.size
 
-        class ViewHolder(var binding: ItemTodoBinding) : RecyclerView.ViewHolder(binding.root)
+        class ViewHolder(var binding: ItemTodoBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root)
     }
 
     companion object {
