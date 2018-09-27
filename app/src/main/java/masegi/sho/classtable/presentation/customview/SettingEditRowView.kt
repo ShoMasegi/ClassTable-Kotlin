@@ -2,10 +2,10 @@ package masegi.sho.classtable.presentation.customview
 
 import android.content.Context
 import android.content.res.TypedArray
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.graphics.drawable.Drawable
-import android.support.constraint.ConstraintLayout
-import android.support.v7.widget.AppCompatEditText
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.appcompat.widget.AppCompatEditText
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.AttributeSet
@@ -23,7 +23,7 @@ class SettingEditRowView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet?,
         defStyleAttr: Int = 0
-) : ConstraintLayout(context, attrs, defStyleAttr) {
+) : androidx.constraintlayout.widget.ConstraintLayout(context, attrs, defStyleAttr) {
 
 
     // MARK: - Property

@@ -3,8 +3,8 @@ package masegi.sho.classtable.presentation.customview
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Context
-import android.databinding.DataBindingUtil
-import android.support.constraint.ConstraintLayout
+import androidx.databinding.DataBindingUtil
+import androidx.constraintlayout.widget.ConstraintLayout
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.DatePicker
@@ -23,7 +23,7 @@ class SettingTimeRowView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet?,
         defStyleAttr: Int = 0
-) : ConstraintLayout(context, attrs, defStyleAttr) {
+) : androidx.constraintlayout.widget.ConstraintLayout(context, attrs, defStyleAttr) {
 
 
     // MARK: - Property

@@ -25,6 +25,8 @@
         <activity android:name=".presentation.views.todolist.TodoListActivity" />
         <activity android:name=".presentation.views.edittask.EditTaskActivity" />
         <activity android:name=".presentation.views.edittable.EditTableActivity"></activity>
+        <service android:name=".presentation.common.notification.NotificationAttendanceService" />
+        <service android:name=".presentation.common.notification.TakeAttendanceService" />
     </application>
 
 </manifest>

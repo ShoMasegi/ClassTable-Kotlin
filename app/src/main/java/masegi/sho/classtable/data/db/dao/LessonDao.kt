@@ -1,7 +1,7 @@
 package masegi.sho.classtable.data.db.dao
 
-import android.arch.persistence.room.*
-import android.support.annotation.CheckResult
+import androidx.room.*
+import androidx.annotation.CheckResult
 import io.reactivex.Flowable
 import io.reactivex.Maybe
 import masegi.sho.classtable.kotlin.data.model.Lesson

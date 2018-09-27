@@ -1,8 +1,8 @@
 package masegi.sho.classtable.utli.ext
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
 
 /**
  * Created by masegi on 2018/03/21.

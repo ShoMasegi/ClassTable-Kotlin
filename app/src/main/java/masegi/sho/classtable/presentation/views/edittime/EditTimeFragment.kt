@@ -1,11 +1,11 @@
 package masegi.sho.classtable.presentation.views.edittime
 
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -49,9 +49,9 @@ class EditTimeFragment : DaggerFragment() {
         binding = FragmentEditTimeBinding.inflate(inflater, container!!, false)
         binding.recyclerView.run {
 
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
             adapter = this@EditTimeFragment.adapter
-            addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
+            addItemDecoration(androidx.recyclerview.widget.DividerItemDecoration(context, LinearLayout.VERTICAL))
         }
         viewModel.times.observe(this) { result ->
 
@@ -98,28 +98,28 @@ class EditTimeFragment : DaggerFragment() {
     private class LessonTimeAdapter(
             var times: Map<Int, Time>,
             var onTimeClick: ((Time) -> Unit)? = null
-    ) : RecyclerView.Adapter<LessonTimeAdapter.ViewHolder>() {
+    ) : androidx.recyclerview.widget.RecyclerView.Adapter<LessonTimeAdapter.ViewHolder>() {
 
-        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
-            val inflater = LayoutInflater.from(parent?.context)
+            val inflater = LayoutInflater.from(parent.context)
             val binding = ItemEditTimeBinding.inflate(inflater, parent, false)
             return ViewHolder(binding)
         }
 
         override fun getItemCount(): Int = Prefs.dayLessonCount
 
-        override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
 
             val time = times[position + 1] ?: Time(tid = Prefs.tid, periodNum = position + 1)
-            holder?.let {
+            holder.let {
 
                 it.binding.time = time
                 it.binding.root.setOnClickListener { onTimeClick?.invoke(time) }
             }
         }
 
-        class ViewHolder(var binding: ItemEditTimeBinding) : RecyclerView.ViewHolder(binding.root)
+        class ViewHolder(var binding: ItemEditTimeBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root)
     }
 
     companion object {

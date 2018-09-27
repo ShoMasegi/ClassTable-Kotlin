@@ -19,6 +19,7 @@ interface LessonRepository {
     val tasks: Flowable<List<Task>>
 
     fun getLesson(week: DayOfWeek, start: Int): Maybe<Lesson>
+    fun getLesson(lid: Int): Maybe<Lesson>
     fun getLessons(week: DayOfWeek, start: Int, end: Int): Maybe<List<Lesson>>
     fun delete(lesson: Lesson)
     fun deleteAllLesson(tid: Int)

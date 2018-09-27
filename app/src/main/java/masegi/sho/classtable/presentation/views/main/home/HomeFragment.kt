@@ -1,11 +1,11 @@
 package masegi.sho.classtable.presentation.views.main.home
 
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,6 +22,7 @@ import masegi.sho.classtable.presentation.NavigationController
 import masegi.sho.classtable.presentation.Result
 import masegi.sho.classtable.presentation.adapter.ClassTableAdapter
 import masegi.sho.classtable.presentation.adapter.OnTableItemClickListener
+import masegi.sho.classtable.presentation.common.notification.LessonAlarm
 import masegi.sho.classtable.utli.ext.observe
 import javax.inject.Inject
 
@@ -68,6 +69,7 @@ class HomeFragment : DaggerFragment(), OnTableItemClickListener, LifecycleOwner 
                 is Result.Success -> {
 
                     adapter.build(LessonDataSource(result.data))
+//                    context?.let { LessonAlarm(it).toggleRegister(result.data.first()) }
                 }
             }
         }

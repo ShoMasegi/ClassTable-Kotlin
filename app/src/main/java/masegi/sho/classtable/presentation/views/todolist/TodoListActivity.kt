@@ -1,6 +1,6 @@
 package masegi.sho.classtable.presentation.views.todolist
 
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import masegi.sho.classtable.R
 

@@ -10,7 +10,7 @@
             type="masegi.sho.classtable.kotlin.data.model.Time" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
@@ -82,6 +82,6 @@
             app:layout_constraintBottom_toTopOf="@id/start_time"
             app:layout_constraintStart_toStartOf="@id/start_time"/>
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

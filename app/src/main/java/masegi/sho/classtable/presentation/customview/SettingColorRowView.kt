@@ -1,10 +1,10 @@
 package masegi.sho.classtable.presentation.customview
 
 import android.content.Context
-import android.databinding.DataBindingUtil
-import android.support.constraint.ConstraintLayout
-import android.support.v4.app.FragmentManager
-import android.support.v7.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.fragment.app.FragmentManager
+import androidx.appcompat.app.AppCompatActivity
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import masegi.sho.classtable.R
@@ -23,7 +23,7 @@ class SettingColorRowView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet?,
         defStyleAttr: Int = 0
-) : ConstraintLayout(context, attrs, defStyleAttr) {
+) : androidx.constraintlayout.widget.ConstraintLayout(context, attrs, defStyleAttr) {
 
 
     // MARK: - Property
@@ -98,7 +98,7 @@ class SettingColorRowView @JvmOverloads constructor(
 
                 override fun onDismiss() {}
             })
-            val fragmentManager: FragmentManager = (context as AppCompatActivity).supportFragmentManager
+            val fragmentManager: androidx.fragment.app.FragmentManager = (context as AppCompatActivity).supportFragmentManager
             dialog.show(fragmentManager, "color_picker")
         }
     }

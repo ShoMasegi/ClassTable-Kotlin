@@ -1,11 +1,11 @@
 package masegi.sho.classtable.presentation.views.edittable
 
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.annotation.StringRes
-import android.support.design.widget.FloatingActionButton
-import android.support.v7.app.AlertDialog
+import androidx.annotation.StringRes
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import androidx.appcompat.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -87,7 +87,7 @@ class EditTableFragment : DaggerFragment() {
                 showOptionsMenu(it)
             }
         }
-        activity?.findViewById<FloatingActionButton>(R.id.fab)?.setOnClickListener {
+        activity?.findViewById<com.google.android.material.floatingactionbutton.FloatingActionButton>(R.id.fab)?.setOnClickListener {
 
             showEditTableNameDialog(null)
         }
@@ -96,7 +96,8 @@ class EditTableFragment : DaggerFragment() {
     private fun showEditTableNameDialog(pref: PrefEntity?) {
 
         val data: PrefEntity = pref ?: PrefEntity(name = "")
-        val binding = DialogCreateTableBinding.inflate(LayoutInflater.from(context), null)
+        val binding = DialogCreateTableBinding.inflate(LayoutInflater.from(context))
+        binding ?: return
         binding.editText.setText(data.name)
         AlertDialog.Builder(context!!)
                 .setTitle(R.string.dialog_table_name)

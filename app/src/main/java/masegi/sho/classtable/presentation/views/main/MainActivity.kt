@@ -1,14 +1,14 @@
 package masegi.sho.classtable.presentation.views.main
 
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProviders
 import android.content.Context
 import android.content.Intent
-import android.databinding.DataBindingUtil
+import androidx.databinding.DataBindingUtil
 import android.os.Bundle
-import android.support.annotation.IdRes
-import android.support.annotation.MenuRes
-import android.support.v4.app.Fragment
-import android.support.v4.app.FragmentTransaction
+import androidx.annotation.IdRes
+import androidx.annotation.MenuRes
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import android.view.Menu
 import android.view.MenuItem
 import dagger.android.support.DaggerAppCompatActivity
@@ -38,9 +38,9 @@ class MainActivity : DaggerAppCompatActivity() {
 
         ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
     }
-    private var homeFragment: Fragment? = null
-    private var todayFragment: Fragment? = null
-    private var todoFragment: Fragment? = null
+    private var homeFragment: androidx.fragment.app.Fragment? = null
+    private var todayFragment: androidx.fragment.app.Fragment? = null
+    private var todoFragment: androidx.fragment.app.Fragment? = null
 
 
     // MARK: - Activity
@@ -129,12 +129,12 @@ class MainActivity : DaggerAppCompatActivity() {
         }
     }
 
-    private fun switchFragment(fragment: Fragment, tag: String): Boolean {
+    private fun switchFragment(fragment: androidx.fragment.app.Fragment, tag: String): Boolean {
 
         val containerId = R.id.content
         if (fragment.isAdded) { return false }
-        val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
-        val currentFragment: Fragment? = supportFragmentManager.findFragmentById(containerId)
+        val transaction: androidx.fragment.app.FragmentTransaction = supportFragmentManager.beginTransaction()
+        val currentFragment: androidx.fragment.app.Fragment? = supportFragmentManager.findFragmentById(containerId)
         currentFragment?.let { transaction.detach(it) }
         if (fragment.isDetached) {
 
@@ -144,7 +144,7 @@ class MainActivity : DaggerAppCompatActivity() {
 
             transaction.add(containerId, fragment, tag)
         }
-        transaction.setTransition(FragmentTransaction.TRANSIT_NONE)
+        transaction.setTransition(androidx.fragment.app.FragmentTransaction.TRANSIT_NONE)
                 .commit()
         fragmentManager.executePendingTransactions()
         return true

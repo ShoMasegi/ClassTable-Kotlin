@@ -1,18 +1,18 @@
 package masegi.sho.classtable.presentation.views.main.todo
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.ObservableField
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import androidx.databinding.ObservableField
 import android.graphics.Color
 import android.os.Bundle
-import android.support.design.widget.BaseTransientBottomBar
-import android.support.design.widget.Snackbar
-import android.support.v7.widget.DefaultItemAnimator
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
+import com.google.android.material.snackbar.BaseTransientBottomBar
+import com.google.android.material.snackbar.Snackbar
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.ItemTouchHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -64,9 +64,9 @@ class TodoFragment : DaggerFragment(), RecyclerItemTouchHelper.RecyclerItemTouch
         }
         binding.todoList.run {
 
-            layoutManager = LinearLayoutManager(context)
-            itemAnimator = DefaultItemAnimator()
-            addItemDecoration(DividerItemDecoration(context, LinearLayout.VERTICAL))
+            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
+            itemAnimator = androidx.recyclerview.widget.DefaultItemAnimator()
+            addItemDecoration(androidx.recyclerview.widget.DividerItemDecoration(context, LinearLayout.VERTICAL))
             adapter = todoListAdapter
         }
         val itemTouchHelperCallback = RecyclerItemTouchHelper(
@@ -100,10 +100,10 @@ class TodoFragment : DaggerFragment(), RecyclerItemTouchHelper.RecyclerItemTouch
 
     private fun showDeletedTaskSnackbar(item: Task, position: Int) {
 
-        val snackbar = Snackbar.make(
+        val snackbar = com.google.android.material.snackbar.Snackbar.make(
                 binding.parentLayout,
                 item.name + " removed from TODO.",
-                Snackbar.LENGTH_SHORT
+                com.google.android.material.snackbar.Snackbar.LENGTH_SHORT
         ).apply {
 
             setAction("UNDO") {
@@ -111,9 +111,9 @@ class TodoFragment : DaggerFragment(), RecyclerItemTouchHelper.RecyclerItemTouch
                 todoListAdapter.insertItem(item, position)
             }
             setActionTextColor(Color.GREEN)
-            addCallback(object : Snackbar.Callback() {
+            addCallback(object : com.google.android.material.snackbar.Snackbar.Callback() {
 
-                override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                override fun onDismissed(transientBottomBar: com.google.android.material.snackbar.Snackbar?, event: Int) {
 
                     super.onDismissed(transientBottomBar, event)
                     if (event == DISMISS_EVENT_TIMEOUT) { viewModel.remove(item) }
@@ -126,7 +126,7 @@ class TodoFragment : DaggerFragment(), RecyclerItemTouchHelper.RecyclerItemTouch
 
     // MARK: - RecyclerItemTouchHelperListener
 
-    override fun onSwipe(viewHolder: RecyclerView.ViewHolder?, direction: Int, position: Int) {
+    override fun onSwipe(viewHolder: androidx.recyclerview.widget.RecyclerView.ViewHolder?, direction: Int, position: Int) {
 
         showDeletedTaskSnackbar(todoListAdapter.tasks[position], position)
         todoListAdapter.removeItem(position)

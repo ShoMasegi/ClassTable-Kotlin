@@ -1,8 +1,8 @@
 package masegi.sho.classtable.presentation.views
 
 import android.content.Context
-import android.support.design.widget.BottomNavigationView
-import android.support.design.widget.CoordinatorLayout
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewGroup
@@ -14,20 +14,20 @@ import android.view.ViewGroup
 class ContentWithBottomNavigationBehavior(
         context: Context,
         attrs: AttributeSet
-) : CoordinatorLayout.Behavior<ViewGroup>(context, attrs) {
+) : androidx.coordinatorlayout.widget.CoordinatorLayout.Behavior<ViewGroup>(context, attrs) {
 
 
     private var previousHeight: Float = 0F
 
-    override fun onMeasureChild(parent: CoordinatorLayout,
+    override fun onMeasureChild(parent: androidx.coordinatorlayout.widget.CoordinatorLayout,
                                 child: ViewGroup,
                                 parentWidthMeasureSpec: Int,
                                 widthUsed: Int,
                                 parentHeightMeasureSpec: Int,
                                 heightUsed: Int): Boolean {
 
-        val bnv: BottomNavigationView = parent.getDependencies(child)
-                .firstOrNull { it is BottomNavigationView } as? BottomNavigationView
+        val bnv: com.google.android.material.bottomnavigation.BottomNavigationView = parent.getDependencies(child)
+                .firstOrNull { it is com.google.android.material.bottomnavigation.BottomNavigationView } as? com.google.android.material.bottomnavigation.BottomNavigationView
                 ?: return super.onMeasureChild(
                         parent,
                         child,
@@ -45,21 +45,19 @@ class ContentWithBottomNavigationBehavior(
         return true
     }
 
-    override fun layoutDependsOn(parent: CoordinatorLayout?,
-                                 child: ViewGroup?, dependency: View?): Boolean {
+    override fun layoutDependsOn(parent: CoordinatorLayout, child: ViewGroup, dependency: View): Boolean {
 
-        return dependency is BottomNavigationView
+        return dependency is com.google.android.material.bottomnavigation.BottomNavigationView
     }
 
-    override fun onDependentViewChanged(parent: CoordinatorLayout?,
-                                        child: ViewGroup?, dependency: View?): Boolean {
+    override fun onDependentViewChanged(parent: CoordinatorLayout, child: ViewGroup, dependency: View): Boolean {
 
-        if (dependency is BottomNavigationView) {
+        if (dependency is com.google.android.material.bottomnavigation.BottomNavigationView) {
 
             val height = dependency.height - dependency.translationY
             if (previousHeight != height) {
 
-                child?.requestLayout()
+                child.requestLayout()
                 previousHeight = height
             }
             return true

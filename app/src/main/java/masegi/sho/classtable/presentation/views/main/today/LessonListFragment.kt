@@ -1,17 +1,17 @@
 package masegi.sho.classtable.presentation.views.main.today
 
 
-import android.arch.lifecycle.LifecycleOwner
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
-import android.databinding.ObservableField
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
+import androidx.databinding.ObservableField
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.os.bundleOf
+import androidx.core.os.bundleOf
 import dagger.android.support.DaggerFragment
 import masegi.sho.classtable.data.model.Memo
 
@@ -59,7 +59,7 @@ class LessonListFragment : DaggerFragment(), LifecycleOwner {
         listAdapter = LessonListAdapter(listOf()) { navigationController.navigateToDetailActivity(it) }
         binding.listView.run {
 
-            layoutManager = LinearLayoutManager(context)
+            layoutManager = androidx.recyclerview.widget.LinearLayoutManager(context)
             adapter = listAdapter
         }
         return binding.root
@@ -107,22 +107,22 @@ class LessonListFragment : DaggerFragment(), LifecycleOwner {
             var data: List<Pair<Lesson, Memo?>>,
             var times: Map<Int, Time>? = null,
             var onItemClick: ((Lesson) -> Unit)?
-    ) : RecyclerView.Adapter<LessonListAdapter.LessonViewHolder>() {
+    ) : androidx.recyclerview.widget.RecyclerView.Adapter<LessonListAdapter.LessonViewHolder>() {
 
-        override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): LessonViewHolder {
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LessonViewHolder {
 
-            val inflater = LayoutInflater.from(parent?.context)
+            val inflater = LayoutInflater.from(parent.context)
             val binding = ItemLessonCardBinding.inflate(inflater, parent, false)
             return LessonViewHolder(binding)
         }
 
         override fun getItemCount(): Int = data.size
 
-        override fun onBindViewHolder(holder: LessonViewHolder?, position: Int) {
+        override fun onBindViewHolder(holder: LessonViewHolder, position: Int) {
 
             val lesson = data[position].first
             val _lesson = data.first { it.first.id == lesson.id }.first  // 複数コマの授業の最初のデータを取るため
-            holder?.binding?.let {
+            holder.binding.let {
 
                 it.lesson = lesson
                 it.time = times?.get(lesson.start)
@@ -131,7 +131,7 @@ class LessonListFragment : DaggerFragment(), LifecycleOwner {
             }
         }
 
-        class LessonViewHolder(var binding: ItemLessonCardBinding) : RecyclerView.ViewHolder(binding.root)
+        class LessonViewHolder(var binding: ItemLessonCardBinding) : androidx.recyclerview.widget.RecyclerView.ViewHolder(binding.root)
     }
 
 

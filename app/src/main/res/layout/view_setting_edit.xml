@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools" >
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -20,7 +20,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@tools:sample/avatars" />
 
-        <android.support.v7.widget.AppCompatEditText
+        <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/title"
             style="@style/ClearEditText"
             android:layout_width="0dp"
@@ -40,6 +40,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

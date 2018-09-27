@@ -1,9 +1,9 @@
 package masegi.sho.classtable.kotlin.data.model
 
-import android.arch.persistence.room.Embedded
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.PrimaryKey
-import android.databinding.BaseObservable
+import androidx.room.Embedded
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.databinding.BaseObservable
 import masegi.sho.classtable.util.ext.ordinal
 import org.parceler.Parcel
 

@@ -1,10 +1,10 @@
 package masegi.sho.classtable.presentation.views.setting
 
 
-import android.arch.lifecycle.ViewModelProvider
-import android.arch.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.app.AlertDialog
+import androidx.appcompat.app.AlertDialog
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +15,7 @@ import masegi.sho.classtable.data.model.PrefEntity
 
 import masegi.sho.classtable.databinding.FragmentSettingBinding
 import masegi.sho.classtable.kotlin.data.model.DayOfWeek
+import masegi.sho.classtable.kotlin.data.model.Time
 import masegi.sho.classtable.presentation.NavigationController
 import masegi.sho.classtable.presentation.Result
 import masegi.sho.classtable.presentation.common.KotPrefs
@@ -35,6 +36,23 @@ class SettingFragment : DaggerFragment() {
             field = value
             binding.pref = value
         }
+    private var times: List<Time> = listOf()
+        set(value) {
+
+            field = value
+            if (value.isEmpty()) return
+            value.filter { it.tid == KotPrefs.tid }
+                    .forEach {
+
+                        if (!it.isFilled) {
+
+                            isTimesFilled = false
+                            return
+                        }
+                    }
+            isTimesFilled = true
+        }
+    private var isTimesFilled: Boolean = false
     private lateinit var binding: FragmentSettingBinding
     @Inject lateinit var navigationController: NavigationController
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -68,14 +86,23 @@ class SettingFragment : DaggerFragment() {
                 }
             }
         }
+        viewModel.times.observe(this) { result ->
+
+            when (result) {
+
+                is Result.Success -> {
+
+                    times = result.data
+                }
+            }
+        }
         setupViews()
     }
 
     override fun onPause() {
 
         super.onPause()
-        Prefs.sync(pref)
-        KotPrefs.tid = pref.tid
+        viewModel.insert(pref)
     }
 
 
@@ -88,6 +115,39 @@ class SettingFragment : DaggerFragment() {
         binding.table.onClicked = { showChooseTableDialog() }
         binding.editTables.setOnClickListener { navigationController.navigateToEditTableActivity() }
         binding.editTime.setOnClickListener { navigationController.navigateToEditTimeActivity() }
+        binding.notification.setOnCheckedChangedListener {
+
+            if (it) {
+
+                // TODO: register Notification
+            } else {
+
+                pref.attendManage = false
+                //  TODO: unregister Notification
+            }
+            pref.notifyChange()
+        }
+        binding.attendance.setOnCheckedChangedListener {
+
+            if (!it) {
+
+                // TODO: unregister Notification
+                pref.notifyChange()
+                return@setOnCheckedChangedListener
+            }
+            else if (!binding.notification.isChecked) {
+
+                showErrorToEnableAttendanceDialog()
+                pref.attendManage = false
+                pref.notifyChange()
+                return@setOnCheckedChangedListener
+            }
+            context?.let {
+
+                // TODO: register Notification
+            }
+            pref.notifyChange()
+        }
     }
 
     private fun showChooseDaysDialog() {
@@ -107,7 +167,7 @@ class SettingFragment : DaggerFragment() {
                         if (bool) days.add(DayOfWeek.getValue(i))
                     }
                     pref.weeks = days
-                    viewModel.insert(pref)
+                    pref.notifyChange()
                 }
                 .setNegativeButton(android.R.string.cancel, null)
                 .show()
@@ -121,12 +181,15 @@ class SettingFragment : DaggerFragment() {
         AlertDialog.Builder(context!!)
                 .setSingleChoiceItems(
                         names.toTypedArray(),
-                        tids.indexOf(pref.tid),
-                        { _, which -> checkId = tids[which] }
-                )
+                        tids.indexOf(pref.tid)
+                ) { _, which -> checkId = tids[which] }
                 .setPositiveButton(android.R.string.ok) { _, _ ->
 
-                    prefs.firstOrNull { it.tid == checkId }?.let { pref = it }
+                    prefs.firstOrNull { it.tid == checkId }?.let {
+
+                        pref = it
+                        changeTable(it)
+                    }
                 }
                 .setNegativeButton(android.R.string.cancel, null)
                 .setTitle(R.string.dialog_choose_table)
@@ -144,9 +207,19 @@ class SettingFragment : DaggerFragment() {
             mCallback = {
 
                 pref.dayLessonCount = it
-                viewModel.insert(pref)
+                pref.notifyChange()
             }
         }.create().show()
+    }
+
+    private fun showErrorToEnableAttendanceDialog() {
+
+    }
+
+    private fun changeTable(pref: PrefEntity) {
+
+        Prefs.sync(pref)
+        KotPrefs.tid = pref.tid
     }
 
     companion object {

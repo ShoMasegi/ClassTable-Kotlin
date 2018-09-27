@@ -1,7 +1,7 @@
 package masegi.sho.classtable.presentation.views.editlesson
 
-import android.arch.lifecycle.ViewModel
-import android.support.v7.app.AppCompatActivity
+import androidx.lifecycle.ViewModel
+import androidx.appcompat.app.AppCompatActivity
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector

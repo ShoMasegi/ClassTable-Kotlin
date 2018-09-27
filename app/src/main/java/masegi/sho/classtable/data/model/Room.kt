@@ -1,6 +1,6 @@
 package masegi.sho.classtable.kotlin.data.model
 
-import android.arch.persistence.room.ColumnInfo
+import androidx.room.ColumnInfo
 import org.parceler.Parcel
 
 /**

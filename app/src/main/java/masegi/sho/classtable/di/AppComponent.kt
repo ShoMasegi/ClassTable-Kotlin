@@ -5,10 +5,7 @@ import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
-import masegi.sho.classtable.di.ActivityBindingModule
-import masegi.sho.classtable.di.AppModule
-import masegi.sho.classtable.di.DatabaseModule
-import masegi.sho.classtable.di.ViewModelModule
+import masegi.sho.classtable.di.*
 import masegi.sho.classtable.kotlin.App
 import javax.inject.Singleton
 
@@ -21,6 +18,7 @@ import javax.inject.Singleton
     AndroidSupportInjectionModule::class,
     AppModule::class,
     DatabaseModule::class,
+    ServiceBuilder::class,
     ViewModelModule::class,
     ActivityBindingModule::class
 ])
@@ -33,7 +31,6 @@ interface AppComponent : AndroidInjector<App> {
         fun application(application: Application): Builder
         fun databaseModule(databaseModule: DatabaseModule): Builder
         fun build(): AppComponent
-
     }
 
     override fun inject(app: App)

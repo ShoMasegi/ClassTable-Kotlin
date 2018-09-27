@@ -1,7 +1,7 @@
 package masegi.sho.classtable.presentation.views.edittime
 
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import masegi.sho.classtable.data.repository.PrefRepository
 import masegi.sho.classtable.kotlin.data.model.Time

@@ -1,6 +1,6 @@
 package masegi.sho.classtable.presentation.views.main
 
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.experimental.CommonPool
 import kotlinx.coroutines.experimental.launch
 import masegi.sho.classtable.data.Prefs

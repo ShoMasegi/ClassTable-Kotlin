@@ -18,20 +18,20 @@
             type="masegi.sho.classtable.data.model.Memo" />
     </data>
 
-    <android.support.v4.widget.NestedScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scroll_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:context=".presentation.views.detail.DetailFragment" >
 
-        <android.support.constraint.ConstraintLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
             android:paddingBottom="32dp">
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/account_box"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
@@ -56,7 +56,7 @@
                 app:layout_constraintBottom_toBottomOf="@id/account_box"
                 tools:text="Google"/>
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/location_on"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
@@ -86,7 +86,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/location_on"/>
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/time_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
@@ -205,7 +205,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/info_section" />
 
-            <android.support.v7.widget.AppCompatImageView
+            <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/attend_icon"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
@@ -354,7 +354,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/attend_section" />
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/todo_section"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -364,7 +364,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:visibility="@{tasks.size > 0 ? View.VISIBLE : View.GONE}" >
 
-                <android.support.v7.widget.AppCompatImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/todo_icon"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
@@ -386,13 +386,13 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="@id/todo_icon"/>
 
-                <android.support.v7.widget.RecyclerView
+                <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/todo_list"
                     android:layout_width="0dp"
                     android:layout_height="128dp"
                     android:scrollIndicators="none"
                     android:layout_marginTop="12dp"
-                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:listitem="@layout/item_todo"
                     app:layout_constraintTop_toBottomOf="@id/todo_icon"
                     app:layout_constraintStart_toStartOf="@id/todo_icon"
@@ -409,9 +409,9 @@
                     app:layout_constraintTop_toBottomOf="@id/todo_list"
                     android:visibility="@{tasks.size() > 3 ? View.VISIBLE : View.GONE}"/>
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <android.support.constraint.ConstraintLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/memo_section"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -428,7 +428,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/memo_section"/>
 
-                <android.support.v7.widget.AppCompatImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:id="@+id/memo_icon"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
@@ -466,10 +466,10 @@
                     app:layout_constraintTop_toBottomOf="@id/memo_icon"
                     tools:text="@tools:sample/lorem/random" />
 
-            </android.support.constraint.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </android.support.constraint.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </android.support.v4.widget.NestedScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </layout>
